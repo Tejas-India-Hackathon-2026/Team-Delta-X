@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { User, MapPin, Phone, Mail, Shield, Bell, Heart, Store, ArrowLeft, Check } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { User, MapPin, Phone, Mail, Shield, Bell, Heart, Store, ArrowLeft, Check, LogOut } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 
 export const ProfilePage: React.FC = () => {
-  const { user, updateUserProfile, location, setUserRole } = useApp();
+  const { user, updateUserProfile, location, setUserRole, logoutUser } = useApp();
+  const navigate = useNavigate();
   const [name, setName] = useState(user.name);
   const [phone, setPhone] = useState(user.phone);
   const [email, setEmail] = useState(user.email);
@@ -15,6 +16,11 @@ export const ProfilePage: React.FC = () => {
     updateUserProfile({ name, phone, email });
     setSaved(true);
     setTimeout(() => setSaved(false), 2500);
+  };
+
+  const handleLogout = () => {
+    logoutUser();
+    navigate('/');
   };
 
   return (
@@ -146,6 +152,23 @@ export const ProfilePage: React.FC = () => {
               <div className="text-xs text-slate-500">Take your store online</div>
             </div>
           </Link>
+        </div>
+
+        {/* 🚪 Sign Out Card */}
+        <div className="p-5 sm:p-6 rounded-3xl bg-white border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <div className="text-sm font-bold text-slate-900">Session & Security</div>
+            <div className="text-xs text-slate-500">Logged in as {user.name} ({user.role})</div>
+          </div>
+
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="px-5 py-2.5 rounded-2xl bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-700 text-xs font-bold transition-all flex items-center gap-2"
+          >
+            <LogOut className="w-4 h-4" />
+            <span>Sign Out</span>
+          </button>
         </div>
 
       </div>

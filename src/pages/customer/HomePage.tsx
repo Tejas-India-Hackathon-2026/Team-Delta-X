@@ -23,6 +23,7 @@ import { useApp } from '../../context/AppContext';
 import { ProductCard } from '../../components/customer/ProductCard';
 import { StoreCard } from '../../components/customer/StoreCard';
 import { DemandModal } from '../../components/customer/DemandModal';
+import { LocationPermissionModal } from '../../components/common/LocationPermissionModal';
 import { Product, EnrichedProductResult } from '../../types';
 
 interface HomePageProps {
@@ -38,18 +39,40 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenVoiceModal, onOpenLoca
     location, 
     offers, 
     demands, 
-    wishlist 
+    wishlist,
+    hasLocationPermission
   } = useApp();
 
   const [searchQuery, setSearchQuery] = useState('');
+  const [pendingSearchQuery, setPendingSearchQuery] = useState('');
+  const [showLocationPrompt, setShowLocationPrompt] = useState(false);
   const [demandModalProduct, setDemandModalProduct] = useState<Product | undefined>(undefined);
   const navigate = useNavigate();
+
+  const executeSearch = (query: string) => {
+    const q = query.trim();
+    if (!q) return;
+
+    // Check if location permission has been granted
+    if (!hasLocationPermission) {
+      setPendingSearchQuery(q);
+      setShowLocationPrompt(true);
+    } else {
+      navigate(`/search?q=${encodeURIComponent(q)}`);
+    }
+  };
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      executeSearch(searchQuery);
     }
+  };
+
+  const handleLocationResolved = () => {
+    setShowLocationPrompt(false);
+    const targetQuery = pendingSearchQuery || searchQuery || 'all';
+    navigate(`/search?q=${encodeURIComponent(targetQuery.trim())}`);
   };
 
   const trendingProducts = enrichedProducts.slice(0, 8);
@@ -77,8 +100,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenVoiceModal, onOpenLoca
               Buy Locally in Minutes.
             </span>
           </h1>
-
-
 
           {/* 🔍 Hero Search Input Box */}
           <div className="max-w-2xl mx-auto pt-2">
@@ -131,7 +152,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenVoiceModal, onOpenLoca
                   key={i}
                   onClick={() => {
                     setSearchQuery(pill);
-                    navigate(`/search?q=${encodeURIComponent(pill)}`);
+                    executeSearch(pill);
                   }}
                   className="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-slate-200 border border-white/10 transition-colors text-xs font-medium"
                 >
@@ -453,6 +474,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenVoiceModal, onOpenLoca
           product={demandModalProduct}
         />
       )}
+
+      {/* Location Permission Prompt Modal for Search */}
+      <LocationPermissionModal
+        isOpen={showLocationPrompt}
+        onClose={() => setShowLocationPrompt(false)}
+        searchContextQuery={pendingSearchQuery || searchQuery}
+        onLocationResolved={handleLocationResolved}
+      />
 
     </div>
   );

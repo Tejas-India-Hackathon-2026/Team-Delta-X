@@ -5,7 +5,7 @@ import { RetailerSidebar } from '../../components/retailer/RetailerSidebar';
 import { StoreLocationPicker } from '../../components/retailer/StoreLocationPicker';
 
 export const StoreSettingsPage: React.FC = () => {
-  const { user, stores, updateStoreProfile } = useApp();
+  const { user, stores, updateStoreProfile, logoutUser } = useApp();
   const currentStore = stores.find(s => s.id === (user.storeId || 'store-sharma-auto')) || stores[0];
 
   const [name, setName] = useState(currentStore.name);
@@ -158,6 +158,32 @@ export const StoreSettingsPage: React.FC = () => {
           </div>
 
         </form>
+
+        {/* 🔐 Account, Session & Logout Security Section */}
+        <div className="bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-800 space-y-4 shadow-xl max-w-3xl">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-brand-400" />
+                <span>Account & Merchant Session</span>
+              </h3>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Logged in as <strong>{user.name}</strong> ({user.email || 'Retailer Account'})
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => {
+                logoutUser();
+                window.location.href = '/retailer/login';
+              }}
+              className="px-4 py-2.5 rounded-xl bg-rose-600/20 hover:bg-rose-600/30 text-rose-300 hover:text-rose-200 border border-rose-600/40 text-xs font-bold transition-all flex items-center gap-1.5"
+            >
+              <span>🚪 Sign Out (Log Out)</span>
+            </button>
+          </div>
+        </div>
 
       </main>
     </div>

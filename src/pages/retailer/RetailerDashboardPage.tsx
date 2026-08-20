@@ -34,7 +34,8 @@ export const RetailerDashboardPage: React.FC = () => {
     demands, 
     enquiries, 
     updateStock, 
-    fulfillDemandItem 
+    fulfillDemandItem,
+    logoutUser
   } = useApp();
 
   const [addProductModalOpen, setAddProductModalOpen] = useState(false);
@@ -92,21 +93,25 @@ export const RetailerDashboardPage: React.FC = () => {
                 onClick={() => openAuth('signin')}
                 className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white font-bold text-xs border border-slate-700 transition-colors"
               >
-                Sign In
+                Switch Merchant
               </button>
 
               <button
                 onClick={() => openAuth('signup')}
                 className="px-3 py-1.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-black text-xs shadow-sm transition-colors"
               >
-                + Register New Store (Sign Up)
+                + Register Store
               </button>
 
               <button
-                onClick={() => openAuth('forgot')}
-                className="px-2.5 py-1.5 text-slate-400 hover:text-brand-400 font-medium text-xs transition-colors"
+                type="button"
+                onClick={() => {
+                  logoutUser();
+                  window.location.href = '/retailer/login';
+                }}
+                className="px-3 py-1.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 hover:text-rose-200 border border-rose-500/40 font-bold text-xs transition-colors flex items-center gap-1"
               >
-                Forgot Password?
+                <span>🚪 Log Out</span>
               </button>
             </div>
           </div>
