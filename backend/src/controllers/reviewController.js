@@ -1,5 +1,6 @@
 const Review = require('../models/Review');
 const Store = require('../models/Store');
+const { mockData, isDbConnected } = require('../utils/mockStore');
 
 // @desc    Get reviews for a store
 // @route   GET /api/reviews/store/:storeId
@@ -7,10 +8,16 @@ const Store = require('../models/Store');
 const getStoreReviews = async (req, res) => {
   try {
     const { storeId } = req.params;
-    const reviews = await Review.find({ storeId }).sort({ createdAt: -1 });
-    res.json({ success: true, count: reviews.length, data: reviews });
+
+    if (isDbConnected()) {
+      const reviews = await Review.find({ storeId }).sort({ createdAt: -1 });
+      return res.json({ success: true, count: reviews.length, data: reviews });
+    }
+
+    const filtered = mockData.reviews.filter(r => r.storeId === storeId);
+    res.json({ success: true, count: filtered.length, data: filtered });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.json({ success: true, count: 0, data: [] });
   }
 };
 
@@ -22,7 +29,7 @@ const createReview = async (req, res) => {
     const { storeId, productId, customerName, customerAvatar, rating, comment } = req.body;
     const reviewId = `rev-${Date.now()}`;
 
-    const review = await Review.create({
+    const newReview = {
       id: reviewId,
       storeId,
       productId,
@@ -32,19 +39,24 @@ const createReview = async (req, res) => {
       comment,
       date: new Date().toISOString().split('T')[0],
       verifiedPurchase: true,
-    });
+    };
 
-    // Update store average rating
-    const storeReviews = await Review.find({ storeId });
-    if (storeReviews.length > 0) {
-      const avg = storeReviews.reduce((acc, r) => acc + r.rating, 0) / storeReviews.length;
-      await Store.findOneAndUpdate(
-        { $or: [{ id: storeId }, { _id: storeId }] },
-        { rating: parseFloat(avg.toFixed(1)), reviewCount: storeReviews.length }
-      );
+    if (isDbConnected()) {
+      const review = await Review.create(newReview);
+      // Update store average rating
+      const storeReviews = await Review.find({ storeId });
+      if (storeReviews.length > 0) {
+        const avg = storeReviews.reduce((acc, r) => acc + r.rating, 0) / storeReviews.length;
+        await Store.findOneAndUpdate(
+          { $or: [{ id: storeId }, { _id: storeId }] },
+          { rating: parseFloat(avg.toFixed(1)), reviewCount: storeReviews.length }
+        );
+      }
+      return res.status(201).json({ success: true, data: review });
     }
 
-    res.status(201).json({ success: true, data: review });
+    mockData.reviews.unshift(newReview);
+    res.status(201).json({ success: true, data: newReview });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
