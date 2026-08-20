@@ -1,11 +1,36 @@
-import React, { useState } from 'react';
-import { Plus, X, Package, Tag, DollarSign, Image as ImageIcon, Check, Crown, AlertTriangle, ArrowRight, Sparkles } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { 
+  Plus, 
+  X, 
+  Package, 
+  Tag, 
+  DollarSign, 
+  Camera, 
+  Upload, 
+  Sparkles, 
+  Check, 
+  Crown, 
+  AlertTriangle, 
+  RefreshCw,
+  Trash2,
+  Eye
+} from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 
 interface AddProductModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+// Curated high-res fallback photos matching Indian retail categories
+const CATEGORY_DEFAULT_IMAGES: Record<string, string> = {
+  'cat-automobile': 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=600&q=80',
+  'cat-pharmacy': 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+  'cat-grocery': 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80',
+  'cat-electronics': 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80',
+  'cat-hardware': 'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=600&q=80',
+  'cat-stationery': 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=600&q=80',
+};
 
 export const AddProductModal: React.FC<AddProductModalProps> = ({ isOpen, onClose }) => {
   const { user, categories, addProductToStore, canAddProduct, openUpgradeModal } = useApp();
@@ -21,11 +46,115 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({ isOpen, onClos
   const [mrp, setMrp] = useState('');
   const [stock, setStock] = useState('10');
   const [description, setDescription] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  
+  // Camera & Image Capture state
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [imageSourceLabel, setImageSourceLabel] = useState<string>('');
+  const [isCameraActive, setIsCameraActive] = useState(false);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const cameraInputRef = useRef<HTMLInputElement | null>(null);
 
   if (!isOpen) return null;
 
   const currentCategory = categories.find(c => c.id === categoryId);
+
+  // 1. Handle File Upload (From Device Gallery/Files)
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      processImageFile(file, 'Device Photo');
+    }
+  };
+
+  // 2. Read, resize, and convert image to compressed base64
+  const processImageFile = (file: File, sourceName: string) => {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const MAX_WIDTH = 800;
+        const MAX_HEIGHT = 800;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width;
+            width = MAX_WIDTH;
+          }
+        } else {
+          if (height > MAX_HEIGHT) {
+            width *= MAX_HEIGHT / height;
+            height = MAX_HEIGHT;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx?.drawImage(img, 0, 0, width, height);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+        setImagePreview(dataUrl);
+        setImageSourceLabel(sourceName);
+        stopLiveCamera();
+      };
+      img.src = event.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+  };
+
+  // 3. Live Web Camera Stream
+  const startLiveCamera = async () => {
+    setIsCameraActive(true);
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } }
+      });
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        videoRef.current.play();
+      }
+    } catch (err) {
+      console.warn('Direct webcam failed, falling back to native camera input:', err);
+      setIsCameraActive(false);
+      cameraInputRef.current?.click();
+    }
+  };
+
+  const captureLiveCameraPhoto = () => {
+    if (videoRef.current && canvasRef.current) {
+      const video = videoRef.current;
+      const canvas = canvasRef.current;
+      canvas.width = video.videoWidth || 640;
+      canvas.height = video.videoHeight || 480;
+      const ctx = canvas.getContext('2d');
+      ctx?.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+      setImagePreview(dataUrl);
+      setImageSourceLabel('Live Camera Capture 📸');
+      stopLiveCamera();
+    }
+  };
+
+  const stopLiveCamera = () => {
+    if (videoRef.current && videoRef.current.srcObject) {
+      const stream = videoRef.current.srcObject as MediaStream;
+      stream.getTracks().forEach(track => track.stop());
+      videoRef.current.srcObject = null;
+    }
+    setIsCameraActive(false);
+  };
+
+  // 4. Smart Matching Catalog Preset
+  const handleUseSmartPreset = () => {
+    const defaultImg = CATEGORY_DEFAULT_IMAGES[categoryId] || CATEGORY_DEFAULT_IMAGES['cat-automobile'];
+    setImagePreview(defaultImg);
+    setImageSourceLabel('Smart Catalog Photo ✨');
+    stopLiveCamera();
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,6 +167,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({ isOpen, onClos
     const sellingPrice = parseFloat(price) || 100;
     const mrpPrice = parseFloat(mrp) || Math.round(sellingPrice * 1.2);
     const stockQty = parseInt(stock, 10) || 10;
+    const finalImage = imagePreview || CATEGORY_DEFAULT_IMAGES[categoryId] || CATEGORY_DEFAULT_IMAGES['cat-automobile'];
 
     addProductToStore(
       {
@@ -46,21 +176,22 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({ isOpen, onClos
         categoryId,
         subcategory: subcategory || currentCategory?.subcategories[0] || 'General',
         description,
-        image: imageUrl || 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80',
+        image: finalImage,
         mrp: mrpPrice,
         basePrice: sellingPrice,
-        keywords: [name.toLowerCase(), brand.toLowerCase()]
+        keywords: [name.toLowerCase(), brand.toLowerCase(), categoryId]
       },
       stockQty,
       sellingPrice
     );
 
+    stopLiveCamera();
     onClose();
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-white rounded-3xl shadow-2xl max-w-xl w-full overflow-hidden border border-slate-100 animate-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200 overflow-y-auto">
+      <div className="bg-white rounded-3xl shadow-2xl max-w-xl w-full overflow-hidden border border-slate-100 animate-in zoom-in-95 duration-200 my-auto">
         
         {/* Header */}
         <div className="p-5 bg-gradient-to-r from-slate-900 via-slate-800 to-purple-950 text-white flex items-center justify-between">
@@ -75,7 +206,10 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({ isOpen, onClos
           </div>
 
           <button
-            onClick={onClose}
+            onClick={() => {
+              stopLiveCamera();
+              onClose();
+            }}
             className="p-1.5 rounded-full hover:bg-white/10 text-slate-400 hover:text-white transition-colors"
           >
             <X className="w-5 h-5" />
@@ -101,59 +235,31 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({ isOpen, onClos
               </p>
             </div>
 
-            {/* Feature Perks */}
-            <div className="p-3.5 rounded-2xl bg-purple-50 border border-purple-100 text-left max-w-md mx-auto text-xs space-y-2">
-              <div className="flex items-center gap-2 text-purple-900 font-bold">
-                <Check className="w-4 h-4 text-purple-600" />
-                <span>Unlimited Product Listings (No Caps)</span>
-              </div>
-              <div className="flex items-center gap-2 text-purple-900 font-bold">
-                <Check className="w-4 h-4 text-purple-600" />
-                <span>👑 Verified Pro Gold Merchant Badge</span>
-              </div>
-              <div className="flex items-center gap-2 text-purple-900 font-bold">
-                <Check className="w-4 h-4 text-purple-600" />
-                <span>Real-Time Customer Demand Alerts Radar</span>
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-2 justify-center max-w-md mx-auto pt-2">
+            <div className="flex items-center justify-center gap-3">
               <button
+                type="button"
+                onClick={onClose}
+                className="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl"
+              >
+                Close
+              </button>
+              <button
+                type="button"
                 onClick={() => {
                   onClose();
                   openUpgradeModal();
                 }}
-                className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-extrabold text-xs shadow-lg shadow-purple-600/30 flex items-center justify-center gap-2 transition-all transform active:scale-95"
+                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-xs shadow-md shadow-purple-600/30 flex items-center gap-1.5"
               >
                 <Crown className="w-4 h-4 text-amber-300 fill-amber-300" />
-                <span>Upgrade to Pro (₹99/mo)</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-
-              <button
-                onClick={onClose}
-                className="py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors"
-              >
-                Close
+                <span>Upgrade to Pro 👑</span>
               </button>
             </div>
           </div>
         ) : (
-          /* Normal Form with Usage Pill */
-          <form onSubmit={handleSubmit} className="p-6 space-y-4 max-h-[80vh] overflow-y-auto">
-            
-            {/* Usage Notice Bar */}
-            {usage.plan === 'free' && (
-              <div className="p-2.5 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-between text-xs">
-                <span className="text-purple-800 font-bold flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-purple-600" />
-                  <span>Free Tier: {usage.currentCount} / {usage.maxCount} Products</span>
-                </span>
-                <span className="text-[11px] text-purple-600 font-semibold">
-                  {usage.maxCount - usage.currentCount} slots remaining
-                </span>
-              </div>
-            )}
+
+        /* Product Form */
+        <form onSubmit={handleSubmit} className="p-5 sm:p-6 space-y-4 max-h-[80vh] overflow-y-auto">
           
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
@@ -163,7 +269,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({ isOpen, onClos
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="e.g. Hero Splendor Chain Sprocket Kit"
+                placeholder="e.g. Honda Shine Front Disc Brake Pad"
                 className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:border-brand-500 outline-none"
               />
             </div>
@@ -175,7 +281,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({ isOpen, onClos
                 required
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
-                placeholder="e.g. Hero Genuine / Rolon"
+                placeholder="e.g. Honda Genuine / Castrol"
                 className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:border-brand-500 outline-none"
               />
             </div>
@@ -220,7 +326,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({ isOpen, onClos
                 min="1"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
-                placeholder="420"
+                placeholder="380"
                 className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 font-bold focus:bg-white focus:border-brand-500 outline-none"
               />
             </div>
@@ -237,7 +343,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({ isOpen, onClos
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">Initial Stock (Units) *</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Stock (Units) *</label>
               <input
                 type="number"
                 required
@@ -250,15 +356,139 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({ isOpen, onClos
             </div>
           </div>
 
-          <div>
-            <label className="block text-xs font-bold text-slate-700 mb-1">Image URL (Optional)</label>
+          {/* 📸 CAMERA & PHOTO INSERTION SECTION (NO URL REQUIRED) */}
+          <div className="space-y-2 p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+            <div className="flex items-center justify-between">
+              <label className="block text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                <Camera className="w-4 h-4 text-brand-600" />
+                <span>Product Photo (Click with Camera or Upload) *</span>
+              </label>
+              {imageSourceLabel && (
+                <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                  {imageSourceLabel}
+                </span>
+              )}
+            </div>
+
+            {/* Hidden file inputs */}
             <input
-              type="url"
-              value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
-              placeholder="https://images.unsplash.com/..."
-              className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:border-brand-500 outline-none"
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleFileChange}
             />
+            <input
+              ref={cameraInputRef}
+              type="file"
+              accept="image/*"
+              capture="environment"
+              className="hidden"
+              onChange={handleFileChange}
+            />
+
+            {/* Live Camera Viewfinder (if web camera is active) */}
+            {isCameraActive && (
+              <div className="relative rounded-2xl overflow-hidden bg-black aspect-video flex flex-col items-center justify-center border-2 border-brand-500 animate-in fade-in">
+                <video ref={videoRef} playsInline autoPlay className="w-full h-full object-cover" />
+                <canvas ref={canvasRef} className="hidden" />
+                <div className="absolute bottom-3 left-0 right-0 flex items-center justify-center gap-3">
+                  <button
+                    type="button"
+                    onClick={captureLiveCameraPhoto}
+                    className="px-5 py-2 rounded-full bg-brand-500 hover:bg-brand-400 text-slate-950 font-black text-xs shadow-lg flex items-center gap-1.5"
+                  >
+                    <Camera className="w-4 h-4" />
+                    <span>Click Photo</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={stopLiveCamera}
+                    className="px-4 py-2 rounded-full bg-slate-900/80 text-white font-bold text-xs hover:bg-slate-800"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Photo Preview if already selected */}
+            {imagePreview && !isCameraActive && (
+              <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-white p-2 flex items-center gap-3">
+                <img
+                  src={imagePreview}
+                  alt="Product preview"
+                  className="w-20 h-20 rounded-xl object-cover border border-slate-100 shadow-sm"
+                />
+                <div className="flex-1 min-w-0 text-xs">
+                  <div className="font-bold text-slate-900 truncate">
+                    {name || 'Selected Product Image'}
+                  </div>
+                  <div className="text-[11px] text-slate-500">
+                    High quality photo ready for customer catalog
+                  </div>
+                  <div className="flex items-center gap-2 mt-2">
+                    <button
+                      type="button"
+                      onClick={startLiveCamera}
+                      className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-bold flex items-center gap-1"
+                    >
+                      <RefreshCw className="w-3 h-3" />
+                      <span>Retake</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setImagePreview(null);
+                        setImageSourceLabel('');
+                      }}
+                      className="px-2.5 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 text-[11px] font-bold flex items-center gap-1"
+                    >
+                      <Trash2 className="w-3 h-3" />
+                      <span>Remove</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Action Buttons for Image Insertion */}
+            {!isCameraActive && !imagePreview && (
+              <div className="grid grid-cols-3 gap-2 pt-1">
+                <button
+                  type="button"
+                  onClick={startLiveCamera}
+                  className="p-3 rounded-2xl bg-white hover:bg-brand-50 border-2 border-dashed border-brand-300 hover:border-brand-500 text-slate-700 hover:text-brand-700 flex flex-col items-center justify-center gap-1.5 transition-all text-center group"
+                >
+                  <div className="w-8 h-8 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Camera className="w-4 h-4" />
+                  </div>
+                  <span className="text-[11px] font-bold">Open Camera 📸</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="p-3 rounded-2xl bg-white hover:bg-purple-50 border-2 border-dashed border-purple-200 hover:border-purple-500 text-slate-700 hover:text-purple-700 flex flex-col items-center justify-center gap-1.5 transition-all text-center group"
+                >
+                  <div className="w-8 h-8 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Upload className="w-4 h-4" />
+                  </div>
+                  <span className="text-[11px] font-bold">Upload File 🖼️</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleUseSmartPreset}
+                  className="p-3 rounded-2xl bg-white hover:bg-amber-50 border-2 border-dashed border-amber-200 hover:border-amber-500 text-slate-700 hover:text-amber-700 flex flex-col items-center justify-center gap-1.5 transition-all text-center group"
+                >
+                  <div className="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Sparkles className="w-4 h-4" />
+                  </div>
+                  <span className="text-[11px] font-bold">Smart Match ✨</span>
+                </button>
+              </div>
+            )}
           </div>
 
           <div>
@@ -267,7 +497,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({ isOpen, onClos
               rows={2}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Genuine OEM spare part with manufacturer seal..."
+              placeholder="Genuine OEM spare part with manufacturer warranty and hologram seal..."
               className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:border-brand-500 outline-none resize-none"
             ></textarea>
           </div>
@@ -275,16 +505,20 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({ isOpen, onClos
           <div className="pt-3 border-t border-slate-100 flex items-center justify-end gap-3">
             <button
               type="button"
-              onClick={onClose}
+              onClick={() => {
+                stopLiveCamera();
+                onClose();
+              }}
               className="px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-6 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs shadow-md shadow-brand-500/25"
+              className="px-6 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs shadow-md shadow-brand-500/25 flex items-center gap-1.5"
             >
-              Add to Live Catalog
+              <Plus className="w-4 h-4" />
+              <span>Add to Live Catalog</span>
             </button>
           </div>
 

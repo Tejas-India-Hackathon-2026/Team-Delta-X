@@ -770,8 +770,8 @@ export const generateStoresForCity = (
   
   const templates: Omit<Store, 'id' | 'coordinates' | 'city' | 'address' | 'area' | 'pincode'>[] = [
     {
-      name: `${city} Auto Spares & Genuine Parts`,
-      ownerName: 'Rakesh Verma',
+      name: `${city} Auto Spares & Bike Clinic`,
+      ownerName: 'Rajesh Sharma',
       phone: '+91 98765 43210',
       whatsapp: '919876543210',
       email: `autospares.${safeCitySlug}@dhoondo.local`,
@@ -796,7 +796,7 @@ export const generateStoresForCity = (
       phone: '+91 98765 11223',
       whatsapp: '919876511223',
       email: `carepharmacy.${safeCitySlug}@dhoondo.local`,
-      categoryIds: ['cat-pharmacy', 'cat-personal-care'],
+      categoryIds: ['cat-pharmacy'],
       rating: 4.9,
       reviewCount: 450,
       verified: true,
@@ -817,7 +817,7 @@ export const generateStoresForCity = (
       phone: '+91 98765 33445',
       whatsapp: '919876533445',
       email: `freshsupermarket.${safeCitySlug}@dhoondo.local`,
-      categoryIds: ['cat-grocery', 'cat-personal-care'],
+      categoryIds: ['cat-grocery'],
       rating: 4.7,
       reviewCount: 380,
       verified: true,
@@ -838,7 +838,7 @@ export const generateStoresForCity = (
       phone: '+91 98765 55667',
       whatsapp: '919876555667',
       email: `digitalelectronics.${safeCitySlug}@dhoondo.local`,
-      categoryIds: ['cat-electronics', 'cat-appliances'],
+      categoryIds: ['cat-electronics'],
       rating: 4.8,
       reviewCount: 320,
       verified: true,
@@ -852,15 +852,59 @@ export const generateStoresForCity = (
       joinedDate: '2023-03-01',
       viewsCount: 2400,
       enquiriesCount: 190
+    },
+    {
+      name: `${city} Hardware, Tools & Sanitary`,
+      ownerName: 'Pankaj Verma',
+      phone: '+91 98765 77889',
+      whatsapp: '919876577889',
+      email: `hardware.${safeCitySlug}@dhoondo.local`,
+      categoryIds: ['cat-hardware'],
+      rating: 4.7,
+      reviewCount: 210,
+      verified: true,
+      openingHours: '8:30 AM - 9:00 PM',
+      isOpen: true,
+      image: 'https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80',
+      bannerImage: 'https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=80',
+      facilities: ['Bosch Power Tools', 'Copper Wires', 'Pipe Cutting', 'Contractor Rates'],
+      about: `Complete hardware and home electrical supplies in ${city}, stocking drills, Havells wiring, and fixtures.`,
+      gstNumber: '10HARD5566Q1Z8',
+      joinedDate: '2023-02-15',
+      viewsCount: 1800,
+      enquiriesCount: 140
+    },
+    {
+      name: `${city} Vidya Stationery & Book Depot`,
+      ownerName: 'Rameshwar Lal',
+      phone: '+91 98765 88990',
+      whatsapp: '919876588990',
+      email: `stationery.${safeCitySlug}@dhoondo.local`,
+      categoryIds: ['cat-stationery'],
+      rating: 4.9,
+      reviewCount: 310,
+      verified: true,
+      openingHours: '9:00 AM - 9:30 PM',
+      isOpen: true,
+      image: 'https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=600&q=80',
+      bannerImage: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80',
+      facilities: ['Color Xerox', 'School Books', 'Classmate Registers', 'Parker Pens'],
+      about: `Academic and office stationery depot in ${city}, offering textbooks, registers, pens, and art materials.`,
+      gstNumber: '10BOOK7788P1Z3',
+      joinedDate: '2022-11-20',
+      viewsCount: 2100,
+      enquiriesCount: 165
     }
   ];
 
-  // Offset coordinates around central point for natural local proximity (0.4km to 2.5km)
+  // Offset coordinates around central point for natural local proximity (0.3km to 3.2km)
   const offsets = [
-    { dLat: 0.0042, dLng: 0.0051, area: `Main Market / Central ${city}` },
-    { dLat: -0.0061, dLng: 0.0038, area: `Station Road / Commercial Hub, ${city}` },
-    { dLat: 0.0035, dLng: -0.0072, area: `Civil Lines / Bypass Road, ${city}` },
-    { dLat: -0.0048, dLng: -0.0045, area: `Gandhi Chowk / Sector 1, ${city}` }
+    { dLat: 0.0031, dLng: 0.0028, area: `Main Market / Central ${city}` },
+    { dLat: -0.0042, dLng: 0.0035, area: `Station Road / Commercial Hub, ${city}` },
+    { dLat: 0.0055, dLng: -0.0048, area: `Civil Lines / Bypass Road, ${city}` },
+    { dLat: -0.0068, dLng: -0.0055, area: `Gandhi Chowk / Sector 1, ${city}` },
+    { dLat: 0.0082, dLng: 0.0071, area: `Industrial Area / Ring Road, ${city}` },
+    { dLat: -0.0095, dLng: 0.0084, area: `College Road / Court Area, ${city}` }
   ];
 
   return templates.map((tmpl, idx) => {
@@ -868,7 +912,7 @@ export const generateStoresForCity = (
     return {
       ...tmpl,
       id: `store-${safeCitySlug}-${idx + 1}`,
-      address: `Shop #${10 + idx * 4}, ${offset.area}`,
+      address: `Shop #${12 + idx * 6}, ${offset.area}`,
       area: offset.area,
       city: city,
       pincode: pincode || '110001',
@@ -881,7 +925,7 @@ export const generateStoresForCity = (
 };
 
 /**
- * Generate Inventory bindings for newly generated city stores
+ * Generate Inventory bindings for newly generated city stores with 3-tier price comparison
  */
 export const generateInventoryForStores = (
   newStores: Store[],
@@ -889,13 +933,14 @@ export const generateInventoryForStores = (
 ): StoreInventory[] => {
   const result: StoreInventory[] = [];
 
-  newStores.forEach(store => {
-    // Filter products matching store category
+  newStores.forEach((store, storeIdx) => {
+    // Filter products matching store category or stock all catalog
     const matchingProducts = existingProducts.filter(p => store.categoryIds.includes(p.categoryId));
-    const productsToStock = matchingProducts.length > 0 ? matchingProducts : existingProducts.slice(0, 10);
+    const productsToStock = matchingProducts.length > 0 ? matchingProducts : existingProducts;
 
-    productsToStock.forEach((prod, idx) => {
-      const discount = 5 + ((idx * 3) % 20);
+    productsToStock.forEach((prod, prodIdx) => {
+      // Create realistic competitive counter discount (10% to 26%)
+      const discount = 10 + ((storeIdx * 7 + prodIdx * 5) % 18);
       const price = Math.round(prod.mrp * (1 - discount / 100));
       result.push({
         id: `inv-${store.id}-${prod.id}`,
@@ -904,10 +949,10 @@ export const generateInventoryForStores = (
         price,
         mrp: prod.mrp,
         discountPercent: discount,
-        stockQuantity: 5 + ((idx * 7) % 30),
-        status: (idx % 5 === 4) ? 'low_stock' : 'in_stock',
-        lastUpdated: `${(idx % 12) + 1} hours ago`,
-        isBestPrice: idx % 3 === 0
+        stockQuantity: 8 + ((storeIdx * 4 + prodIdx * 3) % 25),
+        status: (prodIdx % 7 === 6) ? 'low_stock' : 'in_stock',
+        lastUpdated: `${((storeIdx + prodIdx) % 55) + 5} mins ago`,
+        isBestPrice: storeIdx % 2 === 1
       });
     });
   });
