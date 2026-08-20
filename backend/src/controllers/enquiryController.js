@@ -1,4 +1,5 @@
 const Enquiry = require('../models/Enquiry');
+const { mockData, isDbConnected } = require('../utils/mockStore');
 
 // @desc    Get enquiries for a store
 // @route   GET /api/enquiries/store/:storeId
@@ -6,10 +7,16 @@ const Enquiry = require('../models/Enquiry');
 const getStoreEnquiries = async (req, res) => {
   try {
     const { storeId } = req.params;
-    const enquiries = await Enquiry.find({ storeId }).sort({ createdAt: -1 });
-    res.json({ success: true, count: enquiries.length, data: enquiries });
+
+    if (isDbConnected()) {
+      const enquiries = await Enquiry.find({ storeId }).sort({ createdAt: -1 });
+      return res.json({ success: true, count: enquiries.length, data: enquiries });
+    }
+
+    const filtered = mockData.enquiries.filter(e => e.storeId === storeId);
+    res.json({ success: true, count: filtered.length, data: filtered });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.json({ success: true, count: 0, data: [] });
   }
 };
 
@@ -32,7 +39,7 @@ const createEnquiry = async (req, res) => {
 
     const enquiryId = `enq-${Date.now()}`;
 
-    const enquiry = await Enquiry.create({
+    const newEnquiry = {
       id: enquiryId,
       storeId,
       storeName: storeName || 'Neighborhood Store',
@@ -43,9 +50,17 @@ const createEnquiry = async (req, res) => {
       productId,
       productName,
       productPrice,
-    });
+      status: 'new',
+      createdAt: 'Just now',
+    };
 
-    res.status(201).json({ success: true, data: enquiry });
+    if (isDbConnected()) {
+      const enquiry = await Enquiry.create(newEnquiry);
+      return res.status(201).json({ success: true, data: enquiry });
+    }
+
+    mockData.enquiries.unshift(newEnquiry);
+    res.status(201).json({ success: true, data: newEnquiry });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
@@ -57,21 +72,30 @@ const createEnquiry = async (req, res) => {
 const replyEnquiry = async (req, res) => {
   try {
     const { replyMessage } = req.body;
-    const enquiry = await Enquiry.findOneAndUpdate(
-      { $or: [{ id: req.params.id }, { _id: req.params.id }] },
-      {
-        replyMessage,
-        status: 'replied',
-        repliedAt: new Date().toISOString(),
-      },
-      { new: true }
-    );
 
-    if (!enquiry) {
-      return res.status(404).json({ success: false, message: 'Enquiry not found' });
+    if (isDbConnected()) {
+      const enquiry = await Enquiry.findOneAndUpdate(
+        { $or: [{ id: req.params.id }, { _id: req.params.id }] },
+        {
+          replyMessage,
+          status: 'replied',
+          repliedAt: new Date().toISOString(),
+        },
+        { new: true }
+      );
+
+      if (enquiry) return res.json({ success: true, data: enquiry });
     }
 
-    res.json({ success: true, data: enquiry });
+    const enquiry = mockData.enquiries.find(e => e.id === req.params.id);
+    if (enquiry) {
+      enquiry.replyMessage = replyMessage;
+      enquiry.status = 'replied';
+      enquiry.repliedAt = 'Just now';
+      return res.json({ success: true, data: enquiry });
+    }
+
+    res.status(404).json({ success: false, message: 'Enquiry not found' });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
