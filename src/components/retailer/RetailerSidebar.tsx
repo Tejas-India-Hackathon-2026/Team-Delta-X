@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   Store, 
@@ -15,16 +15,23 @@ import {
   Sparkles,
   ShieldCheck,
   Crown,
-  ArrowRight
+  ArrowRight,
+  LogOut
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 
 export const RetailerSidebar: React.FC = () => {
-  const { user, stores, demands, enquiries, getStoreSubscription, canAddProduct, openUpgradeModal } = useApp();
+  const { user, stores, demands, enquiries, getStoreSubscription, canAddProduct, openUpgradeModal, logoutUser } = useApp();
+  const navigate = useNavigate();
   const currentStore = stores.find(s => s.id === user.storeId) || stores[0];
   const sub = getStoreSubscription(currentStore.id);
   const usage = canAddProduct(currentStore.id);
   const isPro = sub.plan === 'pro';
+
+  const handleLogout = () => {
+    logoutUser();
+    navigate('/retailer/login');
+  };
 
   const pendingDemandsCount = demands.filter(d => d.status === 'pending').length;
   const newEnquiriesCount = enquiries.filter(e => e.status === 'new').length;
@@ -209,6 +216,16 @@ export const RetailerSidebar: React.FC = () => {
             Exit
           </Link>
         </div>
+
+        {/* 🚪 Merchant Logout Action Button */}
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="w-full py-2.5 px-3 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 hover:text-rose-200 border border-rose-500/30 text-xs font-black flex items-center justify-center gap-2 transition-all shadow-sm"
+        >
+          <LogOut className="w-3.5 h-3.5" />
+          <span>Log Out (Merchant)</span>
+        </button>
       </div>
 
     </aside>
