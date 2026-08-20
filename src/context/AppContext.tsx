@@ -430,9 +430,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, []);
 
   const [isLocating, setIsLocating] = useState(false);
-  const [hasLocationPermission, setHasLocationPermission] = useState<boolean>(() => 
-    safeGetLocalStorage('dhoondo_has_gps', false)
-  );
+  const [hasLocationPermission, setHasLocationPermission] = useState<boolean>(false);
 
   const detectGPSLocation = useCallback(async (): Promise<boolean> => {
     setIsLocating(true);

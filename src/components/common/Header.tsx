@@ -55,13 +55,9 @@ export const Header: React.FC<HeaderProps> = ({
     const q = query.trim();
     if (!q) return;
 
-    if (!hasLocationPermission) {
-      setPendingQuery(q);
-      setShowLocationPrompt(true);
-    } else {
-      navigate(`/search?q=${encodeURIComponent(q)}`);
-      setIsSearchFocused(false);
-    }
+    // Always prompt location modal first
+    setPendingQuery(q);
+    setShowLocationPrompt(true);
   };
 
   const handleSearchSubmit = (e: React.FormEvent) => {

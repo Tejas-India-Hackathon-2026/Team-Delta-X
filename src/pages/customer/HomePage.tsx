@@ -53,13 +53,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenVoiceModal, onOpenLoca
     const q = query.trim();
     if (!q) return;
 
-    // Check if location permission has been granted
-    if (!hasLocationPermission) {
-      setPendingSearchQuery(q);
-      setShowLocationPrompt(true);
-    } else {
-      navigate(`/search?q=${encodeURIComponent(q)}`);
-    }
+    // Prompt user for location access (GPS or Custom Location) first
+    setPendingSearchQuery(q);
+    setShowLocationPrompt(true);
   };
 
   const handleSearch = (e: React.FormEvent) => {
