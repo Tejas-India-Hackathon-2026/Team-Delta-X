@@ -31,6 +31,43 @@ interface HomePageProps {
   onOpenLocationModal: () => void;
 }
 
+// Generate location-aware example search queries from real nearby products
+const buildLocationSearchExamples = (products: any[], location: any): string[] => {
+  const cityContext = location.city || 'your area';
+  const sortedByDistance = [...products].sort((a, b) => a.lowestDistanceKm - b.lowestDistanceKm);
+  
+  // Pick representative products across categories
+  const seen = new Set<string>();
+  const examples: string[] = [];
+  
+  for (const item of sortedByDistance) {
+    const p = item.product;
+    // Use brand + short product name for natural search queries
+    const shortName = p.name.split(' ').slice(0, 4).join(' ');
+    const query = p.brand && p.brand !== p.name.split(' ')[0] 
+      ? `${p.brand} ${p.subcategory || shortName}` 
+      : shortName;
+    if (!seen.has(p.categoryId)) {
+      seen.add(p.categoryId);
+      examples.push(query);
+    }
+    if (examples.length >= 6) break;
+  }
+  
+  // Fallback to universal examples if no products loaded
+  if (examples.length < 3) {
+    return [
+      'Charger near me',
+      'Bike parts nearby',
+      'Dolo 650',
+      'Engine oil',
+      'LED bulb',
+      'School notebook'
+    ];
+  }
+  return examples;
+};
+
 export const HomePage: React.FC<HomePageProps> = ({ onOpenVoiceModal, onOpenLocationModal }) => {
   const { 
     categories, 
@@ -42,6 +79,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenVoiceModal, onOpenLoca
     wishlist,
     hasLocationPermission
   } = useApp();
+
+  const searchExamples = React.useMemo(
+    () => buildLocationSearchExamples(enrichedProducts, location),
+    [enrichedProducts, location]
+  );
 
   const [searchQuery, setSearchQuery] = useState('');
   const [pendingSearchQuery, setPendingSearchQuery] = useState('');
@@ -111,7 +153,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenVoiceModal, onOpenLoca
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="What are you looking for? (e.g. Honda Shine brake pad)..."
+                placeholder={`Search products near ${location.area || location.city || 'you'}… e.g. charger, bike parts, Dolo`}
                 className="flex-1 py-2 sm:py-3 bg-transparent text-slate-900 placeholder:text-slate-400 text-sm sm:text-base font-medium outline-none"
               />
 
@@ -133,17 +175,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenVoiceModal, onOpenLoca
               </button>
             </form>
 
-            {/* Popular Search Example Pills */}
+            {/* Dynamic Location-Aware Example Search Pills */}
             <div className="flex flex-wrap items-center justify-center gap-2 pt-4 text-xs">
-              <span className="text-slate-400 font-medium">Try searching:</span>
-              {[
-                'Honda Shine brake pad',
-                'Dolo 650',
-                'Castrol 10W-30',
-                'Amul Gold Milk',
-                'Havells 9W LED Bulb',
-                'Ultratech Cement'
-              ].map((pill, i) => (
+              <span className="text-slate-400 font-medium flex items-center gap-1">
+                📍 Near {location.area?.split('/')[0].trim() || location.city || 'you'}:
+              </span>
+              {searchExamples.map((pill, i) => (
                 <button
                   key={i}
                   onClick={() => {

@@ -499,27 +499,58 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     filters?: SearchFilters,
     sort: SortOption = 'relevance'
   ): EnrichedProductResult[] => {
+    // Alias map: common shorthand → expanded keywords that match real product data
+    const SEARCH_ALIASES: Record<string, string[]> = {
+      'charger': ['charger', 'fast charge', 'usb', 'power adapter', 'anker', 'charging'],
+      'bike parts': ['automobile', 'brake', 'tyre', 'engine oil', 'battery', 'chain', 'sprocket', 'helmet'],
+      'bike': ['automobile', 'brake', 'engine oil', 'tyre', 'chain'],
+      'medicine': ['pharmacy', 'tablet', 'capsule', 'syrup', 'dolo', 'paracetamol', 'antibiotic'],
+      'dawa': ['pharmacy', 'tablet', 'capsule', 'syrup', 'dolo', 'paracetamol'],
+      'grocery': ['grocery', 'atta', 'rice', 'dal', 'ghee', 'oil', 'milk', 'sugar'],
+      'kirana': ['grocery', 'atta', 'rice', 'dal', 'ghee', 'oil', 'milk', 'aashirvaad'],
+      'bulb': ['led', 'bulb', 'havells', 'philips', 'light'],
+      'pen': ['pen', 'parker', 'stationery', 'notebook', 'writing'],
+      'notebook': ['notebook', 'register', 'classmate', 'stationery'],
+      'drill': ['drill', 'bosch', 'hardware', 'power tool'],
+      'wire': ['wire', 'cable', 'copper', 'havells', 'electrical'],
+      'helmet': ['helmet', 'studds', 'automobile', 'riding'],
+      'oil': ['engine oil', 'castrol', 'oil', 'lubricant'],
+      'battery': ['battery', 'amaron', 'exide', 'automobile'],
+    };
+
     const q = query.trim().toLowerCase();
-    const queryTokens = q.split(/\s+/).filter(Boolean);
+    // Expand query with aliases
+    const aliasExpansions: string[] = [q];
+    for (const [alias, expansions] of Object.entries(SEARCH_ALIASES)) {
+      if (q.includes(alias)) {
+        aliasExpansions.push(...expansions);
+      }
+    }
+    const queryTokens = q.split(/\s+/).filter(t => t.length > 1);
 
     let results = enrichedProducts.filter(item => {
       const p = item.product;
 
-      // Text query match
-      if (queryTokens.length > 0) {
+      // Text query match - check against original tokens OR any expansion
+      if (queryTokens.length > 0 || q.length > 0) {
         const textTarget = [
           p.name,
           p.brand,
           p.subcategory,
           p.modelNumber || '',
-          p.sku,
+          p.sku || '',
           p.description,
           item.category.name,
-          ...(p.keywords || [])
+          item.category.slug || '',
+          ...(p.keywords || []),
+          ...(p.tags || [])
         ].join(' ').toLowerCase();
 
-        const allTokensMatch = queryTokens.every(tok => textTarget.includes(tok));
-        if (!allTokensMatch) return false;
+        // Match if ALL original query tokens match OR any alias expansion matches
+        const originalMatch = queryTokens.length === 0 || queryTokens.every(tok => textTarget.includes(tok));
+        const aliasMatch = aliasExpansions.some(exp => exp.length > 2 && textTarget.includes(exp));
+        
+        if (!originalMatch && !aliasMatch) return false;
       }
 
       // Filter by category
@@ -591,8 +622,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         case 'availability':
           return b.availableStoresCount - a.availableStoresCount;
         case 'relevance':
-        default:
-          return 0;
+        default: {
+          // Score = (text match weight) + (inverse distance bonus)
+          // Products very close get a strong proximity boost
+          const distanceBoostA = a.lowestDistanceKm < 1 ? 3 : a.lowestDistanceKm < 3 ? 1.5 : 0;
+          const distanceBoostB = b.lowestDistanceKm < 1 ? 3 : b.lowestDistanceKm < 3 ? 1.5 : 0;
+          const stockBoostA = a.availableStoresCount > 0 ? 1 : 0;
+          const stockBoostB = b.availableStoresCount > 0 ? 1 : 0;
+          const scoreA = distanceBoostA + stockBoostA;
+          const scoreB = distanceBoostB + stockBoostB;
+          if (scoreB !== scoreA) return scoreB - scoreA;
+          // Fallback: sort by distance ascending
+          return a.lowestDistanceKm - b.lowestDistanceKm;
+        }
       }
     });
 
