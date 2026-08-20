@@ -1,0 +1,72 @@
+import { Offer } from '../types';
+
+export const INITIAL_OFFERS: Offer[] = [
+  {
+    id: 'off-sharma-weekend',
+    storeId: 'store-sharma-auto',
+    storeName: 'Sharma Auto Parts & Spares',
+    storeArea: 'Koramangala 4th Block',
+    productId: 'prod-castrol-power1-oil',
+    productName: 'Castrol POWER1 4T 10W-30 Synthetic Bike Engine Oil 1L',
+    title: 'Weekend Bike Care Fest: Flat 15% OFF Castrol Synthetic Oil + Free Chain Lube Spray',
+    description: 'Get your motorcycle monsoon ready! Buy any Castrol POWER1 or Motul 4T can and receive complimentary chain inspection & lube.',
+    discountPercent: 15,
+    offerPrice: 460,
+    originalPrice: 535,
+    validUntil: '2026-08-31',
+    couponCode: 'SHARMA15',
+    bannerImage: 'https://images.unsplash.com/photo-1616788494707-ec28f08d05a1?auto=format&fit=crop&w=800&q=80',
+    isFeatured: true
+  },
+  {
+    id: 'off-sanjeevani-senior',
+    storeId: 'store-apollo-local',
+    storeName: 'Sanjeevani Medicos & Healthcare',
+    storeArea: 'Koramangala 4th Block',
+    productId: 'prod-omron-bp-monitor',
+    productName: 'Omron HEM-7120 Digital Blood Pressure Monitor',
+    title: 'Senior Citizen Care Week: Flat ₹470 OFF on Digital BP & Sugar Monitors',
+    description: 'Special neighborhood health initiative. Free blood sugar testing on store visit + discount on home health monitors.',
+    discountPercent: 19,
+    offerPrice: 1980,
+    originalPrice: 2450,
+    validUntil: '2026-08-28',
+    couponCode: 'SANJEEVANI20',
+    bannerImage: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80',
+    isFeatured: true
+  },
+  {
+    id: 'off-krishna-staples',
+    storeId: 'store-sri-krishna-kirana',
+    storeName: 'Sri Krishna Super Store & Kirana',
+    storeArea: 'Koramangala 1st Block',
+    productId: 'prod-daawat-basmati-rice',
+    productName: 'Daawat Rozana Super Basmati Rice 5kg',
+    title: 'Monthly Ration Special: Daawat Basmati Rice 5kg at ₹399 (Save ₹61)',
+    description: 'Order your monthly staples with free delivery within 30 minutes in Koramangala.',
+    discountPercent: 13,
+    offerPrice: 399,
+    originalPrice: 460,
+    validUntil: '2026-08-25',
+    couponCode: 'KRISHNA50',
+    bannerImage: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=800&q=80',
+    isFeatured: false
+  },
+  {
+    id: 'off-balaji-boat',
+    storeId: 'store-croma-local',
+    storeName: 'Balaji Electronics & Mobile Care',
+    storeArea: 'HSR Layout Sector 6',
+    productId: 'prod-boat-rockerz-450',
+    productName: 'boAt Rockerz 450 Bluetooth On-Ear Headphones',
+    title: 'Flash Gadget Clearance: boAt Rockerz 450 at ₹1,299 (MRP ₹3,990)',
+    description: 'Authorized store clearance with brand warranty and free on-spot testing.',
+    discountPercent: 67,
+    offerPrice: 1299,
+    originalPrice: 3990,
+    validUntil: '2026-08-24',
+    couponCode: 'BOATMEGA',
+    bannerImage: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80',
+    isFeatured: true
+  }
+];
