@@ -33,12 +33,14 @@ import { INITIAL_REVIEWS, INITIAL_NOTIFICATIONS } from '../data/reviews';
 import { calculateDistanceKm } from '../services/distanceService';
 import { soundEffects } from '../services/audioService';
 import { getExactDeviceCoordinates, reverseGeocodeCoordinates } from '../services/geolocationService';
+import { api } from '../services/apiService';
 
 interface AppContextType {
   // User & Auth
   user: UserSession;
   setUserRole: (role: UserRole, storeId?: string) => void;
   updateUserProfile: (updates: Partial<UserSession>) => void;
+  logoutUser: () => void;
 
   // Location & Geolocation
   location: LocationState;
@@ -47,6 +49,7 @@ interface AppContextType {
   detectGPSLocation: () => Promise<boolean>;
   isLocating: boolean;
   hasLocationPermission: boolean;
+  setHasLocationPermission: (allowed: boolean) => void;
 
   // Data Collections
   categories: Category[];
@@ -220,6 +223,44 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   useEffect(() => { safeSetLocalStorage('dhoondo_saved_stores', savedStores); }, [savedStores]);
   useEffect(() => { safeSetLocalStorage('dhoondo_search_history', searchHistory); }, [searchHistory]);
 
+  // Initial Sync from Backend REST API (with silent fallback)
+  useEffect(() => {
+    const fetchBackendData = async () => {
+      try {
+        const [apiCats, apiStores, apiProds, apiInventory, apiOffers, apiDemands] = await Promise.allSettled([
+          api.getCategories(),
+          api.getStores(),
+          api.getProducts(),
+          api.getInventory(),
+          api.getOffers(),
+          api.getDemands(),
+        ]);
+
+        if (apiCats.status === 'fulfilled' && apiCats.value && apiCats.value.length > 0) {
+          setCategories(apiCats.value);
+        }
+        if (apiStores.status === 'fulfilled' && apiStores.value && apiStores.value.length > 0) {
+          setStores(apiStores.value);
+        }
+        if (apiProds.status === 'fulfilled' && apiProds.value && apiProds.value.length > 0) {
+          setProducts(apiProds.value);
+        }
+        if (apiInventory.status === 'fulfilled' && apiInventory.value && apiInventory.value.length > 0) {
+          setInventory(apiInventory.value);
+        }
+        if (apiOffers.status === 'fulfilled' && apiOffers.value && apiOffers.value.length > 0) {
+          setOffers(apiOffers.value);
+        }
+        if (apiDemands.status === 'fulfilled' && apiDemands.value && apiDemands.value.length > 0) {
+          setDemands(apiDemands.value);
+        }
+      } catch (err) {
+        // Fallback store active
+      }
+    };
+    fetchBackendData();
+  }, []);
+
 
   // Enriched stores with live calculated distances from user coordinates
   const enrichedStores = useMemo(() => {
@@ -334,6 +375,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const updateUserProfile = useCallback((updates: Partial<UserSession>) => {
     setUser(prev => ({ ...prev, ...updates }));
+  }, []);
+
+  const logoutUser = useCallback(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('dhoondo_auth_token');
+    }
+    setUser({
+      id: `usr-guest-${Date.now()}`,
+      name: 'Guest Shopper',
+      email: 'guest@dhoondo.local',
+      phone: '',
+      role: 'customer',
+      avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80'
+    });
+    soundEffects.playPop();
   }, []);
 
   // Location helpers
@@ -656,6 +712,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setDemands(prev => [newDemand, ...prev]);
     soundEffects.playSuccessChime();
 
+    // Sync to Backend API
+    api.createDemand(newDemand).catch(() => {});
+
     // Trigger celebratory confetti
     confetti({
       particleCount: 80,
@@ -703,6 +762,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setEnquiries(prev => [newEnquiry, ...prev]);
     soundEffects.playSuccessChime();
 
+    // Sync to Backend API
+    api.createEnquiry(newEnquiry).catch(() => {});
+
     addNotification({
       type: 'enquiry',
       title: 'New Customer Enquiry',
@@ -730,6 +792,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     };
     setReviews(prev => [newReview, ...prev]);
     soundEffects.playSuccessChime();
+
+    // Sync to Backend API
+    api.createReview(newReview).catch(() => {});
   }, [user]);
 
   // Retailer Inventory Stock Stepper with Live Restock Trigger
@@ -828,6 +893,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     // 2. Add or update inventory
     setExactStock(storeId, demand.productId, initialStock);
+
+    // Sync demand fulfillment to Backend API
+    api.fulfillDemand(demandId, storeId).catch(() => {});
 
     // 3. Play confetti & chime
     soundEffects.playSuccessChime();
@@ -1015,6 +1083,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setProducts(prev => [newProduct, ...prev]);
     setExactStock(activeStoreId, newProdId, initialStock, price);
     soundEffects.playSuccessChime();
+
+    // Sync to Backend API
+    api.createProduct(newProduct).catch(() => {});
+    api.upsertInventory({
+      storeId: activeStoreId,
+      productId: newProdId,
+      price,
+      mrp: newProduct.mrp,
+      stockQuantity: initialStock,
+      status: initialStock > 5 ? 'in_stock' : initialStock > 0 ? 'low_stock' : 'out_of_stock'
+    }).catch(() => {});
   }, [user.storeId, canAddProduct, setExactStock]);
 
   const updateProductDetails = useCallback((productId: string, updates: Partial<Product>) => {
@@ -1023,6 +1102,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const deleteProductFromStore = useCallback((storeId: string, productId: string) => {
     setInventory(prev => prev.filter(inv => !(inv.storeId === storeId && inv.productId === productId)));
+    // Sync to Backend API
+    api.deleteInventoryItem(storeId, productId).catch(() => {});
   }, []);
 
   // Offers
@@ -1034,6 +1115,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setOffers(prev => [newOffer, ...prev]);
     soundEffects.playSuccessChime();
 
+    // Sync to Backend API
+    api.createOffer(newOffer).catch(() => {});
+
     addNotification({
       type: 'offer',
       title: `New Offer: ${newOffer.title}`,
@@ -1044,6 +1128,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const deleteOffer = useCallback((offerId: string) => {
     setOffers(prev => prev.filter(o => o.id !== offerId));
+    // Sync to Backend API
+    api.deleteOffer(offerId).catch(() => {});
   }, []);
 
   // Reply to Customer Enquiry
@@ -1061,6 +1147,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }));
     soundEffects.playSuccessChime();
 
+    // Sync to Backend API
+    api.replyEnquiry(enquiryId, replyMessage).catch(() => {});
+
     addNotification({
       type: 'enquiry',
       title: 'Store Replied to Your Enquiry',
@@ -1071,6 +1160,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const updateStoreProfile = useCallback((storeId: string, updates: Partial<Store>) => {
     setStores(prev => prev.map(s => s.id === storeId ? { ...s, ...updates } : s));
+    // Sync to Backend API
+    api.updateStore(storeId, updates).catch(() => {});
   }, []);
 
   // Admin Actions
@@ -1082,6 +1173,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     };
     setCategories(prev => [...prev, newCat]);
     soundEffects.playSuccessChime();
+
+    // Sync to Backend API
+    api.createCategory(newCat).catch(() => {});
   }, []);
 
   const updateCategory = useCallback((id: string, updates: Partial<Category>) => {
@@ -1109,6 +1203,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     };
     setStores(prev => [newStore, ...prev]);
     soundEffects.playSuccessChime();
+
+    // Sync to Backend API
+    api.registerStore(newStore).catch(() => {});
+
     return newStoreId;
   }, []);
 
@@ -1116,12 +1214,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     user,
     setUserRole,
     updateUserProfile,
+    logoutUser,
     location,
     setLocation,
     setSearchRadius,
     detectGPSLocation,
     isLocating,
     hasLocationPermission,
+    setHasLocationPermission,
     categories,
     stores: enrichedStores,
     products,

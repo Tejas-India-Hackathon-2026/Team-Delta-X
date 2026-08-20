@@ -15,9 +15,11 @@ import {
   X,
   Radio,
   KeyRound,
-  User
+  User,
+  LogOut
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
+import { LocationPermissionModal } from './LocationPermissionModal';
 
 interface HeaderProps {
   onOpenLocationModal: () => void;
@@ -33,28 +35,51 @@ export const Header: React.FC<HeaderProps> = ({
   const { 
     user, 
     setUserRole, 
+    updateUserProfile,
+    logoutUser,
     location, 
     unreadNotificationsCount,
-    searchHistory
+    searchHistory,
+    hasLocationPermission
   } = useApp();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showLocationPrompt, setShowLocationPrompt] = useState(false);
+  const [pendingQuery, setPendingQuery] = useState('');
   const navigate = useNavigate();
   const routerLocation = useLocation();
+
+  const executeHeaderSearch = (query: string) => {
+    const q = query.trim();
+    if (!q) return;
+
+    if (!hasLocationPermission) {
+      setPendingQuery(q);
+      setShowLocationPrompt(true);
+    } else {
+      navigate(`/search?q=${encodeURIComponent(q)}`);
+      setIsSearchFocused(false);
+    }
+  };
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-      setIsSearchFocused(false);
+      executeHeaderSearch(searchQuery);
     }
   };
 
   const handleSuggestionClick = (query: string) => {
     setSearchQuery(query);
-    navigate(`/search?q=${encodeURIComponent(query)}`);
+    executeHeaderSearch(query);
+  };
+
+  const handleLocationResolved = () => {
+    setShowLocationPrompt(false);
+    const target = pendingQuery || searchQuery || 'all';
+    navigate(`/search?q=${encodeURIComponent(target.trim())}`);
     setIsSearchFocused(false);
   };
 
@@ -239,17 +264,47 @@ export const Header: React.FC<HeaderProps> = ({
             </Link>
 
             {/* Right Side Sign In & Account Controls */}
-            <div className="flex items-center gap-1.5">
-              {/* Right Side Sign In / Switch Persona Trigger */}
-              <button
-                onClick={onOpenAuthModal}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition-all border border-slate-200"
-                title="Account / Switch Portal"
-              >
-                <User className="w-4 h-4 text-slate-600" />
-                <span>Sign In</span>
-              </button>
-            </div>
+            {user.role === 'retailer' ? (
+              <div className="flex items-center gap-2">
+                <Link
+                  to="/retailer/dashboard"
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-black text-xs shadow-md shadow-amber-500/20 hover:from-amber-400 hover:to-orange-400 transition-all"
+                  title="Open Merchant Dashboard"
+                >
+                  <StoreIcon className="w-3.5 h-3.5" />
+                  <span>Merchant Hub</span>
+                </Link>
+
+                <button
+                  onClick={logoutUser}
+                  className="flex items-center gap-1 px-3 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-700 text-xs font-bold transition-all"
+                  title="Sign Out from Retailer Account"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                  <span>Sign Out</span>
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-1.5">
+                <Link
+                  to="/retailer/login"
+                  className="hidden xl:flex items-center gap-1 px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-bold text-xs border border-slate-700 transition-colors"
+                  title="Retailer Merchant Portal"
+                >
+                  <StoreIcon className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Retailer Login</span>
+                </Link>
+
+                <button
+                  onClick={onOpenAuthModal}
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition-all border border-slate-200"
+                  title="Account / Switch Portal"
+                >
+                  <User className="w-4 h-4 text-slate-600" />
+                  <span>Sign In</span>
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -340,27 +395,62 @@ export const Header: React.FC<HeaderProps> = ({
             </Link>
           </div>
 
-          <div className="pt-2 border-t border-slate-100 grid grid-cols-2 gap-2">
-            <Link
-              to="/retailer/login"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white py-2.5 rounded-xl text-xs font-semibold shadow-sm"
-            >
-              <KeyRound className="w-4 h-4 text-brand-400" />
-              <span>Merchant Sign In</span>
-            </Link>
+          <div className="pt-2 border-t border-slate-100 space-y-2">
+            {user.role === 'retailer' ? (
+              <div className="grid grid-cols-2 gap-2">
+                <Link
+                  to="/retailer/dashboard"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-center gap-1.5 bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 py-2.5 rounded-xl text-xs font-black shadow-sm"
+                >
+                  <StoreIcon className="w-4 h-4" />
+                  <span>Merchant Hub</span>
+                </Link>
 
-            <Link
-              to="/retailer/register"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-center gap-1.5 bg-brand-500 hover:bg-brand-400 text-slate-950 py-2.5 rounded-xl text-xs font-extrabold shadow-sm"
-            >
-              <StoreIcon className="w-4 h-4" />
-              <span>Register Store (Sign Up)</span>
-            </Link>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    logoutUser();
+                  }}
+                  className="flex items-center justify-center gap-1.5 bg-rose-50 border border-rose-200 text-rose-700 py-2.5 rounded-xl text-xs font-bold shadow-sm"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Sign Out</span>
+                </button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-2">
+                <Link
+                  to="/retailer/login"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white py-2.5 rounded-xl text-xs font-semibold shadow-sm"
+                >
+                  <KeyRound className="w-4 h-4 text-brand-400" />
+                  <span>Merchant Sign In</span>
+                </Link>
+
+                <Link
+                  to="/retailer/register"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-center gap-1.5 bg-brand-500 hover:bg-brand-400 text-slate-950 py-2.5 rounded-xl text-xs font-extrabold shadow-sm"
+                >
+                  <StoreIcon className="w-4 h-4" />
+                  <span>Register Store (Sign Up)</span>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       )}
+
+      {/* Header Search Location Permission Modal */}
+      <LocationPermissionModal
+        isOpen={showLocationPrompt}
+        onClose={() => setShowLocationPrompt(false)}
+        searchContextQuery={pendingQuery || searchQuery}
+        onLocationResolved={handleLocationResolved}
+      />
     </header>
   );
 };

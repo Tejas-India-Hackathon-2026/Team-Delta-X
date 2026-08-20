@@ -1,607 +1,86 @@
 import { StoreInventory } from '../types';
 
 export const INITIAL_INVENTORY: StoreInventory[] = [
-  // 🚗 Honda Shine Brake Pad across 3+ nearby stores
-  {
-    id: 'inv-sharma-shine-bp',
-    storeId: 'store-sharma-auto',
-    productId: 'prod-honda-shine-brakepad',
-    price: 420,
-    mrp: 499,
-    discountPercent: 16,
-    stockQuantity: 12,
-    status: 'in_stock',
-    lastUpdated: '10 mins ago',
-    isBestPrice: true
-  },
-  {
-    id: 'inv-kumar-shine-bp',
-    storeId: 'store-kumar-motors',
-    productId: 'prod-honda-shine-brakepad',
-    price: 450,
-    mrp: 499,
-    discountPercent: 10,
-    stockQuantity: 6,
-    status: 'in_stock',
-    lastUpdated: '45 mins ago',
-    isBestPrice: false
-  },
-  {
-    id: 'inv-city-shine-bp',
-    storeId: 'store-city-auto',
-    productId: 'prod-honda-shine-brakepad',
-    price: 480,
-    mrp: 499,
-    discountPercent: 4,
-    stockQuantity: 2,
-    status: 'low_stock',
-    lastUpdated: '2 hours ago',
-    isBestPrice: false
-  },
+  // =========================================================================
+  // 🚗 AUTOMOBILE & SPARES (3-Tier Distance Price Comparison)
+  // =========================================================================
+  // 1. Honda CB Shine Brake Pad
+  { id: 'inv-sharma-shine-bp', storeId: 'store-sharma-auto', productId: 'prod-honda-shine-brakepad', price: 399, mrp: 499, discountPercent: 20, stockQuantity: 18, status: 'in_stock', lastUpdated: '10 mins ago', isBestPrice: false }, // < 1 km (0.3 km)
+  { id: 'inv-kumar-shine-bp', storeId: 'store-kumar-motors', productId: 'prod-honda-shine-brakepad', price: 380, mrp: 499, discountPercent: 24, stockQuantity: 8, status: 'in_stock', lastUpdated: '35 mins ago', isBestPrice: true },  // 1 - 2 km (1.2 km) - BEST PRICE!
+  { id: 'inv-mahalaxmi-shine-bp', storeId: 'store-mahalaxmi-hardware', productId: 'prod-honda-shine-brakepad', price: 420, mrp: 499, discountPercent: 16, stockQuantity: 12, status: 'in_stock', lastUpdated: '1 hour ago', isBestPrice: false }, // 2 - 5 km (3.1 km)
 
-  // Castrol Power1 Engine Oil
-  {
-    id: 'inv-sharma-castrol-oil',
-    storeId: 'store-sharma-auto',
-    productId: 'prod-castrol-power1-oil',
-    price: 460,
-    mrp: 535,
-    discountPercent: 14,
-    stockQuantity: 24,
-    status: 'in_stock',
-    lastUpdated: '15 mins ago',
-    isBestPrice: true
-  },
-  {
-    id: 'inv-kumar-castrol-oil',
-    storeId: 'store-kumar-motors',
-    productId: 'prod-castrol-power1-oil',
-    price: 475,
-    mrp: 535,
-    discountPercent: 11,
-    stockQuantity: 15,
-    status: 'in_stock',
-    lastUpdated: '1 hour ago',
-    isBestPrice: false
-  },
-  {
-    id: 'inv-city-castrol-oil',
-    storeId: 'store-city-auto',
-    productId: 'prod-castrol-power1-oil',
-    price: 490,
-    mrp: 535,
-    discountPercent: 8,
-    stockQuantity: 4,
-    status: 'low_stock',
-    lastUpdated: '3 hours ago',
-    isBestPrice: false
-  },
+  // 2. Castrol Power1 Engine Oil 1L
+  { id: 'inv-sharma-castrol', storeId: 'store-sharma-auto', productId: 'prod-castrol-power1-oil', price: 460, mrp: 535, discountPercent: 14, stockQuantity: 36, status: 'in_stock', lastUpdated: '15 mins ago', isBestPrice: false }, // < 1 km
+  { id: 'inv-kumar-castrol', storeId: 'store-kumar-motors', productId: 'prod-castrol-power1-oil', price: 440, mrp: 535, discountPercent: 18, stockQuantity: 20, status: 'in_stock', lastUpdated: '40 mins ago', isBestPrice: true },  // 1 - 2 km - BEST PRICE!
+  { id: 'inv-mahalaxmi-castrol', storeId: 'store-mahalaxmi-hardware', productId: 'prod-castrol-power1-oil', price: 475, mrp: 535, discountPercent: 11, stockQuantity: 15, status: 'in_stock', lastUpdated: '2 hours ago', isBestPrice: false }, // 2 - 5 km
 
-  // Amaron Battery
-  {
-    id: 'inv-sharma-amaron',
-    storeId: 'store-sharma-auto',
-    productId: 'prod-amaron-bike-battery',
-    price: 1250,
-    mrp: 1450,
-    discountPercent: 14,
-    stockQuantity: 8,
-    status: 'in_stock',
-    lastUpdated: '30 mins ago',
-    isBestPrice: true
-  },
-  {
-    id: 'inv-city-amaron',
-    storeId: 'store-city-auto',
-    productId: 'prod-amaron-bike-battery',
-    price: 1290,
-    mrp: 1450,
-    discountPercent: 11,
-    stockQuantity: 3,
-    status: 'in_stock',
-    lastUpdated: '2 hours ago',
-    isBestPrice: false
-  },
+  // 3. Amaron 5Ah Bike Battery
+  { id: 'inv-sharma-amaron', storeId: 'store-sharma-auto', productId: 'prod-amaron-bike-battery', price: 1250, mrp: 1450, discountPercent: 14, stockQuantity: 8, status: 'in_stock', lastUpdated: '25 mins ago', isBestPrice: false }, // < 1 km
+  { id: 'inv-kumar-amaron', storeId: 'store-kumar-motors', productId: 'prod-amaron-bike-battery', price: 1199, mrp: 1450, discountPercent: 17, stockQuantity: 10, status: 'in_stock', lastUpdated: '50 mins ago', isBestPrice: true }, // 1 - 2 km - BEST PRICE!
+  { id: 'inv-mahalaxmi-amaron', storeId: 'store-mahalaxmi-hardware', productId: 'prod-amaron-bike-battery', price: 1280, mrp: 1450, discountPercent: 12, stockQuantity: 5, status: 'in_stock', lastUpdated: '3 hours ago', isBestPrice: false }, // 2 - 5 km
 
-  // MRF Tyre
-  {
-    id: 'inv-kumar-mrf-tyre',
-    storeId: 'store-kumar-motors',
-    productId: 'prod-mrf-zapper-tyre',
-    price: 1850,
-    mrp: 2150,
-    discountPercent: 14,
-    stockQuantity: 5,
-    status: 'in_stock',
-    lastUpdated: '1 hour ago',
-    isBestPrice: true
-  },
-  {
-    id: 'inv-sharma-mrf-tyre',
-    storeId: 'store-sharma-auto',
-    productId: 'prod-mrf-zapper-tyre',
-    price: 1920,
-    mrp: 2150,
-    discountPercent: 11,
-    stockQuantity: 0,
-    status: 'out_of_stock',
-    lastUpdated: '4 hours ago',
-    isBestPrice: false
-  },
+  // =========================================================================
+  // 💊 PHARMACY & HEALTH (3-Tier Distance Price Comparison)
+  // =========================================================================
+  // 4. Dolo 650mg Paracetamol Tablets
+  { id: 'inv-apollo-dolo', storeId: 'store-apollo-meds', productId: 'prod-dolo-650', price: 30, mrp: 34, discountPercent: 12, stockQuantity: 180, status: 'in_stock', lastUpdated: '5 mins ago', isBestPrice: false }, // < 1 km (0.6 km)
+  { id: 'inv-medplus-dolo', storeId: 'store-medplus-quick', productId: 'prod-dolo-650', price: 28, mrp: 34, discountPercent: 18, stockQuantity: 120, status: 'in_stock', lastUpdated: '20 mins ago', isBestPrice: true }, // 1 - 2 km (1.5 km) - BEST PRICE!
+  { id: 'inv-krishna-dolo', storeId: 'store-krishna-kirana', productId: 'prod-dolo-650', price: 32, mrp: 34, discountPercent: 6, stockQuantity: 50, status: 'in_stock', lastUpdated: '1 hour ago', isBestPrice: false }, // 2 - 5 km (2.5 km)
 
-  // Studds Helmet
-  {
-    id: 'inv-kumar-studds-helmet',
-    storeId: 'store-kumar-motors',
-    productId: 'prod-studds-ninja-helmet',
-    price: 1350,
-    mrp: 1595,
-    discountPercent: 15,
-    stockQuantity: 9,
-    status: 'in_stock',
-    lastUpdated: '20 mins ago',
-    isBestPrice: true
-  },
-  {
-    id: 'inv-sharma-studds-helmet',
-    storeId: 'store-sharma-auto',
-    productId: 'prod-studds-ninja-helmet',
-    price: 1399,
-    mrp: 1595,
-    discountPercent: 12,
-    stockQuantity: 4,
-    status: 'in_stock',
-    lastUpdated: '1 day ago',
-    isBestPrice: false
-  },
+  // 5. Accu-Chek Active Glucometer Kit
+  { id: 'inv-apollo-accu', storeId: 'store-apollo-meds', productId: 'prod-accuchek-active', price: 1350, mrp: 1699, discountPercent: 20, stockQuantity: 15, status: 'in_stock', lastUpdated: '10 mins ago', isBestPrice: false }, // < 1 km
+  { id: 'inv-medplus-accu', storeId: 'store-medplus-quick', productId: 'prod-accuchek-active', price: 1299, mrp: 1699, discountPercent: 24, stockQuantity: 10, status: 'in_stock', lastUpdated: '30 mins ago', isBestPrice: true }, // 1 - 2 km - BEST PRICE!
+  { id: 'inv-digital-accu', storeId: 'store-digital-world', productId: 'prod-accuchek-active', price: 1399, mrp: 1699, discountPercent: 18, stockQuantity: 6, status: 'in_stock', lastUpdated: '2 hours ago', isBestPrice: false }, // 2 - 5 km
 
-  // 🛒 Grocery (Sri Krishna Super Store vs BTM Daily Fresh)
-  {
-    id: 'inv-krishna-aashirvaad',
-    storeId: 'store-sri-krishna-kirana',
-    productId: 'prod-aashirvaad-atta',
-    price: 245,
-    mrp: 275,
-    discountPercent: 11,
-    stockQuantity: 45,
-    status: 'in_stock',
-    lastUpdated: '5 mins ago',
-    isBestPrice: true
-  },
-  {
-    id: 'inv-btm-aashirvaad',
-    storeId: 'store-btm-kirana-hub',
-    productId: 'prod-aashirvaad-atta',
-    price: 250,
-    mrp: 275,
-    discountPercent: 9,
-    stockQuantity: 20,
-    status: 'in_stock',
-    lastUpdated: '15 mins ago',
-    isBestPrice: false
-  },
-  {
-    id: 'inv-krishna-amul-gold',
-    storeId: 'store-sri-krishna-kirana',
-    productId: 'prod-amul-gold-milk',
-    price: 34,
-    mrp: 34,
-    discountPercent: 0,
-    stockQuantity: 60,
-    status: 'in_stock',
-    lastUpdated: '2 mins ago',
-    isBestPrice: true
-  },
-  {
-    id: 'inv-btm-amul-gold',
-    storeId: 'store-btm-kirana-hub',
-    productId: 'prod-amul-gold-milk',
-    price: 34,
-    mrp: 34,
-    discountPercent: 0,
-    stockQuantity: 25,
-    status: 'in_stock',
-    lastUpdated: '10 mins ago',
-    isBestPrice: true
-  },
-  {
-    id: 'inv-krishna-daawat-rice',
-    storeId: 'store-sri-krishna-kirana',
-    productId: 'prod-daawat-basmati-rice',
-    price: 399,
-    mrp: 460,
-    discountPercent: 13,
-    stockQuantity: 18,
-    status: 'in_stock',
-    lastUpdated: '1 hour ago',
-    isBestPrice: true
-  },
-  {
-    id: 'inv-btm-daawat-rice',
-    storeId: 'store-btm-kirana-hub',
-    productId: 'prod-daawat-basmati-rice',
-    price: 410,
-    mrp: 460,
-    discountPercent: 11,
-    stockQuantity: 10,
-    status: 'in_stock',
-    lastUpdated: '2 hours ago',
-    isBestPrice: false
-  },
-  {
-    id: 'inv-krishna-fortune-oil',
-    storeId: 'store-sri-krishna-kirana',
-    productId: 'prod-fortune-sunflower-oil',
-    price: 132,
-    mrp: 155,
-    discountPercent: 15,
-    stockQuantity: 32,
-    status: 'in_stock',
-    lastUpdated: '30 mins ago',
-    isBestPrice: true
-  },
-  {
-    id: 'inv-krishna-tata-tea',
-    storeId: 'store-sri-krishna-kirana',
-    productId: 'prod-tata-tea-gold',
-    price: 285,
-    mrp: 330,
-    discountPercent: 14,
-    stockQuantity: 24,
-    status: 'in_stock',
-    lastUpdated: '40 mins ago',
-    isBestPrice: true
-  },
+  // 6. Volini Pain Relief Spray 100g
+  { id: 'inv-apollo-volini', storeId: 'store-apollo-meds', productId: 'prod-volini-spray', price: 235, mrp: 290, discountPercent: 19, stockQuantity: 45, status: 'in_stock', lastUpdated: '15 mins ago', isBestPrice: false }, // < 1 km
+  { id: 'inv-medplus-volini', storeId: 'store-medplus-quick', productId: 'prod-volini-spray', price: 230, mrp: 290, discountPercent: 21, stockQuantity: 30, status: 'in_stock', lastUpdated: '45 mins ago', isBestPrice: true }, // 1 - 2 km - BEST PRICE!
+  { id: 'inv-krishna-volini', storeId: 'store-krishna-kirana', productId: 'prod-volini-spray', price: 245, mrp: 290, discountPercent: 15, stockQuantity: 20, status: 'in_stock', lastUpdated: '3 hours ago', isBestPrice: false }, // 2 - 5 km
 
-  // 💊 Pharmacy (Sanjeevani Medicos vs Jayanagar Care Chemists)
-  {
-    id: 'inv-sanjeevani-dolo',
-    storeId: 'store-apollo-local',
-    productId: 'prod-dolo-650',
-    price: 32,
-    mrp: 35,
-    discountPercent: 8,
-    stockQuantity: 150,
-    status: 'in_stock',
-    lastUpdated: '8 mins ago',
-    isBestPrice: true
-  },
-  {
-    id: 'inv-jayanagar-dolo',
-    storeId: 'store-apollo-jayanagar',
-    productId: 'prod-dolo-650',
-    price: 33,
-    mrp: 35,
-    discountPercent: 5,
-    stockQuantity: 80,
-    status: 'in_stock',
-    lastUpdated: '25 mins ago',
-    isBestPrice: false
-  },
-  {
-    id: 'inv-sanjeevani-omron-bp',
-    storeId: 'store-apollo-local',
-    productId: 'prod-omron-bp-monitor',
-    price: 1980,
-    mrp: 2450,
-    discountPercent: 19,
-    stockQuantity: 7,
-    status: 'in_stock',
-    lastUpdated: '1 hour ago',
-    isBestPrice: true
-  },
-  {
-    id: 'inv-jayanagar-omron-bp',
-    storeId: 'store-apollo-jayanagar',
-    productId: 'prod-omron-bp-monitor',
-    price: 2050,
-    mrp: 2450,
-    discountPercent: 16,
-    stockQuantity: 4,
-    status: 'in_stock',
-    lastUpdated: '3 hours ago',
-    isBestPrice: false
-  },
-  {
-    id: 'inv-sanjeevani-augmentin',
-    storeId: 'store-apollo-local',
-    productId: 'prod-augmentin-625',
-    price: 195,
-    mrp: 223,
-    discountPercent: 12,
-    stockQuantity: 28,
-    status: 'in_stock',
-    lastUpdated: '12 mins ago',
-    isBestPrice: true
-  },
-  {
-    id: 'inv-sanjeevani-dettol',
-    storeId: 'store-apollo-local',
-    productId: 'prod-dettol-antiseptic',
-    price: 198,
-    mrp: 220,
-    discountPercent: 10,
-    stockQuantity: 35,
-    status: 'in_stock',
-    lastUpdated: '30 mins ago',
-    isBestPrice: true
-  },
+  // =========================================================================
+  // 🛒 KIRANA & DAILY NEEDS (3-Tier Distance Price Comparison)
+  // =========================================================================
+  // 7. Aashirvaad Chakki Atta 10kg
+  { id: 'inv-daily-atta', storeId: 'store-local-quick-kirana', productId: 'prod-aashirvaad-atta-10kg', price: 410, mrp: 460, discountPercent: 11, stockQuantity: 35, status: 'in_stock', lastUpdated: '10 mins ago', isBestPrice: true }, // < 1 km (0.4 km) - BEST PRICE!
+  { id: 'inv-apollo-atta', storeId: 'store-medplus-quick', productId: 'prod-aashirvaad-atta-10kg', price: 420, mrp: 460, discountPercent: 9, stockQuantity: 15, status: 'in_stock', lastUpdated: '35 mins ago', isBestPrice: false }, // 1 - 2 km (1.5 km)
+  { id: 'inv-krishna-atta', storeId: 'store-krishna-kirana', productId: 'prod-aashirvaad-atta-10kg', price: 425, mrp: 460, discountPercent: 8, stockQuantity: 60, status: 'in_stock', lastUpdated: '1 hour ago', isBestPrice: false }, // 2 - 5 km (2.5 km)
 
-  // 📱 Electronics (Balaji Electronics)
-  {
-    id: 'inv-balaji-boat-450',
-    storeId: 'store-croma-local',
-    productId: 'prod-boat-rockerz-450',
-    price: 1299,
-    mrp: 3990,
-    discountPercent: 67,
-    stockQuantity: 14,
-    status: 'in_stock',
-    lastUpdated: '20 mins ago',
-    isBestPrice: true
-  },
-  {
-    id: 'inv-balaji-mi-powerbank',
-    storeId: 'store-croma-local',
-    productId: 'prod-mi-20000-powerbank',
-    price: 1899,
-    mrp: 2499,
-    discountPercent: 24,
-    stockQuantity: 11,
-    status: 'in_stock',
-    lastUpdated: '45 mins ago',
-    isBestPrice: true
-  },
-  {
-    id: 'inv-balaji-tplink-router',
-    storeId: 'store-croma-local',
-    productId: 'prod-tp-link-archer-router',
-    price: 2399,
-    mrp: 3299,
-    discountPercent: 27,
-    stockQuantity: 6,
-    status: 'in_stock',
-    lastUpdated: '2 hours ago',
-    isBestPrice: true
-  },
+  // 8. Amul Pure Cow Ghee 1L
+  { id: 'inv-daily-ghee', storeId: 'store-local-quick-kirana', productId: 'prod-amul-cow-ghee-1l', price: 599, mrp: 660, discountPercent: 9, stockQuantity: 25, status: 'in_stock', lastUpdated: '15 mins ago', isBestPrice: true }, // < 1 km - BEST PRICE!
+  { id: 'inv-kumar-ghee', storeId: 'store-kumar-motors', productId: 'prod-amul-cow-ghee-1l', price: 610, mrp: 660, discountPercent: 8, stockQuantity: 12, status: 'in_stock', lastUpdated: '40 mins ago', isBestPrice: false }, // 1 - 2 km
+  { id: 'inv-krishna-ghee', storeId: 'store-krishna-kirana', productId: 'prod-amul-cow-ghee-1l', price: 620, mrp: 660, discountPercent: 6, stockQuantity: 40, status: 'in_stock', lastUpdated: '2 hours ago', isBestPrice: false }, // 2 - 5 km
 
-  // ⚡ Electrical (Bright Power Electricals)
-  {
-    id: 'inv-bright-havells-led',
-    storeId: 'store-havells-dealer',
-    productId: 'prod-havells-9w-led',
-    price: 299,
-    mrp: 420,
-    discountPercent: 29,
-    stockQuantity: 50,
-    status: 'in_stock',
-    lastUpdated: '15 mins ago',
-    isBestPrice: true
-  },
-  {
-    id: 'inv-bright-polycab-wire',
-    storeId: 'store-havells-dealer',
-    productId: 'prod-polycab-wire-15sqmm',
-    price: 1780,
-    mrp: 2150,
-    discountPercent: 17,
-    stockQuantity: 16,
-    status: 'in_stock',
-    lastUpdated: '1 hour ago',
-    isBestPrice: true
-  },
-  {
-    id: 'inv-bright-anchor-switches',
-    storeId: 'store-havells-dealer',
-    productId: 'prod-anchor-roma-switch-pack',
-    price: 280,
-    mrp: 350,
-    discountPercent: 20,
-    stockQuantity: 40,
-    status: 'in_stock',
-    lastUpdated: '2 hours ago',
-    isBestPrice: true
-  },
+  // =========================================================================
+  // 📱 ELECTRONICS & MOBILES (3-Tier Distance Price Comparison)
+  // =========================================================================
+  // 9. boAt Rockerz 450 Bluetooth Headphones
+  { id: 'inv-gadget-boat', storeId: 'store-koramangala-gadgets', productId: 'prod-boat-rockerz-450', price: 1249, mrp: 3990, discountPercent: 68, stockQuantity: 22, status: 'in_stock', lastUpdated: '10 mins ago', isBestPrice: false }, // < 1 km (0.5 km)
+  { id: 'inv-kumar-boat', storeId: 'store-kumar-motors', productId: 'prod-boat-rockerz-450', price: 1280, mrp: 3990, discountPercent: 67, stockQuantity: 8, status: 'in_stock', lastUpdated: '35 mins ago', isBestPrice: false }, // 1 - 2 km (1.2 km)
+  { id: 'inv-digital-boat', storeId: 'store-digital-world', productId: 'prod-boat-rockerz-450', price: 1199, mrp: 3990, discountPercent: 70, stockQuantity: 45, status: 'in_stock', lastUpdated: '1 hour ago', isBestPrice: true }, // 2 - 5 km (4.2 km) - BEST PRICE!
 
-  // 🔧 Hardware (National Hardware)
-  {
-    id: 'inv-national-bosch-drill',
-    storeId: 'store-national-hardware',
-    productId: 'prod-bosch-drill-gsb500',
-    price: 3899,
-    mrp: 5250,
-    discountPercent: 26,
-    stockQuantity: 8,
-    status: 'in_stock',
-    lastUpdated: '25 mins ago',
-    isBestPrice: true
-  },
-  {
-    id: 'inv-national-godrej-lock',
-    storeId: 'store-national-hardware',
-    productId: 'prod-godrej-navtal-lock',
-    price: 485,
-    mrp: 550,
-    discountPercent: 12,
-    stockQuantity: 22,
-    status: 'in_stock',
-    lastUpdated: '50 mins ago',
-    isBestPrice: true
-  },
+  // 10. Anker 20W Fast Charger Adapter
+  { id: 'inv-gadget-anker', storeId: 'store-koramangala-gadgets', productId: 'prod-anker-20w-charger', price: 899, mrp: 1499, discountPercent: 40, stockQuantity: 16, status: 'in_stock', lastUpdated: '15 mins ago', isBestPrice: true }, // < 1 km - BEST PRICE!
+  { id: 'inv-kumar-anker', storeId: 'store-kumar-motors', productId: 'prod-anker-20w-charger', price: 920, mrp: 1499, discountPercent: 39, stockQuantity: 10, status: 'in_stock', lastUpdated: '50 mins ago', isBestPrice: false }, // 1 - 2 km
+  { id: 'inv-digital-anker', storeId: 'store-digital-world', productId: 'prod-anker-20w-charger', price: 950, mrp: 1499, discountPercent: 37, stockQuantity: 25, status: 'in_stock', lastUpdated: '2 hours ago', isBestPrice: false }, // 2 - 5 km
 
-  // 🏗️ Construction Materials (Balaji Building Depot)
-  {
-    id: 'inv-balaji-ultratech-cement',
-    storeId: 'store-asian-paints-depot',
-    productId: 'prod-ultratech-cement',
-    price: 385,
-    mrp: 420,
-    discountPercent: 8,
-    stockQuantity: 250,
-    status: 'in_stock',
-    lastUpdated: '10 mins ago',
-    isBestPrice: true
-  },
-  {
-    id: 'inv-balaji-asian-paints',
-    storeId: 'store-asian-paints-depot',
-    productId: 'prod-asian-paints-royale',
-    price: 1890,
-    mrp: 2200,
-    discountPercent: 14,
-    stockQuantity: 30,
-    status: 'in_stock',
-    lastUpdated: '1 hour ago',
-    isBestPrice: true
-  },
+  // =========================================================================
+  // 🔧 HARDWARE & TOOLS (3-Tier Distance Price Comparison)
+  // =========================================================================
+  // 11. Bosch GSB 500W Impact Drill Kit
+  { id: 'inv-sharma-drill', storeId: 'store-sharma-auto', productId: 'prod-bosch-drill-kit', price: 3450, mrp: 4200, discountPercent: 18, stockQuantity: 6, status: 'in_stock', lastUpdated: '20 mins ago', isBestPrice: false }, // < 1 km (0.3 km)
+  { id: 'inv-kumar-drill', storeId: 'store-kumar-motors', productId: 'prod-bosch-drill-kit', price: 3390, mrp: 4200, discountPercent: 19, stockQuantity: 4, status: 'in_stock', lastUpdated: '45 mins ago', isBestPrice: false }, // 1 - 2 km (1.2 km)
+  { id: 'inv-mahalaxmi-drill', storeId: 'store-mahalaxmi-hardware', productId: 'prod-bosch-drill-kit', price: 3299, mrp: 4200, discountPercent: 21, stockQuantity: 14, status: 'in_stock', lastUpdated: '1 hour ago', isBestPrice: true }, // 2 - 5 km (3.1 km) - BEST PRICE!
 
-  // 🏠 Home & Kitchen (Prestige Kitchen World)
-  {
-    id: 'inv-kitchen-prestige-cooker',
-    storeId: 'store-kitchen-world',
-    productId: 'prod-prestige-cooker-triply',
-    price: 2450,
-    mrp: 3100,
-    discountPercent: 21,
-    stockQuantity: 12,
-    status: 'in_stock',
-    lastUpdated: '35 mins ago',
-    isBestPrice: true
-  },
-  {
-    id: 'inv-kitchen-milton-flask',
-    storeId: 'store-kitchen-world',
-    productId: 'prod-milton-thermosteel-flask',
-    price: 940,
-    mrp: 1195,
-    discountPercent: 21,
-    stockQuantity: 18,
-    status: 'in_stock',
-    lastUpdated: '1 hour ago',
-    isBestPrice: true
-  },
+  // =========================================================================
+  // 📚 STATIONERY & BOOKS (3-Tier Distance Price Comparison)
+  // =========================================================================
+  // 12. Classmate Long Ruled Notebooks Pack of 6
+  { id: 'inv-daily-notebook', storeId: 'store-local-quick-kirana', productId: 'prod-classmate-notebook-pack', price: 360, mrp: 420, discountPercent: 14, stockQuantity: 40, status: 'in_stock', lastUpdated: '15 mins ago', isBestPrice: false }, // < 1 km (0.4 km)
+  { id: 'inv-medplus-notebook', storeId: 'store-medplus-quick', productId: 'prod-classmate-notebook-pack', price: 350, mrp: 420, discountPercent: 16, stockQuantity: 25, status: 'in_stock', lastUpdated: '30 mins ago', isBestPrice: false }, // 1 - 2 km (1.5 km)
+  { id: 'inv-vidya-notebook', storeId: 'store-vidya-sagar-books', productId: 'prod-classmate-notebook-pack', price: 330, mrp: 420, discountPercent: 21, stockQuantity: 90, status: 'in_stock', lastUpdated: '1 hour ago', isBestPrice: true }, // 2 - 5 km (4.8 km) - BEST PRICE!
 
-  // 🏋️ Sports (Chaitanya Sports)
-  {
-    id: 'inv-sports-ss-bat',
-    storeId: 'store-chaitanya-sports',
-    productId: 'prod-ss-cricket-bat',
-    price: 6500,
-    mrp: 8200,
-    discountPercent: 21,
-    stockQuantity: 4,
-    status: 'in_stock',
-    lastUpdated: '40 mins ago',
-    isBestPrice: true
-  },
-  {
-    id: 'inv-sports-yonex-racket',
-    storeId: 'store-chaitanya-sports',
-    productId: 'prod-yonex-nanoray-racket',
-    price: 1999,
-    mrp: 2990,
-    discountPercent: 33,
-    stockQuantity: 9,
-    status: 'in_stock',
-    lastUpdated: '1 hour ago',
-    isBestPrice: true
-  },
-
-  // 🐶 Pet Supplies (Happy Paws)
-  {
-    id: 'inv-paws-royal-canin',
-    storeId: 'store-pet-paradise',
-    productId: 'prod-royal-canin-dog-food',
-    price: 2280,
-    mrp: 2450,
-    discountPercent: 7,
-    stockQuantity: 15,
-    status: 'in_stock',
-    lastUpdated: '15 mins ago',
-    isBestPrice: true
-  },
-
-  // 📚 Stationery (Sapna Book House)
-  {
-    id: 'inv-sapna-classmate',
-    storeId: 'store-sapna-stationery',
-    productId: 'prod-classmate-notebook-bundle',
-    price: 360,
-    mrp: 420,
-    discountPercent: 14,
-    stockQuantity: 50,
-    status: 'in_stock',
-    lastUpdated: '20 mins ago',
-    isBestPrice: true
-  },
-
-  // 💄 Beauty (Glamour Beauty)
-  {
-    id: 'inv-beauty-cetaphil',
-    storeId: 'store-beauty-lounge',
-    productId: 'prod-cetaphil-cleanser',
-    price: 540,
-    mrp: 615,
-    discountPercent: 12,
-    stockQuantity: 20,
-    status: 'in_stock',
-    lastUpdated: '30 mins ago',
-    isBestPrice: true
-  },
-
-  // 🌾 Agriculture (Annapurna Kisan Agri)
-  {
-    id: 'inv-agro-vermicompost',
-    storeId: 'store-kisan-agro',
-    productId: 'prod-organic-vermicompost-10kg',
-    price: 320,
-    mrp: 450,
-    discountPercent: 29,
-    stockQuantity: 60,
-    status: 'in_stock',
-    lastUpdated: '1 hour ago',
-    isBestPrice: true
-  },
-
-  // 👕 Fashion (FabIndia)
-  {
-    id: 'inv-fashion-kurta',
-    storeId: 'store-trends-boutique',
-    productId: 'prod-fabindia-cotton-kurta',
-    price: 1290,
-    mrp: 1690,
-    discountPercent: 24,
-    stockQuantity: 8,
-    status: 'in_stock',
-    lastUpdated: '2 hours ago',
-    isBestPrice: true
-  },
-
-  // 👟 Footwear (Metro & Bata)
-  {
-    id: 'inv-footwear-bata-shoes',
-    storeId: 'store-step-in-shoes',
-    productId: 'prod-bata-leather-shoes',
-    price: 1799,
-    mrp: 2499,
-    discountPercent: 28,
-    stockQuantity: 7,
-    status: 'in_stock',
-    lastUpdated: '1 hour ago',
-    isBestPrice: true
-  },
-
-  // 🎁 Gifts (Celebrations Gifts)
-  {
-    id: 'inv-gifts-fastrack-watch',
-    storeId: 'store-archies-lifestyle',
-    productId: 'prod-fastrack-analog-watch',
-    price: 1395,
-    mrp: 1895,
-    discountPercent: 26,
-    stockQuantity: 10,
-    status: 'in_stock',
-    lastUpdated: '45 mins ago',
-    isBestPrice: true
-  }
+  // 13. Parker Vector Fountain Pen
+  { id: 'inv-gadget-parker', storeId: 'store-koramangala-gadgets', productId: 'prod-parker-vector-pen', price: 550, mrp: 650, discountPercent: 15, stockQuantity: 12, status: 'in_stock', lastUpdated: '20 mins ago', isBestPrice: false }, // < 1 km (0.5 km)
+  { id: 'inv-kumar-parker', storeId: 'store-kumar-motors', productId: 'prod-parker-vector-pen', price: 530, mrp: 650, discountPercent: 18, stockQuantity: 8, status: 'in_stock', lastUpdated: '45 mins ago', isBestPrice: false }, // 1 - 2 km (1.2 km)
+  { id: 'inv-vidya-parker', storeId: 'store-vidya-sagar-books', productId: 'prod-parker-vector-pen', price: 499, mrp: 650, discountPercent: 23, stockQuantity: 35, status: 'in_stock', lastUpdated: '1 hour ago', isBestPrice: true }, // 2 - 5 km (4.8 km) - BEST PRICE!
 ];

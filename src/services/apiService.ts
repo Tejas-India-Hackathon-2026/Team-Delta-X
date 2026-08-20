@@ -74,6 +74,7 @@ export const api = {
     request<any>('/products', { method: 'POST', body: JSON.stringify(productData) }),
 
   // Inventory (Retailer live counter stock)
+  getInventory: () => request<any[]>('/inventory'),
   getStoreInventory: (storeId: string) => request<any[]>(`/inventory/store/${storeId}`),
   upsertInventory: (item: { storeId: string; productId: string; price: number; mrp?: number; stockQuantity: number; status?: string }) =>
     request<any>('/inventory', { method: 'POST', body: JSON.stringify(item) }),
