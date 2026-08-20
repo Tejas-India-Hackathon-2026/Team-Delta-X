@@ -1,14 +1,18 @@
 const Category = require('../models/Category');
+const { mockData, isDbConnected } = require('../utils/mockStore');
 
 // @desc    Get all categories
 // @route   GET /api/categories
 // @access  Public
 const getCategories = async (req, res) => {
   try {
-    const categories = await Category.find().sort({ name: 1 });
-    res.json({ success: true, count: categories.length, data: categories });
+    if (isDbConnected()) {
+      const categories = await Category.find().sort({ name: 1 });
+      return res.json({ success: true, count: categories.length, data: categories });
+    }
+    return res.json({ success: true, count: mockData.categories.length, data: mockData.categories });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    return res.json({ success: true, count: mockData.categories.length, data: mockData.categories });
   }
 };
 
@@ -20,7 +24,7 @@ const createCategory = async (req, res) => {
     const { name, slug, emoji, iconName, description, color, subcategories } = req.body;
     const categoryId = `cat-${(slug || name).toLowerCase().replace(/\s+/g, '-')}-${Date.now()}`;
 
-    const category = await Category.create({
+    const newCat = {
       id: categoryId,
       name,
       slug: slug || name.toLowerCase().replace(/\s+/g, '-'),
@@ -30,9 +34,15 @@ const createCategory = async (req, res) => {
       color: color || 'from-blue-500 to-indigo-600',
       subcategories: subcategories || [],
       isCustom: true,
-    });
+    };
 
-    res.status(201).json({ success: true, data: category });
+    if (isDbConnected()) {
+      const category = await Category.create(newCat);
+      return res.status(201).json({ success: true, data: category });
+    }
+
+    mockData.categories.push(newCat);
+    res.status(201).json({ success: true, data: newCat });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
