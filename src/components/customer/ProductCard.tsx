@@ -1,3 +1,4 @@
+import { HighlightText } from '../common/HighlightText';
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Heart, MapPin, Star, ArrowRight, ShieldCheck, Scale, AlertCircle } from 'lucide-react';
