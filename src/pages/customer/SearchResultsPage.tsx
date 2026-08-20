@@ -25,6 +25,14 @@ import { SortOption, StockStatus, Product, EnrichedProductResult } from '../../t
 import { formatDistance } from '../../services/distanceService';
 
 export const SearchResultsPage: React.FC = () => {
+  const sortOptionsList: { value: SortOption; label: string; icon: string }[] = [
+    { value: 'relevance', label: 'Best Match', icon: '🎯' },
+    { value: 'price_asc', label: 'Price: Low to High', icon: '💰' },
+    { value: 'price_desc', label: 'Price: High to Low', icon: '💎' },
+    { value: 'distance_asc', label: 'Nearest Store First', icon: '📍' },
+    { value: 'rating_desc', label: 'Highest Rated Retailer', icon: '⭐' }
+  ];
+
   const [searchParams, setSearchParams] = useSearchParams();
   const queryParam = searchParams.get('q') || '';
   const categoryParam = searchParams.get('category') || '';
