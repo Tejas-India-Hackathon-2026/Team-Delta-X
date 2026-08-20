@@ -261,20 +261,27 @@ export const SearchResultsPage: React.FC = () => {
               <div>
                 <div className="flex items-center justify-between text-xs font-bold text-slate-700 mb-2">
                   <span>Search Radius</span>
-                  <span className="text-brand-600 font-black">Within {maxDistanceKm} km</span>
+                  <span className="text-brand-600 font-black">
+                    Within {maxDistanceKm < 1 ? `${Math.round(maxDistanceKm * 1000)} m` : `${maxDistanceKm} km`}
+                  </span>
                 </div>
                 <div className="grid grid-cols-4 gap-1.5">
-                  {[1, 5, 10, 20].map((rad) => (
+                  {[
+                    { val: 0.6, label: '600m' },
+                    { val: 2, label: '2km' },
+                    { val: 5, label: '5km' },
+                    { val: 10, label: '10km' }
+                  ].map((rad) => (
                     <button
-                      key={rad}
-                      onClick={() => setMaxDistanceKm(rad)}
+                      key={rad.label}
+                      onClick={() => setMaxDistanceKm(rad.val)}
                       className={`py-1.5 rounded-xl text-xs font-bold transition-all ${
-                        maxDistanceKm === rad
+                        maxDistanceKm === rad.val
                           ? 'bg-brand-600 text-white shadow-sm'
                           : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
                       }`}
                     >
-                      {rad}km
+                      {rad.label}
                     </button>
                   ))}
                 </div>

@@ -897,14 +897,14 @@ export const generateStoresForCity = (
     }
   ];
 
-  // Offset coordinates around central point for natural local proximity (0.3km to 1.8km - strictly under 2 km)
+  // Offset coordinates around central point for natural local proximity (600m to 4.8km - strictly under 5 km)
   const offsets = [
-    { dLat: 0.0028, dLng: 0.0024, area: `Main Market / Central ${city}` }, // ~0.35 km
-    { dLat: -0.0035, dLng: 0.0030, area: `Station Road / Commercial Hub, ${city}` }, // ~0.55 km
-    { dLat: 0.0048, dLng: -0.0040, area: `Civil Lines / Bypass Road, ${city}` }, // ~0.85 km
-    { dLat: -0.0055, dLng: -0.0045, area: `Gandhi Chowk / Sector 1, ${city}` }, // ~1.10 km
-    { dLat: 0.0068, dLng: 0.0055, area: `Industrial Area / Ring Road, ${city}` }, // ~1.45 km
-    { dLat: -0.0080, dLng: 0.0065, area: `College Road / Court Area, ${city}` } // ~1.75 km
+    { dLat: 0.0045, dLng: 0.0038, area: `Main Market / Central ${city}` }, // ~600m (0.6 km) - Ultra local walking
+    { dLat: -0.0078, dLng: 0.0062, area: `Station Road / Commercial Hub, ${city}` }, // ~1.2 km - Short drive
+    { dLat: 0.0135, dLng: -0.0120, area: `Civil Lines / Bypass Road, ${city}` }, // ~2.1 km - Neighborhood market
+    { dLat: -0.0210, dLng: -0.0180, area: `Gandhi Chowk / Sector 1, ${city}` }, // ~3.2 km - Regional hub
+    { dLat: 0.0270, dLng: 0.0240, area: `Industrial Area / Ring Road, ${city}` }, // ~4.2 km - City wholesale
+    { dLat: -0.0310, dLng: 0.0280, area: `College Road / Court Area, ${city}` } // ~4.8 km - Outer market (<5km)
   ];
 
   return templates.map((tmpl, idx) => {
