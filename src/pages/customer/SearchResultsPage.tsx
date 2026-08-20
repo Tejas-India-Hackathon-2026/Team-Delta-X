@@ -46,6 +46,8 @@ export const SearchResultsPage: React.FC = () => {
   const [selectedSubcategory, setSelectedSubcategory] = useState('');
   const [maxDistanceKm, setMaxDistanceKm] = useState<number>(location.radiusKm);
   const [selectedStatuses, setSelectedStatuses] = useState<StockStatus[]>([]);
+  const [inStockOnly, setInStockOnly] = useState(false);
+  const [verifiedOnly, setVerifiedOnly] = useState(false);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [minRating, setMinRating] = useState<number>(0);
   const [sortOption, setSortOption] = useState<SortOption>('relevance');
@@ -77,7 +79,7 @@ export const SearchResultsPage: React.FC = () => {
         categoryId: selectedCategory || undefined,
         subcategory: selectedSubcategory || undefined,
         maxDistanceKm: maxDistanceKm,
-        status: selectedStatuses.length > 0 ? selectedStatuses : undefined,
+        status: inStockOnly ? ['in_stock' as StockStatus] : (selectedStatuses.length > 0 ? selectedStatuses : undefined),
         brand: selectedBrands.length > 0 ? selectedBrands : undefined,
         minRating: minRating > 0 ? minRating : undefined
       },
