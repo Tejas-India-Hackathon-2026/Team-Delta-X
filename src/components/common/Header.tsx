@@ -46,6 +46,7 @@ export const Header: React.FC<HeaderProps> = ({
   } = useApp();
 
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState<number>(-1);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showLocationPrompt, setShowLocationPrompt] = useState(false);
