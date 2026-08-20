@@ -40,6 +40,8 @@ export const Header: React.FC<HeaderProps> = ({
     location, 
     unreadNotificationsCount,
     searchHistory,
+    clearSearchHistory,
+    removeSearchHistoryItem,
     hasLocationPermission
   } = useApp();
 

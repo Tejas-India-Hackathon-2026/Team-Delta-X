@@ -79,6 +79,7 @@ interface AppContextType {
   toggleSaveStore: (storeId: string) => void;
   addSearchHistory: (query: string) => void;
   clearSearchHistory: () => void;
+  removeSearchHistoryItem: (query: string) => void;
   
   // Notification actions
   markNotificationAsRead: (id: string) => void;
@@ -692,6 +693,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     });
   }, []);
 
+  const removeSearchHistoryItem = useCallback((itemToRemove: string) => {
+    setSearchHistory(prev => prev.filter(item => item !== itemToRemove));
+  }, []);
+
   const clearSearchHistory = useCallback(() => {
     setSearchHistory([]);
   }, []);
@@ -1285,6 +1290,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     toggleSaveStore,
     addSearchHistory,
     clearSearchHistory,
+    removeSearchHistoryItem,
     markNotificationAsRead,
     markAllNotificationsAsRead,
     deleteNotification,
