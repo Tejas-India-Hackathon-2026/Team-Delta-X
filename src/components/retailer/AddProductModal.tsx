@@ -451,7 +451,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({ isOpen, onClos
                     <button
                       type="button"
                       onClick={() => {
-                        setImagePreview(null);
+                        setImagePreview(null); // data-image-preview-remove
                         setImageSourceLabel('');
                       }}
                       className="px-2.5 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 text-[11px] font-bold flex items-center gap-1"

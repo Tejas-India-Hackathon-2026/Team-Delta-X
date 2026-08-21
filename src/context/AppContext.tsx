@@ -399,7 +399,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     soundEffects.playPop();
     setLocationState(loc);
 
-    // Ensure local stores exist for this location
+    // Ensure local stores exist for this location strictly within 2km
     setStores(prevStores => {
       const hasNearbyStore = prevStores.some(s => {
         const d = calculateDistanceKm(
@@ -408,7 +408,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           s.coordinates.lat,
           s.coordinates.lng
         );
-        return d <= 35;
+        return d <= 2.5;
       });
 
       if (!hasNearbyStore) {
