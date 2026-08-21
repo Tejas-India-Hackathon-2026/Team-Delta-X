@@ -5,6 +5,9 @@ import { RetailerSidebar } from '../../components/retailer/RetailerSidebar';
 import { StoreLocationPicker } from '../../components/retailer/StoreLocationPicker';
 
 export const StoreSettingsPage: React.FC = () => {
+  const [homeDeliveryEnabled, setHomeDeliveryEnabled] = useState(true);
+  const [deliveryRadiusKm, setDeliveryRadiusKm] = useState(3);
+  const [minOrderValue, setMinOrderValue] = useState(250);
   const [upiVpa, setUpiVpa] = useState('merchant@okhdfcbank');
   const [weeklySchedule, setWeeklySchedule] = useState([
     { day: 'Monday', open: '09:00', close: '21:30', closed: false },
