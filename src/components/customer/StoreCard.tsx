@@ -24,6 +24,13 @@ interface StoreCardProps {
 
 export const StoreCard: React.FC<StoreCardProps> = ({ store, productCount }) => {
   const { location } = useApp();
+  
+  const isStoreOpenNow = React.useMemo(() => {
+    // Default open status based on current hour (8 AM - 10 PM)
+    const hour = new Date().getHours();
+    return store.isOpen !== undefined ? store.isOpen : (hour >= 8 && hour < 22);
+  }, [store.isOpen]);
+
   const whatsappUrl = `https://wa.me/${store.whatsapp}?text=${encodeURIComponent(`Hi ${store.name}, I found your store on Dhoondo. Are you open right now?`)}`;
   const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${store.coordinates.lat},${store.coordinates.lng}`;
 
