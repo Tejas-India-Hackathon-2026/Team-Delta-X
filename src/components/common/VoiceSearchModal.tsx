@@ -60,7 +60,9 @@ export const VoiceSearchModal: React.FC<VoiceSearchModalProps> = ({ isOpen, onCl
         }
       }, 3500);
 
-      return () => {
+      const voiceWaveBars = [12, 24, 38, 18, 30, 44, 20, 36, 14];
+
+  return () => {
         clearTimeout(timer);
         if (recognitionInstance) {
           try { recognitionInstance.stop(); } catch {}
