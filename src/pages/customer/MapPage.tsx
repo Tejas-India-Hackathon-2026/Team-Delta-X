@@ -7,6 +7,7 @@ import { StoreCard } from '../../components/customer/StoreCard';
 import { CascadedLocationPicker } from '../../components/map/CascadedLocationPicker';
 
 export const MapPage: React.FC = () => {
+  const [isFullscreenMap, setIsFullscreenMap] = useState(false);
   const { location, stores, categories } = useApp();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [mapFilterOpenOnly, setMapFilterOpenOnly] = useState(false);
