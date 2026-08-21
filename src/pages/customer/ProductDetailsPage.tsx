@@ -58,6 +58,8 @@ export const ProductDetailsPage: React.FC = () => {
   }
 
   const { product, category, inventoryList, bestPrice, lowestDistanceKm } = enriched;
+  const is30DayLow = bestPrice <= (product.basePrice || product.mrp * 0.85);
+
   const isWishlisted = wishlist.includes(product.id);
   const bestStore = inventoryList[0]?.store;
 
