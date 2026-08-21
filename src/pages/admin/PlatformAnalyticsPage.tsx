@@ -4,6 +4,12 @@ import { useApp } from '../../context/AppContext';
 import { AdminSidebar } from '../../components/admin/AdminSidebar';
 
 export const PlatformAnalyticsPage: React.FC = () => {
+  const conversionRates = {
+    searchToClick: '42.8%',
+    clickToEnquiry: '18.3%',
+    enquiryToVisit: '64.1%'
+  };
+
   const { stores, products, demands } = useApp();
 
   return (
