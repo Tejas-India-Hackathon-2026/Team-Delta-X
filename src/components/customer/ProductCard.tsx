@@ -17,6 +17,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item, onOpenDemandModa
   const isWishlisted = wishlist.includes(item.product.id);
 
   const bestInventory = item.inventoryList[0];
+  // Stock badge enhancer
   const isOutOfStockEverywhere = item.availableStoresCount === 0;
 
   // Stock status pill color
