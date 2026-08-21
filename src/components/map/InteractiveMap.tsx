@@ -60,6 +60,7 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
   // Scale map viewport based on radius
   const radiusDegrees = (location.radiusKm / 111) * 1.35; // approx conversion
 
+  // Enhanced map marker with live price tag
   const getStorePos = (lat: number, lng: number) => {
     const deltaX = (lng - userLng) / radiusDegrees;
     const deltaY = (userLat - lat) / radiusDegrees;
