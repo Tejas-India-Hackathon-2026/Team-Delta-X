@@ -5,6 +5,16 @@ import { RetailerSidebar } from '../../components/retailer/RetailerSidebar';
 import { StoreLocationPicker } from '../../components/retailer/StoreLocationPicker';
 
 export const StoreSettingsPage: React.FC = () => {
+  const [weeklySchedule, setWeeklySchedule] = useState([
+    { day: 'Monday', open: '09:00', close: '21:30', closed: false },
+    { day: 'Tuesday', open: '09:00', close: '21:30', closed: false },
+    { day: 'Wednesday', open: '09:00', close: '21:30', closed: false },
+    { day: 'Thursday', open: '09:00', close: '21:30', closed: false },
+    { day: 'Friday', open: '09:00', close: '21:30', closed: false },
+    { day: 'Saturday', open: '09:00', close: '22:00', closed: false },
+    { day: 'Sunday', open: '10:00', close: '20:00', closed: false },
+  ]);
+
   const { user, stores, updateStoreProfile, logoutUser } = useApp();
   const currentStore = stores.find(s => s.id === (user.storeId || 'store-sharma-auto')) || stores[0];
 
