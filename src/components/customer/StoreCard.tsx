@@ -104,7 +104,7 @@ export const StoreCard: React.FC<StoreCardProps> = ({ store, productCount }) => 
 
           {/* Facilities */}
           <div className="flex flex-wrap gap-1.5">
-            {store.facilities.slice(0, 3).map((facility, i) => (
+            {store.facilities.slice(0, 4).map((facility, i) => (
               <span
                 key={i}
                 className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-medium flex items-center gap-1"
