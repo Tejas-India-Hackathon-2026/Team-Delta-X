@@ -33,6 +33,7 @@ export const ProductDetailsPage: React.FC = () => {
 
   const [demandModalOpen, setDemandModalOpen] = useState(false);
   const [enquiryModalOpen, setEnquiryModalOpen] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedEnquiryStore, setSelectedEnquiryStore] = useState<Store | null>(null);
 
   // Review form state
