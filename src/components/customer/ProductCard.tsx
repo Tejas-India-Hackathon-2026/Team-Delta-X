@@ -1,7 +1,7 @@
 import { HighlightText } from '../common/HighlightText';
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Heart, MapPin, Star, ArrowRight, ShieldCheck, Scale, AlertCircle, Store as StoreIcon } from 'lucide-react';
+import { Heart, MapPin, Star, ArrowRight, Share2, ShieldCheck, Scale, AlertCircle, Store as StoreIcon } from 'lucide-react';
 import { EnrichedProductResult } from '../../types';
 import { useApp } from '../../context/AppContext';
 import { formatDistance } from '../../services/distanceService';
@@ -20,6 +20,24 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item, onOpenDemandModa
     ? Math.round((calculatedSavings / item.product.mrp) * 100) 
     : 0;
 
+
+  
+  const handleShareProduct = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const shareUrl = `${window.location.origin}/product/${item.product.id}`;
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: item.product.name,
+          text: `Check out ${item.product.name} available nearby on Dhoondo for ₹${item.bestPrice}!`,
+          url: shareUrl
+        });
+      } catch (err) {}
+    } else {
+      navigator.clipboard.writeText(shareUrl);
+      alert('Product link copied to clipboard!');
+    }
+  };
 
   const bestInventory = item.inventoryList[0];
   // Stock badge enhancer
