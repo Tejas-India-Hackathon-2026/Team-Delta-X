@@ -39,6 +39,10 @@ export const RetailerAuthModal: React.FC<RetailerAuthModalProps> = ({
   const [ownerName, setOwnerName] = useState('');
   const [phone, setPhone] = useState('+91 ');
   const [email, setEmail] = useState('');
+  
+  const isValidPhone = (p: string) => /^[6-9]\d{9}$/.test(p.replace(/[^0-9]/g, ''));
+  const isValidGSTIN = (g: string) => /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/.test(g.trim().toUpperCase());
+
   const [categoryIds, setCategoryIds] = useState<string[]>(['cat-automobile']);
   const [area, setArea] = useState('Koramangala 4th Block');
   const [address, setAddress] = useState('');
