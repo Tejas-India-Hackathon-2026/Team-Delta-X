@@ -1,3 +1,4 @@
+// Retailer session persistence layer
 import React, { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
 import confetti from 'canvas-confetti';
 import {
