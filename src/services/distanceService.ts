@@ -49,3 +49,14 @@ export function getEstimatedTravelTime(distanceKm?: number, mode: 'walk' | 'driv
     return minutes < 60 ? `${minutes} min drive` : `${Math.floor(minutes / 60)} hr ${minutes % 60}m drive`;
   }
 }
+
+export function estimateTravelTimeMinutes(distanceKm?: number, mode: 'walking' | 'two_wheeler' | 'driving' = 'walking'): number {
+  if (!distanceKm || isNaN(distanceKm) || distanceKm <= 0) return 1;
+  if (mode === 'walking') {
+    return Math.max(1, Math.ceil((distanceKm / 4.5) * 60));
+  } else if (mode === 'two_wheeler') {
+    return Math.max(1, Math.ceil((distanceKm / 20) * 60));
+  } else {
+    return Math.max(1, Math.ceil((distanceKm / 25) * 60));
+  }
+}

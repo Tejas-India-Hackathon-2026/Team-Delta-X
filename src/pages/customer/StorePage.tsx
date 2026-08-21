@@ -24,6 +24,7 @@ import { useApp } from '../../context/AppContext';
 import { ProductCard } from '../../components/customer/ProductCard';
 import { QuickEnquiryModal } from '../../components/customer/QuickEnquiryModal';
 import { AddReviewModal } from '../../components/customer/AddReviewModal';
+import { StoreRouteEstimator } from '../../components/customer/StoreRouteEstimator';
 import { GoogleMapView } from '../../components/map/GoogleMapView';
 import { formatDistance } from '../../services/distanceService';
 import { getGoogleMapsDirectionsUrl } from '../../services/geolocationService';
@@ -376,29 +377,32 @@ export const StorePage: React.FC = () => {
 
         {/* 4. About Tab */}
         {activeTab === 'about' && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="md:col-span-2 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-4">
-              <h3 className="font-extrabold text-slate-900 text-lg">About {store.name}</h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                {store.about}
-              </p>
+          <div className="space-y-6">
+            <StoreRouteEstimator store={store} userCoords={location.coordinates} />
 
-              <div className="pt-4 border-t border-slate-100 space-y-3">
-                <h4 className="font-bold text-xs text-slate-800 uppercase tracking-wider">Store Facilities & Services</h4>
-                <div className="grid grid-cols-2 gap-2">
-                  {store.facilities.map((fac, i) => (
-                    <div key={i} className="p-2.5 rounded-xl bg-slate-50 border border-slate-100 flex items-center gap-2 text-xs font-semibold text-slate-700">
-                      <CheckCircle2 className="w-4 h-4 text-brand-600 shrink-0" />
-                      <span>{fac}</span>
-                    </div>
-                  ))}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="md:col-span-2 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-4">
+                <h3 className="font-extrabold text-slate-900 text-lg">About {store.name}</h3>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  {store.about}
+                </p>
+
+                <div className="pt-4 border-t border-slate-100 space-y-3">
+                  <h4 className="font-bold text-xs text-slate-800 uppercase tracking-wider">Store Facilities & Services</h4>
+                  <div className="grid grid-cols-2 gap-2">
+                    {store.facilities.map((fac, i) => (
+                      <div key={i} className="p-2.5 rounded-xl bg-slate-50 border border-slate-100 flex items-center gap-2 text-xs font-semibold text-slate-700">
+                        <CheckCircle2 className="w-4 h-4 text-brand-600 shrink-0" />
+                        <span>{fac}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Merchant Details Box */}
-            <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
-              <h4 className="font-extrabold text-slate-900 text-sm">Merchant Information</h4>
+              {/* Merchant Details Box */}
+              <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                <h4 className="font-extrabold text-slate-900 text-sm">Merchant Information</h4>
               <div className="space-y-2.5 text-xs text-slate-600">
                 <div>
                   <span className="text-slate-400">Proprietor:</span>
@@ -415,7 +419,8 @@ export const StorePage: React.FC = () => {
               </div>
             </div>
           </div>
-        )}
+        </div>
+      )}
 
       </div>
 
