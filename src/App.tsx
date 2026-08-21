@@ -1,3 +1,4 @@
+import { NetworkStatusBanner } from './components/common/NetworkStatusBanner';
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AppProvider, useApp } from './context/AppContext';
@@ -65,6 +66,7 @@ const AppContent: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-slate-50 text-slate-900 font-sans">
+      <NetworkStatusBanner />
       {/* 🎬 2D Anti-Gravity Motion Graphics Intro Splash Screen */}
       {showSplash && (
         <AppIntroSplashScreen onComplete={() => setShowSplash(false)} />
