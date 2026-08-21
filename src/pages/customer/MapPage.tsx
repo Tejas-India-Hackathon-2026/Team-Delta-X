@@ -9,6 +9,8 @@ import { CascadedLocationPicker } from '../../components/map/CascadedLocationPic
 export const MapPage: React.FC = () => {
   const { location, stores, categories } = useApp();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [mapFilterOpenOnly, setMapFilterOpenOnly] = useState(false);
+  const [mapFilterVerifiedOnly, setMapFilterVerifiedOnly] = useState(false);
   const [selectedStoreId, setSelectedStoreId] = useState<string | undefined>(undefined);
   const [showSearchThisArea, setShowSearchThisArea] = useState(false);
 
