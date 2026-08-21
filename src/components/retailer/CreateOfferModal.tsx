@@ -7,6 +7,7 @@ interface CreateOfferModalProps {
   onClose: () => void;
 }
 
+// Live offer preview enabled
 export const CreateOfferModal: React.FC<CreateOfferModalProps> = ({ isOpen, onClose }) => {
   const { user, stores, createOffer } = useApp();
   const currentStore = stores.find(s => s.id === user.storeId) || stores[0];
