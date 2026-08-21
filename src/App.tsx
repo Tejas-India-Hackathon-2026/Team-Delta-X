@@ -50,9 +50,17 @@ import { BroadcastNotificationsPage } from './pages/admin/BroadcastNotifications
 import { AdminSettingsPage } from './pages/admin/AdminSettingsPage';
 import { AppIntroSplashScreen } from './components/motion/AppIntroSplashScreen';
 import { SubscriptionModal } from './components/retailer/SubscriptionModal';
+import { CompareModal } from './components/customer/CompareModal';
+import { CompareTray } from './components/customer/CompareTray';
 
 const AppContent: React.FC = () => {
-  const { isUpgradeModalOpen, closeUpgradeModal } = useApp();
+  const { 
+    isUpgradeModalOpen, 
+    closeUpgradeModal,
+    isCompareModalOpen,
+    activeCompareProduct,
+    closeCompareModal 
+  } = useApp();
   const [showSplash, setShowSplash] = useState(true);
   const [locationModalOpen, setLocationModalOpen] = useState(false);
   const [voiceModalOpen, setVoiceModalOpen] = useState(false);
@@ -174,6 +182,15 @@ const AppContent: React.FC = () => {
         isOpen={isUpgradeModalOpen}
         onClose={closeUpgradeModal}
       />
+
+      {/* ⚖️ Hyperlocal Product Comparison Modal & Tray */}
+      <CompareModal
+        isOpen={isCompareModalOpen}
+        item={activeCompareProduct}
+        onClose={closeCompareModal}
+      />
+
+      <CompareTray />
     </div>
   );
 };

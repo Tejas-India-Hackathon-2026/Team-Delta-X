@@ -12,7 +12,7 @@ interface ProductCardProps {
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ item, onOpenDemandModal }) => {
-  const { wishlist, toggleWishlist } = useApp();
+  const { wishlist, toggleWishlist, openCompareModal } = useApp();
   const navigate = useNavigate();
   const isWishlisted = wishlist.includes(item.product.id);
   const calculatedSavings = item.product.mrp > item.bestPrice ? item.product.mrp - item.bestPrice : 0;
@@ -203,13 +203,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item, onOpenDemandModa
 
         {/* Action Buttons */}
         <div className="grid grid-cols-2 gap-2 pt-1">
-          <Link
-            to={`/compare?product=${item.product.id}`}
-            className="flex items-center justify-center gap-1 py-2 px-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors"
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              openCompareModal(item);
+            }}
+            className="flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition-colors shadow-sm"
           >
-            <Scale className="w-3.5 h-3.5" />
+            <Scale className="w-3.5 h-3.5 text-brand-600" />
             <span>Compare</span>
-          </Link>
+          </button>
 
           <Link
             to={`/product/${item.product.id}`}

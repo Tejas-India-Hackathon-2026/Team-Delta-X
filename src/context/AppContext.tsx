@@ -111,6 +111,18 @@ interface AppContextType {
     comment: string;
   }) => void;
 
+  // Compare State & Actions
+  compareItems: EnrichedProductResult[];
+  compareToast: string | null;
+  activeCompareProduct: EnrichedProductResult | null;
+  isCompareModalOpen: boolean;
+  addToCompare: (item: EnrichedProductResult) => { success: boolean; message?: string };
+  removeFromCompare: (productId: string) => void;
+  clearCompare: () => void;
+  openCompareModal: (item: EnrichedProductResult) => void;
+  closeCompareModal: () => void;
+  dismissCompareToast: () => void;
+
   // Retailer Subscription & SaaS Limits
   isUpgradeModalOpen: boolean;
   openUpgradeModal: () => void;
@@ -208,6 +220,63 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [wishlist, setWishlist] = useState<string[]>(() => safeGetLocalStorage('dhoondo_wishlist', ['prod-honda-shine-brakepad', 'prod-boat-rockerz-450']));
   const [savedStores, setSavedStores] = useState<string[]>(() => safeGetLocalStorage('dhoondo_saved_stores', ['store-sharma-auto']));
   const [searchHistory, setSearchHistory] = useState<string[]>(() => safeGetLocalStorage('dhoondo_search_history', ['Honda Shine brake pad', 'Dolo 650', 'Amul Milk', 'Castrol 10W30']));
+
+  // Compare State
+  const [compareItems, setCompareItems] = useState<EnrichedProductResult[]>([]);
+  const [compareToast, setCompareToast] = useState<string | null>(null);
+  const [activeCompareProduct, setActiveCompareProduct] = useState<EnrichedProductResult | null>(null);
+  const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
+
+  const dismissCompareToast = useCallback(() => {
+    setCompareToast(null);
+  }, []);
+
+  const openCompareModal = useCallback((item: EnrichedProductResult) => {
+    setActiveCompareProduct(item);
+    setIsCompareModalOpen(true);
+  }, []);
+
+  const closeCompareModal = useCallback(() => {
+    setIsCompareModalOpen(false);
+    setActiveCompareProduct(null);
+  }, []);
+
+  const addToCompare = useCallback((item: EnrichedProductResult): { success: boolean; message?: string } => {
+    if (compareItems.some(i => i.product.id === item.product.id)) {
+      setCompareToast(`"${item.product.name}" is already in your compare tray.`);
+      setTimeout(() => setCompareToast(null), 4000);
+      return { success: false, message: 'Item already added to compare tray.' };
+    }
+
+    // Category Validation Rule: User cannot compare items from different categories
+    if (compareItems.length > 0 && compareItems[0].product.categoryId !== item.product.categoryId) {
+      const msg = 'You can only compare products from the same category.';
+      setCompareToast(msg);
+      soundEffects.playPop();
+      setTimeout(() => setCompareToast(null), 4500);
+      return { success: false, message: msg };
+    }
+
+    if (compareItems.length >= 4) {
+      const msg = 'You can compare a maximum of 4 products at a time.';
+      setCompareToast(msg);
+      setTimeout(() => setCompareToast(null), 4000);
+      return { success: false, message: msg };
+    }
+
+    setCompareItems(prev => [...prev, item]);
+    soundEffects.playPop();
+    return { success: true };
+  }, [compareItems]);
+
+  const removeFromCompare = useCallback((productId: string) => {
+    setCompareItems(prev => prev.filter(i => i.product.id !== productId));
+  }, []);
+
+  const clearCompare = useCallback(() => {
+    setCompareItems([]);
+    setCompareToast(null);
+  }, []);
 
   // Sync back to LocalStorage safely
   useEffect(() => { safeSetLocalStorage('dhoondo_user', user); }, [user]);
@@ -1342,6 +1411,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     updateCategory,
     toggleStoreVerification,
     registerNewStore,
+    compareItems,
+    compareToast,
+    activeCompareProduct,
+    isCompareModalOpen,
+    addToCompare,
+    removeFromCompare,
+    clearCompare,
+    openCompareModal,
+    closeCompareModal,
+    dismissCompareToast,
     isUpgradeModalOpen,
     openUpgradeModal,
     closeUpgradeModal,

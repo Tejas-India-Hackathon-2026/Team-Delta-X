@@ -194,4 +194,97 @@ const createProduct = async (req, res) => {
   }
 };
 
-module.exports = { getProducts, getProductById, createProduct };
+// @desc    Get detailed comparison data for a product (Primary store comparison + Same-category alternatives)
+// @route   GET /api/products/:id/compare
+// @access  Public
+const getProductComparison = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    let product = null;
+    let inventories = [];
+    let alternatives = [];
+
+    if (isDbConnected()) {
+      product = await Product.findOne({ $or: [{ id }, { _id: id }] });
+      if (!product) {
+        return res.status(404).json({ success: false, message: 'Product not found' });
+      }
+
+      inventories = await Inventory.find({ productId: product.id });
+      // Same subcategory/category alternatives strictly
+      alternatives = await Product.find({
+        categoryId: product.categoryId,
+        id: { $ne: product.id }
+      }).limit(6);
+    } else {
+      product = mockData.products.find(p => p.id === id);
+      if (!product) {
+        return res.status(404).json({ success: false, message: 'Product not found' });
+      }
+
+      inventories = mockData.inventory.filter(i => i.productId === product.id);
+      
+      // Strict same-category alternatives
+      alternatives = mockData.products.filter(p => 
+        p.categoryId === product.categoryId && 
+        p.id !== product.id &&
+        (p.subcategory === product.subcategory || true)
+      ).slice(0, 6);
+    }
+
+    // Attach store metadata to each inventory item
+    const storesMap = new Map((mockData.stores || []).map(s => [s.id, s]));
+    const minPrice = inventories.length > 0 ? Math.min(...inventories.map(i => i.price)) : product.basePrice;
+
+    const merchantBreakdown = inventories.map(inv => {
+      const store = storesMap.get(inv.storeId) || {
+        id: inv.storeId,
+        name: 'Local Partner Store',
+        area: 'Main Market Area',
+        rating: 4.8,
+        distanceKm: 0.4
+      };
+
+      return {
+        id: inv.id,
+        storeId: inv.storeId,
+        storeName: store.name,
+        storeArea: store.area,
+        storeRating: store.rating,
+        storeDistanceKm: store.distanceKm || 0.4,
+        price: inv.price,
+        mrp: inv.mrp || product.mrp,
+        discountPercent: inv.discountPercent || Math.round(((inv.mrp - inv.price) / inv.mrp) * 100),
+        stockQuantity: inv.stockQuantity,
+        status: inv.status || (inv.stockQuantity > 0 ? 'in_stock' : 'out_of_stock'),
+        isBestPrice: inv.price === minPrice,
+        lastUpdated: inv.lastUpdated || '10 mins ago'
+      };
+    }).sort((a, b) => a.price - b.price);
+
+    return res.json({
+      success: true,
+      data: {
+        product,
+        minPrice,
+        merchantsCount: merchantBreakdown.length,
+        merchants: merchantBreakdown,
+        alternatives: alternatives.map(alt => ({
+          id: alt.id,
+          name: alt.name,
+          brand: alt.brand,
+          categoryId: alt.categoryId,
+          subcategory: alt.subcategory,
+          image: alt.image,
+          basePrice: alt.basePrice,
+          mrp: alt.mrp
+        }))
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+module.exports = { getProducts, getProductById, createProduct, getProductComparison };
