@@ -25,6 +25,10 @@ import { SortOption, StockStatus, Product, EnrichedProductResult } from '../../t
 import { formatDistance } from '../../services/distanceService';
 
 export const SearchResultsPage: React.FC = () => {
+  const trendingSearchChips = [
+    'iPhone 15', 'Crocin 650', 'Amul Butter', 'Basmati Rice', 'Sony WH-1000XM5', 'Paracetamol', 'Nike Air'
+  ];
+
   const sortOptionsList: { value: SortOption; label: string; icon: string }[] = [
     { value: 'relevance', label: 'Best Match', icon: '🎯' },
     { value: 'price_asc', label: 'Price: Low to High', icon: '💰' },
