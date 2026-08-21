@@ -56,6 +56,14 @@ export const InventoryPage: React.FC = () => {
     });
   }, [storeInventoryList, searchFilter, statusFilter]);
 
+  
+  const handleQuickStockDelta = (productId: string, delta: number) => {
+    const item = storeInventoryList.find(i => i.productId === productId);
+    if (!item) return;
+    const newQty = Math.max(0, item.stockQuantity + delta);
+    setExactStock(currentStore.id, productId, newQty, item.price);
+  };
+
   const handleStartEditPrice = (invId: string, currentPrice: number) => {
     setEditingPriceId(invId);
     setTempPrice(currentPrice.toString());
