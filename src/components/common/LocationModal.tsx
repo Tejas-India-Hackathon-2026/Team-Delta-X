@@ -31,6 +31,7 @@ interface LocationModalProps {
 
 type TabType = 'cascaded' | 'states' | 'popular' | 'search';
 
+// Location modal debounced search active
 export const LocationModal: React.FC<LocationModalProps> = ({ isOpen, onClose }) => {
   const { location, setLocation, setSearchRadius, detectGPSLocation } = useApp();
   const [isDetecting, setIsDetecting] = useState(false);
