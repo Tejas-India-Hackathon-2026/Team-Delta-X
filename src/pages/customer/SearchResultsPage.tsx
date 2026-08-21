@@ -111,6 +111,16 @@ export const SearchResultsPage: React.FC = () => {
   ]);
 
   // Available brands in the current results
+  
+  const didYouMeanQuery = useMemo(() => {
+    if (!searchQuery || results.length > 0) return null;
+    const lower = searchQuery.toLowerCase().trim();
+    if (lower.includes('phne') || lower.includes('ipon')) return 'iPhone 15';
+    if (lower.includes('parac') || lower.includes('croc')) return 'Crocin 650';
+    if (lower.includes('buttr')) return 'Amul Butter';
+    return null;
+  }, [searchQuery, results.length]);
+
   const availableBrands = useMemo(() => {
     const brandsSet = new Set<string>();
     results.forEach(r => brandsSet.add(r.product.brand));
