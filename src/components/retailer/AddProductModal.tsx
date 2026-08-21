@@ -58,6 +58,18 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({ isOpen, onClos
 
   if (!isOpen) return null;
 
+  
+  const calculatedDiscountMargin = React.useMemo(() => {
+    const numPrice = parseFloat(price) || 0;
+    const numMrp = parseFloat(mrp) || 0;
+    if (numMrp > 0 && numPrice > 0 && numMrp > numPrice) {
+      const discountPct = Math.round(((numMrp - numPrice) / numMrp) * 100);
+      const savingsRs = numMrp - numPrice;
+      return { discountPct, savingsRs };
+    }
+    return { discountPct: 0, savingsRs: 0 };
+  }, [price, mrp]);
+
   const currentCategory = categories.find(c => c.id === categoryId);
 
   // 1. Handle File Upload (From Device Gallery/Files)
