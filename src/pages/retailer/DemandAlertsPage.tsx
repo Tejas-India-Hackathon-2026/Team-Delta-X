@@ -21,6 +21,8 @@ export const DemandAlertsPage: React.FC = () => {
   const currentStore = stores.find(s => s.id === (user.storeId || 'store-sharma-auto')) || stores[0];
 
   const [activeFilter, setActiveFilter] = useState<'pending' | 'fulfilled' | 'all'>('pending');
+  const [selectedDemandCategory, setSelectedDemandCategory] = useState<string>('all');
+  const [maxDemandRadiusKm, setMaxDemandRadiusKm] = useState<number>(5);
 
   const filteredDemands = demands.filter(d => {
     if (activeFilter === 'pending') return d.status === 'pending';
