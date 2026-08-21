@@ -23,6 +23,7 @@ interface LocationPermissionModalProps {
 }
 
 export const LocationPermissionModal: React.FC<LocationPermissionModalProps> = ({
+  // Added troubleshooting guide
   isOpen,
   onClose,
   searchContextQuery,
