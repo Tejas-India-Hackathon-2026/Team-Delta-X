@@ -23,6 +23,7 @@ import {
 import { useApp } from '../../context/AppContext';
 import { ProductCard } from '../../components/customer/ProductCard';
 import { QuickEnquiryModal } from '../../components/customer/QuickEnquiryModal';
+import { AddReviewModal } from '../../components/customer/AddReviewModal';
 import { GoogleMapView } from '../../components/map/GoogleMapView';
 import { formatDistance } from '../../services/distanceService';
 import { getGoogleMapsDirectionsUrl } from '../../services/geolocationService';
@@ -42,6 +43,7 @@ export const StorePage: React.FC = () => {
 
   const [activeTab, setActiveTab] = useState<'products' | 'offers' | 'reviews' | 'about'>('products');
   const [enquiryModalOpen, setEnquiryModalOpen] = useState(false);
+  const [reviewModalOpen, setReviewModalOpen] = useState(false);
 
   const store = getStoreById(storeId || '');
 
@@ -170,6 +172,14 @@ export const StorePage: React.FC = () => {
                 <Phone className="w-4 h-4" />
                 <span>Call Store</span>
               </a>
+
+              <button
+                onClick={() => setReviewModalOpen(true)}
+                className="py-2.5 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs flex items-center gap-1.5 shadow-sm transition-all"
+              >
+                <Star className="w-4 h-4 fill-slate-950 text-slate-950" />
+                <span>Write Review</span>
+              </button>
 
               <a
                 href={mapsUrl}
@@ -417,6 +427,13 @@ export const StorePage: React.FC = () => {
           store={store}
         />
       )}
+
+      {/* Verified Customer Review Modal */}
+      <AddReviewModal
+        isOpen={reviewModalOpen}
+        onClose={() => setReviewModalOpen(false)}
+        store={store}
+      />
 
     </div>
   );
