@@ -216,7 +216,7 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
         </svg>
 
         {/* Center User Location Pin */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center pointer-events-none">
+        <div className="radar-pulse-ring absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center pointer-events-none">
           <div className="relative flex items-center justify-center">
             <span className="animate-ping absolute w-10 h-10 rounded-full bg-blue-500/30"></span>
             <div className="w-8 h-8 rounded-full bg-blue-600 text-white shadow-xl shadow-blue-500/40 border-2 border-white flex items-center justify-center">
