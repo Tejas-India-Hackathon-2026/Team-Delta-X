@@ -70,7 +70,7 @@ export const ProductDetailsPage: React.FC = () => {
   // Similar products in same category
   const similarProducts = enrichedProducts
     .filter(p => p.product.categoryId === product.categoryId && p.product.id !== product.id)
-    .slice(0, 4);
+    .slice(0, 6);
 
   const handleReviewSubmit = (e: React.FormEvent) => {
     e.preventDefault();
