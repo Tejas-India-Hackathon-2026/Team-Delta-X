@@ -241,7 +241,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       'Warranty': 'Lifetime Manufacturer Warranty on Meter'
     },
     image: 'https://images.unsplash.com/photo-1631549916768-4119b2e5f926?auto=format&fit=crop&w=800&q=80',
-    keywords: ['glucometer', 'sugar test', 'dr morepen', 'gluco one', 'diabetes', 'blood sugar', 'test strips', 'bg03'],
+    keywords: ['glucometer', 'sugar test', 'dr morepen', 'gluco one', 'diabetes', 'blood sugar', 'test strips', 'bg03', 'medicine', 'pharmacy', 'health', 'medical'],
     basePrice: 999,
     mrp: 1490,
     tags: ['50 Free Strips', '5-Second Results', 'No Coding']
@@ -253,7 +253,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     categoryId: 'cat-pharmacy',
     subcategory: 'OTC medicines',
     sku: 'DOLO-650-15T',
-    description: 'Doctor recommended antipyretic and analgesic for rapid relief from fever, body aches, headaches and tooth pain.',
+    description: 'Doctor recommended antipyretic medicine and analgesic for rapid relief from fever, body aches, headaches and tooth pain.',
     specifications: {
       'Active Salt': 'Paracetamol (Acetaminophen) 650mg',
       'Dosage Form': 'Oral Tablets',
@@ -263,7 +263,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80',
     isMedicine: true,
     requiresPrescription: false,
-    keywords: ['dolo', 'dolo 650', 'paracetamol', 'fever', 'headache', 'pain relief', 'tablet', 'pharmacy'],
+    keywords: ['dolo', 'dolo 650', 'paracetamol', 'fever', 'headache', 'pain relief', 'tablet', 'pharmacy', 'medicine', 'medicines', 'dawa'],
     basePrice: 28,
     mrp: 35,
     tags: ['OTC Medicine', 'Fast Fever Relief']

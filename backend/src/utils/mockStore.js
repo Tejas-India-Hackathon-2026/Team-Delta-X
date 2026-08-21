@@ -269,7 +269,7 @@ const mockData = {
         'Package Includes': 'Glucometer, 50 Strips, Lancing Device, Lancets'
       },
       image: 'https://images.unsplash.com/photo-1631549916768-4119b2e5f926?auto=format&fit=crop&w=800&q=80',
-      keywords: ['glucometer', 'sugar test', 'dr morepen', 'gluco one', 'diabetes', 'blood sugar', 'test strips'],
+      keywords: ['glucometer', 'sugar test', 'dr morepen', 'gluco one', 'diabetes', 'blood sugar', 'test strips', 'medicine', 'pharmacy', 'health', 'medical'],
       basePrice: 999,
       mrp: 1490,
       tags: ['50 Free Strips', '5-Second Results', 'No Coding']
@@ -281,13 +281,13 @@ const mockData = {
       categoryId: 'cat-pharmacy',
       subcategory: 'OTC & Daily Care',
       sku: 'MIC-DOLO-650',
-      description: 'Fast-relieving antipyretic and analgesic for fever, headache, body aches, toothache, and viral fever discomfort.',
+      description: 'Fast-relieving antipyretic medicine and analgesic for fever, headache, body aches, toothache, and viral fever discomfort.',
       specifications: {
         'Salt Composition': 'Paracetamol IP 650 mg',
         'Packaging': '1 Strip of 15 Tablets'
       },
       image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80',
-      keywords: ['dolo', 'dolo 650', 'paracetamol', 'fever', 'headache', 'pain'],
+      keywords: ['dolo', 'dolo 650', 'paracetamol', 'fever', 'headache', 'pain', 'medicine', 'medicines', 'dawa', 'tablet', 'pharmacy'],
       basePrice: 28,
       mrp: 35,
       isMedicine: true,
@@ -396,41 +396,31 @@ const mockData = {
     }
   ],
 
-  // 3-4 Stores within 2km for all catalog products
+  // Category-Strict Stores Inventory
   inventory: [
-    // Motul 7100 Oil
+    // 🚗 Automobile & Hardware
     { id: 'inv-sharma-motul', storeId: 'store-sharma-auto', productId: 'prod-motul-7100-oil', price: 880, mrp: 1045, discountPercent: 16, stockQuantity: 24, status: 'in_stock', isBestPrice: true },
     { id: 'inv-kumar-motul', storeId: 'store-kumar-motors', productId: 'prod-motul-7100-oil', price: 920, mrp: 1045, discountPercent: 12, stockQuantity: 14, status: 'in_stock', isBestPrice: false },
-    // Honda Shine Brake Pad
     { id: 'inv-sharma-shine-bp', storeId: 'store-sharma-auto', productId: 'prod-honda-shine-brakepad', price: 399, mrp: 499, discountPercent: 20, stockQuantity: 18, status: 'in_stock', isBestPrice: false },
     { id: 'inv-kumar-shine-bp', storeId: 'store-kumar-motors', productId: 'prod-honda-shine-brakepad', price: 380, mrp: 499, discountPercent: 24, stockQuantity: 8, status: 'in_stock', isBestPrice: true },
-    // Apple iPhone 15
-    { id: 'inv-kora-iphone', storeId: 'store-koramangala-gadgets', productId: 'prod-apple-iphone-15', price: 71999, mrp: 79900, discountPercent: 10, stockQuantity: 8, status: 'in_stock', isBestPrice: true },
-    { id: 'inv-sharma-iphone', storeId: 'store-sharma-auto', productId: 'prod-apple-iphone-15', price: 73500, mrp: 79900, discountPercent: 8, stockQuantity: 3, status: 'in_stock', isBestPrice: false },
-    // Dr. Morepen Glucometer
-    { id: 'inv-apollo-gluco', storeId: 'store-apollo-meds', productId: 'prod-dr-morepen-gluco-one', price: 999, mrp: 1490, discountPercent: 33, stockQuantity: 28, status: 'in_stock', isBestPrice: true },
-    { id: 'inv-krishna-gluco', storeId: 'store-sri-krishna-kirana', productId: 'prod-dr-morepen-gluco-one', price: 1050, mrp: 1490, discountPercent: 30, stockQuantity: 12, status: 'in_stock', isBestPrice: false },
-    // Fortune Biryani Rice
-    { id: 'inv-krishna-fortune-rice', storeId: 'store-sri-krishna-kirana', productId: 'prod-fortune-biryani-rice', price: 549, mrp: 675, discountPercent: 19, stockQuantity: 35, status: 'in_stock', isBestPrice: true },
-    { id: 'inv-sharma-fortune-rice', storeId: 'store-sharma-auto', productId: 'prod-fortune-biryani-rice', price: 580, mrp: 675, discountPercent: 14, stockQuantity: 15, status: 'in_stock', isBestPrice: false },
-    // Stanley Screwdriver Set
+    { id: 'inv-sharma-castrol', storeId: 'store-sharma-auto', productId: 'prod-castrol-power1-oil', price: 440, mrp: 535, discountPercent: 18, stockQuantity: 30, status: 'in_stock', isBestPrice: true },
     { id: 'inv-sharma-stanley', storeId: 'store-sharma-auto', productId: 'prod-stanley-screwdriver-set', price: 899, mrp: 1299, discountPercent: 31, stockQuantity: 16, status: 'in_stock', isBestPrice: true },
-    { id: 'inv-kora-stanley', storeId: 'store-koramangala-gadgets', productId: 'prod-stanley-screwdriver-set', price: 949, mrp: 1299, discountPercent: 27, stockQuantity: 10, status: 'in_stock', isBestPrice: false },
-    // Dolo 650
-    { id: 'inv-apollo-dolo', storeId: 'store-apollo-meds', productId: 'prod-dolo-650', price: 28, mrp: 35, discountPercent: 20, stockQuantity: 180, status: 'in_stock', isBestPrice: true },
-    { id: 'inv-krishna-dolo', storeId: 'store-sri-krishna-kirana', productId: 'prod-dolo-650', price: 32, mrp: 35, discountPercent: 9, stockQuantity: 60, status: 'in_stock', isBestPrice: false },
-    // Aashirvaad Atta
-    { id: 'inv-krishna-atta', storeId: 'store-sri-krishna-kirana', productId: 'prod-aashirvaad-atta', price: 245, mrp: 275, discountPercent: 11, stockQuantity: 50, status: 'in_stock', isBestPrice: true },
-    { id: 'inv-sharma-atta', storeId: 'store-sharma-auto', productId: 'prod-aashirvaad-atta', price: 255, mrp: 275, discountPercent: 7, stockQuantity: 25, status: 'in_stock', isBestPrice: false },
-    // boAt Rockerz
-    { id: 'inv-kora-boat', storeId: 'store-koramangala-gadgets', productId: 'prod-boat-rockerz-450', price: 1199, mrp: 3990, discountPercent: 70, stockQuantity: 22, status: 'in_stock', isBestPrice: true },
-    { id: 'inv-sharma-boat', storeId: 'store-sharma-auto', productId: 'prod-boat-rockerz-450', price: 1249, mrp: 3990, discountPercent: 69, stockQuantity: 15, status: 'in_stock', isBestPrice: false },
-    // Bosch Drill
     { id: 'inv-sharma-drill', storeId: 'store-sharma-auto', productId: 'prod-bosch-drill-gsb500', price: 3450, mrp: 4200, discountPercent: 18, stockQuantity: 8, status: 'in_stock', isBestPrice: true },
-    { id: 'inv-kora-drill', storeId: 'store-koramangala-gadgets', productId: 'prod-bosch-drill-gsb500', price: 3590, mrp: 4200, discountPercent: 15, stockQuantity: 5, status: 'in_stock', isBestPrice: false },
-    // Classmate Notebooks
-    { id: 'inv-krishna-notebook', storeId: 'store-sri-krishna-kirana', productId: 'prod-classmate-notebook-bundle', price: 330, mrp: 420, discountPercent: 21, stockQuantity: 60, status: 'in_stock', isBestPrice: true },
-    { id: 'inv-kora-notebook', storeId: 'store-koramangala-gadgets', productId: 'prod-classmate-notebook-bundle', price: 350, mrp: 420, discountPercent: 17, stockQuantity: 30, status: 'in_stock', isBestPrice: false }
+
+    // 📱 Electronics & Mobiles
+    { id: 'inv-kora-iphone', storeId: 'store-koramangala-gadgets', productId: 'prod-apple-iphone-15', price: 71999, mrp: 79900, discountPercent: 10, stockQuantity: 8, status: 'in_stock', isBestPrice: true },
+    { id: 'inv-kora-boat', storeId: 'store-koramangala-gadgets', productId: 'prod-boat-rockerz-450', price: 1199, mrp: 3990, discountPercent: 70, stockQuantity: 22, status: 'in_stock', isBestPrice: true },
+
+    // 💊 Pharmacy & Healthcare
+    { id: 'inv-apollo-gluco', storeId: 'store-apollo-meds', productId: 'prod-dr-morepen-gluco-one', price: 999, mrp: 1490, discountPercent: 33, stockQuantity: 28, status: 'in_stock', isBestPrice: true },
+    { id: 'inv-apollo-dolo', storeId: 'store-apollo-meds', productId: 'prod-dolo-650', price: 28, mrp: 35, discountPercent: 20, stockQuantity: 180, status: 'in_stock', isBestPrice: true },
+
+    // 🛒 Kirana & Daily Needs
+    { id: 'inv-krishna-fortune-rice', storeId: 'store-sri-krishna-kirana', productId: 'prod-fortune-biryani-rice', price: 549, mrp: 675, discountPercent: 19, stockQuantity: 35, status: 'in_stock', isBestPrice: true },
+    { id: 'inv-krishna-atta', storeId: 'store-sri-krishna-kirana', productId: 'prod-aashirvaad-atta', price: 245, mrp: 275, discountPercent: 11, stockQuantity: 50, status: 'in_stock', isBestPrice: true },
+
+    // 📚 Stationery & Books
+    { id: 'inv-krishna-notebook', storeId: 'store-sri-krishna-kirana', productId: 'prod-classmate-notebook-bundle', price: 330, mrp: 420, discountPercent: 21, stockQuantity: 60, status: 'in_stock', isBestPrice: true }
   ],
 
   demands: [

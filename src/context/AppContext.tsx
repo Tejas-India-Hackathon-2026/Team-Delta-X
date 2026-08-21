@@ -554,11 +554,39 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         const aliasMatch = aliasExpansions.some(exp => exp.length > 2 && textTarget.includes(exp));
         
         if (!originalMatch && !aliasMatch) return false;
+
+        // Concept queries: ensure strict category containment
+        if (['medicine', 'dawa', 'pharmacy', 'chemist'].includes(q) && p.categoryId !== 'cat-pharmacy') {
+          return false;
+        }
+        if (['electronics', 'mobiles', 'gadget', 'phones'].includes(q) && p.categoryId !== 'cat-electronics') {
+          return false;
+        }
+        if (['grocery', 'kirana', 'ration', 'staples'].includes(q) && p.categoryId !== 'cat-grocery') {
+          return false;
+        }
+        if (['automobile', 'bike parts', 'car parts', 'spares'].includes(q) && p.categoryId !== 'cat-automobile') {
+          return false;
+        }
+        if (['hardware', 'tools', 'toolset', 'drill'].includes(q) && p.categoryId !== 'cat-hardware') {
+          return false;
+        }
+        if (['stationery', 'books', 'notebooks'].includes(q) && p.categoryId !== 'cat-stationery') {
+          return false;
+        }
       }
 
-      // Filter by category
-      if (filters?.categoryId && p.categoryId !== filters.categoryId) {
-        return false;
+      // Filter by category (matches category ID, slug, or normalized key)
+      if (filters?.categoryId) {
+        const filterCat = filters.categoryId.toLowerCase();
+        const matchesCategory = 
+          p.categoryId.toLowerCase() === filterCat ||
+          item.category.slug.toLowerCase() === filterCat ||
+          item.category.id.toLowerCase() === filterCat ||
+          item.category.name.toLowerCase() === filterCat ||
+          p.categoryId.toLowerCase().replace(/^cat-/, '') === filterCat.replace(/^cat-/, '');
+        
+        if (!matchesCategory) return false;
       }
 
       // Filter by subcategory
