@@ -1,100 +1,93 @@
-# 📍 Dhoondo — Hyperlocal Product & Inventory Discovery Platform
+# 📍 Dhoondo (ढूंढो) — Hyperlocal Search, Comparison & Retailer SaaS Platform
 
-> **Discover nearby stores, compare live counter prices, explore realtime inventory, and empower local retailers with SaaS subscription intelligence.**
+> **Find Nearby • Compare Live Counter Prices • Empower Local Retailers Across All India**
+
+Dhoondo connects everyday shoppers directly to physical neighborhood retail stores (automobiles, pharmacies, groceries, electronics, hardware, stationery) within strict hyperlocal walking/driving radiuses (600m – 5km), providing real-time stock visibility, live counter prices, and direct retailer engagement.
 
 ---
 
-## 🌟 Key Highlights & Features
+## 🌟 Core Feature Matrix
 
-### 🛍️ 1. Customer Discovery & Search Radar
-- **GPS-Powered Proximity Discovery**: Live geolocation detection with Haversine formula calculation & Google Maps radar integration.
-- **Counter-Level Stock Transparency**: Filter products by `In Stock`, `Low Stock`, `Out of Stock`, and compare price matrices across local physical shops.
-- **Interactive Multi-Store Comparisons**: Side-by-side spec, pricing, distance, and warranty comparison matrix.
-- **Demand Radar**: Shoppers can post demand alerts for unlisted or out-of-stock items, which alerts nearby retailers.
-- **Voice & Multilingual Search**: Audio-enabled voice search for quick local product lookups.
+### 🔍 1. Shopper Discovery & Search
+- **Instant Search with Autocorrect & Suggestions:** Debounced search with typo tolerance and keyboard navigation (`↑`, `↓`, `Enter`, `Esc`).
+- **Live Keyword Highlighting:** Matched search fragments highlighted dynamically across products.
+- **Persistent Recent Searches:** Search history stored locally with quick-remove tags and 1-click execution.
+- **Multi-Store Price Comparison:** Real-time best price detection, percentage discount badges (`-X% OFF`), and savings calculations.
+- **Stock Status Badges:** Color-coded inventory indicators (`In Stock`, `Low Stock < 3`, `Out of Stock Nearby`).
+- **Voice Search & Speech Recognition:** Integrated voice search with pulsating frequency waveform visualizer.
+- **Native Share & Clipboard Fallback:** Share products directly via Web Share API with instant toast feedback.
 
-### 🏪 2. Retailer Operating System & SaaS
-- **Live Inventory & Pricing Engine**: Retailers update counter inventory, prices, and discounts in real time.
-- **Tiered SaaS Subscriptions**: Free tier (up to 50 products) and Pro tier (unlimited inventory, advanced demand alerts & analytics).
-- **Proactive Demand Alerts**: Real-time alerts when nearby customers are searching for products the merchant stocks.
-- **Store Showcase & Offers**: Create discount deals, banners, and direct WhatsApp customer enquiry handling.
+### 🗺️ 2. Geolocation & Interactive Map Radar
+- **3-Tier Cascaded Location Hierarchy:** Instant selection across all 36 Indian States & UTs, Districts, and Localities.
+- **High-Accuracy Geolocation Fallback:** Progressive GPS tracking with timeout handling and fallback to city center.
+- **Custom Price Tagged Map Markers:** Interactive map pins displaying real-time item prices and store status.
+- **Pulsating User Location Radar:** Live animated GPS indicator with search radius perimeter ring.
+- **Walking & Driving ETA Estimator:** Automatic travel duration calculations based on calculated Haversine distance.
+- **Turn-by-Turn Directions:** 1-tap deep links to Google Maps and native map turn-by-turn navigation.
 
-### 🛡️ 3. Super Admin Governance & KYC Portal
-- **Store KYC Verification**: Review GSTIN, trade licenses, storefront photos, and grant verified badges.
-- **Dynamic Category & Taxonomy Management**: Add, update, and categorize products across diverse verticals.
-- **Platform Analytics & Broadcasts**: Monitor platform growth, GMV metrics, and send broadcast alerts to retailers and customers.
+### 🏪 3. Retailer SaaS Counter Tools
+- **Live Inventory Manager:** Quick inline stock counters (`+` / `−` steppers) and inline price quick-edit.
+- **Dynamic Profit Margin Calculator:** Real-time MRP vs Counter Price discount and margin analyzer.
+- **Device Camera & Barcode Lookup Simulator:** Capture counter photos, scan barcodes, and auto-populate product catalog.
+- **Inventory CSV Spreadsheet Export:** 1-click export of complete store stock to CSV.
+- **Weekly Operating Hours Builder:** Day-by-day opening and closing time configuration.
+- **UPI QR Payment Configuration:** Seamless VPA setup with dynamic QR preview for in-store payments.
+
+### ⚡ 4. Hyperlocal Demand Radar & Direct Enquiries
+- **Customer Demand Radar:** Alerts nearby retailers when shoppers search for out-of-stock items.
+- **1-Click Demand Fulfillment:** Retailers can restock demanded products with one tap, instantly notifying customers.
+- **Direct WhatsApp Enquiry Links:** Auto-generate formatted WhatsApp messages for fast counter replies.
+- **Quick Reply Templates:** Pre-composed response chips for fast customer messaging.
+
+### 🛡️ 5. Admin Governance & Platform Analytics
+- **Merchant Verification Portal:** Document preview and 1-click approval/rejection with reason logs.
+- **Platform Analytics & Funnel Tracking:** Real-time search-to-click conversion rates and category demand trends.
+- **System Health & Offline Banner:** Real-time network status monitoring with auto-reconnection alerts.
+- **Global Error Boundary:** React crash recovery mechanism with 1-click app reset.
 
 ---
 
 ## 🛠️ Technology Stack
 
-| Layer | Technologies Used |
+| Layer | Technologies |
 |---|---|
-| **Frontend Framework** | React 18 (TypeScript), Vite 6 |
-| **Styling & Design System** | Tailwind CSS, Lucide Icons, Glassmorphism, Micro-animations |
-| **State Management** | Context API with LocalStorage sync |
-| **Maps & Geo Intelligence** | Leaflet, Google Maps Loader, Haversine Distance Calculation |
-| **Animation & Feedback** | Canvas Confetti, Custom Web Audio Sound Effects |
+| **Frontend UI** | React 18, TypeScript 5, Tailwind CSS, Lucide Icons, Canvas Confetti |
+| **Routing & State** | React Router v6, React Context API with LocalStorage Persistence |
+| **Maps & Geospatial** | Leaflet, Google Maps Loader, Haversine Distance Calculator |
+| **Build & Tooling** | Vite 6 with Rollup manual chunk splitting |
+| **Backend API** | Node.js, Express, MongoDB / Resilient In-Memory Mock Database |
 
 ---
 
 ## 🚀 Getting Started
 
-### Prerequisites
-- Node.js (v18+)
-- npm or yarn
-
-### Installation
-
+### 1. Install Dependencies
 ```bash
-# Clone the repository
-git clone https://github.com/Tejas-India-Hackathon-2026/Team-Delta-X.git
-cd Team-Delta-X
-
-# Install dependencies
 npm install
+cd backend && npm install && cd ..
+```
 
-# Start development server
+### 2. Run Local Development Server
+```bash
 npm run dev
 ```
 
-### Production Build
+### 3. Production Build
 ```bash
 npm run build
-npm run preview
 ```
 
 ---
 
-## 📂 Project Structure
-
-```
-dhoondo/
-├── src/
-│   ├── components/
-│   │   ├── admin/          # Admin portal components & modals
-│   │   ├── common/         # Header, Footer, BottomNav, AuthModal, LocationModal
-│   │   ├── customer/       # ProductCard, StoreCard, CompareMatrix, DemandModal
-│   │   ├── map/            # InteractiveMap, GoogleMapView, CascadedLocationPicker
-│   │   ├── motion/         # SplashScreen, MotionExplainer
-│   │   └── retailer/       # RetailerSidebar, AddProduct, SubscriptionModal
-│   ├── context/            # Global AppContext state & persistence
-│   ├── data/               # Indian locations, categories, stores, products, inventory
-│   ├── pages/
-│   │   ├── admin/          # 10 Admin management & governance views
-│   │   ├── customer/       # 11 Customer shopping & exploration views
-│   │   └── retailer/       # 10 Merchant SaaS & inventory views
-│   ├── services/           # Geolocation, Distance, Maps, Audio sound effects
-│   ├── types/              # Unified TypeScript definitions
-│   ├── App.tsx             # Root router & layout orchestrator
-│   └── main.tsx            # React DOM entry point
-├── public/                 # Static assets
-├── tailwind.config.js      # Design tokens & color palette
-├── vite.config.ts          # Vite build config
-└── package.json
-```
+## ⌨️ Keyboard Shortcuts
+- `/` — Focus header search input
+- `H` — Navigate to Home
+- `M` — Open Interactive Map
+- `W` — Open Wishlist
+- `?` — Open Keyboard Shortcuts Cheat-sheet
+- `Esc` — Close active modal or drawer
 
 ---
 
-## 👥 Team Delta X
-Built for **Tejas India Hackathon 2026**.
+## 📄 License
+MIT License © 2026 Team Delta-X • Tejas India Hackathon
