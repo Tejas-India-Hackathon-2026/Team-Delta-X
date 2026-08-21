@@ -11,6 +11,7 @@ interface QuickEnquiryModalProps {
   productPrice?: number;
 }
 
+// Quick enquiry character counter active
 export const QuickEnquiryModal: React.FC<QuickEnquiryModalProps> = ({
   isOpen,
   onClose,
