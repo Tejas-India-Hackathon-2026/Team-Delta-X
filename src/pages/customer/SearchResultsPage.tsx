@@ -1,3 +1,4 @@
+import { CategoryScrollPills } from '../../components/common/CategoryScrollPills';
 import React, { useState, useMemo } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { 
