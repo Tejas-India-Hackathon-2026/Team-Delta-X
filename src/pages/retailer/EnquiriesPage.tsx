@@ -14,6 +14,12 @@ import { RetailerSidebar } from '../../components/retailer/RetailerSidebar';
 
 // Enquiries unread badge support
 export const EnquiriesPage: React.FC = () => {
+  const quickReplyTemplates = [
+    'Yes, this product is in stock and available for pickup at our counter.',
+    'Currently out of stock, but fresh units are arriving tomorrow afternoon.',
+    'Yes available! We also offer special discount for in-store purchases today.'
+  ];
+
   const { user, stores, enquiries, replyToEnquiry } = useApp();
   const currentStore = stores.find(s => s.id === (user.storeId || 'store-sharma-auto')) || stores[0];
 
