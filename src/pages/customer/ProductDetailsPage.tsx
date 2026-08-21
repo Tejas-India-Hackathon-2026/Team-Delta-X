@@ -464,6 +464,34 @@ export const ProductDetailsPage: React.FC = () => {
         />
       )}
 
+    {/* Mobile Sticky Bottom Action Bar */}
+      <div data-mobile-sticky-action-bar className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-slate-200 p-3 shadow-lg flex items-center justify-between gap-3">
+        <div>
+          <div className="text-[10px] text-slate-500 font-medium">Best Price Nearby</div>
+          <div className="text-base font-black text-slate-900">₹{bestPrice.toLocaleString('en-IN')}</div>
+        </div>
+        <div className="flex items-center gap-2">
+          {bestStore && (
+            <a
+              href={`tel:${bestStore.phone}`}
+              className="p-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl transition-colors"
+              title="Call Store"
+            >
+              <Phone className="w-4 h-4" />
+            </a>
+          )}
+          <button
+            onClick={() => {
+              setSelectedEnquiryStore(bestStore || null);
+              setEnquiryModalOpen(true);
+            }}
+            className="px-4 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5"
+          >
+            <MessageCircle className="w-3.5 h-3.5" />
+            <span>Enquire Now</span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
