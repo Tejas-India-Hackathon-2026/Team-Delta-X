@@ -96,6 +96,14 @@ export const InventoryPage: React.FC = () => {
     document.body.removeChild(link);
   };
 
+  
+  const handleBulkRestockAllLow = () => {
+    storeInventoryList.filter(i => i.status === 'low_stock' || i.status === 'out_of_stock').forEach(item => {
+      setExactStock(currentStore.id, item.productId, 15, item.price);
+    });
+    alert('All low-stock items restocked to 15 units!');
+  };
+
   const handleStartEditPrice = (invId: string, currentPrice: number) => {
     setEditingPriceId(invId);
     setTempPrice(currentPrice.toString());
