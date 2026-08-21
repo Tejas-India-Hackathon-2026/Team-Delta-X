@@ -22,7 +22,7 @@ import { ProductCard } from '../../components/customer/ProductCard';
 import { GoogleMapView } from '../../components/map/GoogleMapView';
 import { LocationPermissionModal } from '../../components/common/LocationPermissionModal';
 import { DemandModal } from '../../components/customer/DemandModal';
-import { SortOption, StockStatus, Product, EnrichedProductResult } from '../../types';
+import { SortOption, StockStatus, Product, EnrichedProductResult, Store } from '../../types';
 import { formatDistance } from '../../services/distanceService';
 
 export const SearchResultsPage: React.FC = () => {
@@ -532,15 +532,16 @@ export const SearchResultsPage: React.FC = () => {
                     </Link>
                   </div>
 
-                  {/* Horizontal Scroll of Local Stores */}
+                  {/* Horizontal Grid of Local Stores strictly under 2km */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-1">
                     {Array.from(new Set(results.flatMap(r => r.inventoryList.map(inv => inv.store.id))))
+                      .map(storeId => stores.find(s => s.id === storeId))
+                      .filter((s): s is (Store & { distanceKm: number }) => !!s && (s.distanceKm ?? 999) <= 2.0)
+                      .sort((a, b) => (a.distanceKm ?? 0) - (b.distanceKm ?? 0))
                       .slice(0, 3)
-                      .map(storeId => {
-                        const store = stores.find(s => s.id === storeId);
-                        const storeInvs = results.flatMap(r => r.inventoryList.filter(inv => inv.storeId === storeId));
-                        if (!store) return null;
-                        const minStorePrice = Math.min(...storeInvs.map(i => i.price));
+                      .map(store => {
+                        const storeInvs = results.flatMap(r => r.inventoryList.filter(inv => inv.storeId === store.id));
+                        const minStorePrice = storeInvs.length > 0 ? Math.min(...storeInvs.map(i => i.price)) : 0;
 
                         return (
                           <div

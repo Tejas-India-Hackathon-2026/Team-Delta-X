@@ -280,10 +280,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }).sort((a, b) => a.distanceKm - b.distanceKm);
   }, [stores, location.coordinates]);
 
-  // Enriched products aggregated with inventory and nearby stores
+  // Enriched products aggregated with inventory and strictly nearby stores (< 2km)
   const enrichedProducts = useMemo<EnrichedProductResult[]>(() => {
+    // ONLY consider stores that are within the current local search proximity (<= 2.0 km)
+    const localStores = enrichedStores.filter(s => s.distanceKm <= Math.max(2.0, Math.min(location.radiusKm || 2.0, 5.0)));
+    const activeStoresList = localStores.length > 0 ? localStores : enrichedStores.slice(0, 8);
     const storeMap = new Map<string, Store & { distanceKm: number }>();
-    enrichedStores.forEach(s => storeMap.set(s.id, s));
+    activeStoresList.forEach(s => storeMap.set(s.id, s));
 
     const categoryMap = new Map<string, Category>();
     categories.forEach(c => categoryMap.set(c.id, c));
@@ -300,13 +303,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         subcategories: []
       };
 
+      // ONLY include inventory from stores strictly located within the local neighborhood (100m - 1.5km)!
       const productInventory = inventory
-        .filter(inv => inv.productId === product.id)
+        .filter(inv => inv.productId === product.id && storeMap.has(inv.storeId))
         .map(inv => {
-          const store = storeMap.get(inv.storeId) || {
-            ...INITIAL_STORES[0],
-            distanceKm: 2.5
-          };
+          const store = storeMap.get(inv.storeId)!;
           return {
             ...inv,
             store
@@ -320,13 +321,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
       const lowestDistanceKm = productInventory.length > 0
         ? Math.min(...productInventory.map(i => i.store.distanceKm))
-        : 1.5;
+        : (activeStoresList[0]?.distanceKm || 0.25);
 
       const availableStores = productInventory.filter(
         i => i.status === 'in_stock' || i.status === 'low_stock'
       );
 
-      const bestStore = productInventory[0]?.store || enrichedStores[0];
+      const bestStore = productInventory[0]?.store || activeStoresList[0] || enrichedStores[0];
 
       return {
         product,
@@ -339,7 +340,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         bestStore
       };
     });
-  }, [products, inventory, enrichedStores, categories]);
+  }, [products, inventory, enrichedStores, categories, location.radiusKm]);
 
   // Unread notifications count
   const unreadNotificationsCount = useMemo(() => {
@@ -408,7 +409,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           s.coordinates.lat,
           s.coordinates.lng
         );
-        return d <= 2.5;
+        return d <= 2.0;
       });
 
       if (!hasNearbyStore) {
@@ -449,13 +450,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           lat: coords.lat,
           lng: coords.lng
         },
-        radiusKm: location.radiusKm || 10,
+        radiusKm: location.radiusKm || 2.0,
         isCustomLocation: false
       };
 
       setLocationState(newLoc);
 
-      // Fulfill stores if needed
+      // Fulfill stores if needed strictly within 2km
       setStores(prevStores => {
         const hasNearbyStore = prevStores.some(s => {
           const d = calculateDistanceKm(
@@ -464,7 +465,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             s.coordinates.lat,
             s.coordinates.lng
           );
-          return d <= 35;
+          return d <= 2.0;
         });
 
         if (!hasNearbyStore) {

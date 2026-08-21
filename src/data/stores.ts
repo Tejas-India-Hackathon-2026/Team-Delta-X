@@ -939,16 +939,16 @@ export const generateStoresForCity = (
     }
   ];
 
-  // Offset coordinates strictly within 300m to 1.8km (Strictly under 2.0 km)
+  // Offset coordinates strictly within 100m to 1.5km (Strictly 0.1km - 1.5km)
   const offsets = [
-    { dLat: 0.0028, dLng: 0.0022, area: `Main Market / Central ${city}` }, // ~350m (0.35 km)
-    { dLat: -0.0042, dLng: 0.0035, area: `Station Road / Commercial Hub, ${city}` }, // ~600m (0.6 km)
-    { dLat: 0.0058, dLng: -0.0048, area: `Civil Lines / Market Complex, ${city}` }, // ~900m (0.9 km)
-    { dLat: -0.0075, dLng: -0.0062, area: `Gandhi Chowk / Sector 1, ${city}` }, // ~1.2 km
-    { dLat: 0.0090, dLng: 0.0078, area: `Hospital Road / Medical Enclave, ${city}` }, // ~1.4 km
-    { dLat: -0.0105, dLng: 0.0092, area: `College Road / Court Area, ${city}` }, // ~1.6 km
-    { dLat: 0.0118, dLng: -0.0085, area: `Clock Tower / Subhash Chowk, ${city}` }, // ~1.7 km
-    { dLat: -0.0122, dLng: -0.0098, area: `Bazaar Samiti / Wholesale Market, ${city}` } // ~1.8 km
+    { dLat: 0.0009, dLng: 0.0008, area: `Main Market / Central ${city}` }, // ~120m (0.12 km)
+    { dLat: -0.0021, dLng: 0.0018, area: `Station Road / Commercial Hub, ${city}` }, // ~280m (0.28 km)
+    { dLat: 0.0034, dLng: -0.0028, area: `Civil Lines / Market Complex, ${city}` }, // ~450m (0.45 km)
+    { dLat: -0.0048, dLng: 0.0039, area: `Gandhi Chowk / Sector 1, ${city}` }, // ~650m (0.65 km)
+    { dLat: 0.0062, dLng: 0.0052, area: `Hospital Road / Medical Enclave, ${city}` }, // ~850m (0.85 km)
+    { dLat: -0.0076, dLng: -0.0062, area: `College Road / Court Area, ${city}` }, // ~1.05 km
+    { dLat: 0.0089, dLng: 0.0072, area: `Clock Tower / Subhash Chowk, ${city}` }, // ~1.25 km
+    { dLat: -0.0102, dLng: 0.0082, area: `Bazaar Samiti / Wholesale Depot, ${city}` } // ~1.45 km
   ];
 
   return templates.map((tmpl, idx) => {
@@ -969,7 +969,7 @@ export const generateStoresForCity = (
 };
 
 /**
- * Generate Inventory bindings for newly generated city stores with 3-tier price comparison within 2km
+ * Generate Inventory bindings for newly generated city stores with multi-store price comparison within 100m - 1.5km
  */
 export const generateInventoryForStores = (
   newStores: Store[],
@@ -979,13 +979,19 @@ export const generateInventoryForStores = (
 
   newStores.forEach((store, storeIdx) => {
     existingProducts.forEach((prod, prodIdx) => {
+      // Strictly match store category or complementary category
       const isDirectCategory = store.categoryIds.includes(prod.categoryId);
-      // Ensure high availability across 3-4 local stores for each product so price comparison works everywhere
-      const shouldStock = isDirectCategory || (storeIdx % 2 === prodIdx % 2);
+      const isGeneral = store.categoryIds.includes('cat-grocery') && (prod.categoryId === 'cat-grocery' || prod.categoryId === 'cat-stationery');
+      const isHardwareAuto = store.categoryIds.includes('cat-hardware') && (prod.categoryId === 'cat-hardware' || prod.categoryId === 'cat-automobile');
+      const isAutoSpares = store.categoryIds.includes('cat-automobile') && (prod.categoryId === 'cat-automobile' || prod.categoryId === 'cat-hardware');
+      const isTech = store.categoryIds.includes('cat-electronics') && prod.categoryId === 'cat-electronics';
+      const isPharma = store.categoryIds.includes('cat-pharmacy') && prod.categoryId === 'cat-pharmacy';
+
+      const shouldStock = isDirectCategory || isGeneral || isHardwareAuto || isAutoSpares || isTech || isPharma;
 
       if (shouldStock) {
-        // Competitive local counter discount (8% to 22% variation)
-        const discountMultipliers = [0.88, 0.92, 0.85, 0.90, 0.86, 0.93];
+        // Competitive local counter discount (8% to 24% variation across competing local stores)
+        const discountMultipliers = [0.88, 0.92, 0.84, 0.90, 0.86, 0.94];
         const multiplier = discountMultipliers[(storeIdx * 3 + prodIdx) % discountMultipliers.length];
         const price = Math.round(prod.mrp * multiplier);
         const discount = Math.round(((prod.mrp - price) / prod.mrp) * 100);
@@ -997,9 +1003,9 @@ export const generateInventoryForStores = (
           price,
           mrp: prod.mrp,
           discountPercent: discount,
-          stockQuantity: 6 + ((storeIdx * 5 + prodIdx * 3) % 30),
-          status: (prodIdx % 8 === 7) ? 'low_stock' : 'in_stock',
-          lastUpdated: `${((storeIdx + prodIdx) % 45) + 5} mins ago`,
+          stockQuantity: 8 + ((storeIdx * 5 + prodIdx * 3) % 25),
+          status: (prodIdx % 7 === 6) ? 'low_stock' : 'in_stock',
+          lastUpdated: `${((storeIdx + prodIdx) % 30) + 5} mins ago`,
           isBestPrice: multiplier <= 0.86
         });
       }
