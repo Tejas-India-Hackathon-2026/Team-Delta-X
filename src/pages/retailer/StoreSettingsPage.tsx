@@ -5,6 +5,8 @@ import { RetailerSidebar } from '../../components/retailer/RetailerSidebar';
 import { StoreLocationPicker } from '../../components/retailer/StoreLocationPicker';
 
 export const StoreSettingsPage: React.FC = () => {
+  const [whatsappBusinessPhone, setWhatsappBusinessPhone] = useState('+91 98450 12345');
+  const [instagramHandle, setInstagramHandle] = useState('@dhoondoretailer');
   const [homeDeliveryEnabled, setHomeDeliveryEnabled] = useState(true);
   const [deliveryRadiusKm, setDeliveryRadiusKm] = useState(3);
   const [minOrderValue, setMinOrderValue] = useState(250);
