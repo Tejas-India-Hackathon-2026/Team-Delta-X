@@ -34,3 +34,18 @@ export function formatDistance(distanceKm?: number): string {
   }
   return `${distanceKm.toFixed(1)} km away`;
 }
+
+export function getEstimatedTravelTime(distanceKm?: number, mode: 'walk' | 'drive' = 'walk'): string {
+  if (distanceKm === undefined || isNaN(distanceKm) || distanceKm <= 0) {
+    return mode === 'walk' ? '1 min walk' : '1 min drive';
+  }
+  if (mode === 'walk') {
+    // Average walking speed: 4.5 km/h
+    const minutes = Math.ceil((distanceKm / 4.5) * 60);
+    return minutes < 60 ? `${minutes} min walk` : `${Math.floor(minutes / 60)} hr ${minutes % 60}m walk`;
+  } else {
+    // Average city driving speed: 25 km/h
+    const minutes = Math.ceil((distanceKm / 25) * 60);
+    return minutes < 60 ? `${minutes} min drive` : `${Math.floor(minutes / 60)} hr ${minutes % 60}m drive`;
+  }
+}
