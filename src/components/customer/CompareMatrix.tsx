@@ -13,12 +13,14 @@ import {
   Compass, 
   Award,
   Sparkles,
-  ArrowRight
+  ArrowRight,
+  FileText
 } from 'lucide-react';
 import { EnrichedProductResult, StoreInventory, Store } from '../../types';
 import { formatDistance } from '../../services/distanceService';
 import { getGoogleMapsDirectionsUrl } from '../../services/geolocationService';
 import { useApp } from '../../context/AppContext';
+import { QuotationModal } from './QuotationModal';
 
 interface CompareMatrixProps {
   item: EnrichedProductResult;
@@ -27,6 +29,9 @@ interface CompareMatrixProps {
 
 export const CompareMatrix: React.FC<CompareMatrixProps> = ({ item, onEnquireClick }) => {
   const { location } = useApp();
+  const [quotationModalOpen, setQuotationModalOpen] = React.useState(false);
+  const [selectedInvForQuote, setSelectedInvForQuote] = React.useState<(StoreInventory & { store: Store }) | null>(null);
+
   const inventoryList = item.inventoryList;
 
   if (inventoryList.length === 0) {
@@ -43,6 +48,11 @@ export const CompareMatrix: React.FC<CompareMatrixProps> = ({ item, onEnquireCli
   const minPrice = Math.min(...inventoryList.map(i => i.price));
   const minDistance = Math.min(...inventoryList.map(i => i.store.distanceKm ?? 0));
   const maxRating = Math.max(...inventoryList.map(i => i.store.rating));
+
+  const handleOpenQuote = (inv?: StoreInventory & { store: Store }) => {
+    setSelectedInvForQuote(inv || inventoryList[0]);
+    setQuotationModalOpen(true);
+  };
 
   return (
     <div className="bg-white rounded-3xl border border-slate-200/80 shadow-md overflow-hidden">
@@ -63,8 +73,15 @@ export const CompareMatrix: React.FC<CompareMatrixProps> = ({ item, onEnquireCli
           </h3>
         </div>
 
-        {/* Quick Summary Winner Tags */}
+        {/* Quick Summary Winner Tags & Quotation Action */}
         <div className="flex flex-wrap items-center gap-2">
+          <button
+            onClick={() => handleOpenQuote()}
+            className="px-3.5 py-1 rounded-full bg-brand-500 hover:bg-brand-400 text-slate-950 text-xs font-black flex items-center gap-1.5 shadow-sm transition-all"
+          >
+            <FileText className="w-3.5 h-3.5" />
+            <span>Generate Quote Slip</span>
+          </button>
           <span className="px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-bold flex items-center gap-1.5">
             <Trophy className="w-3.5 h-3.5 text-emerald-400" />
             <span>Best Price: ₹{minPrice}</span>
@@ -228,6 +245,14 @@ export const CompareMatrix: React.FC<CompareMatrixProps> = ({ item, onEnquireCli
                   {/* Actions */}
                   <td className="py-4 px-4 sm:px-6 text-right">
                     <div className="flex items-center justify-end gap-1.5">
+                      <button
+                        onClick={() => handleOpenQuote(inv)}
+                        className="p-2 rounded-xl bg-brand-50 hover:bg-brand-100 text-brand-800 transition-colors"
+                        title="Generate Price Quotation Slip for this Store"
+                      >
+                        <FileText className="w-4 h-4 text-brand-700" />
+                      </button>
+
                       <a
                         href={whatsappUrl}
                         target="_blank"
@@ -263,6 +288,14 @@ export const CompareMatrix: React.FC<CompareMatrixProps> = ({ item, onEnquireCli
           </tbody>
         </table>
       </div>
+
+      {/* Quotation Slip Modal */}
+      <QuotationModal
+        isOpen={quotationModalOpen}
+        onClose={() => setQuotationModalOpen(false)}
+        item={item}
+        selectedStoreInv={selectedInvForQuote}
+      />
 
     </div>
   );
