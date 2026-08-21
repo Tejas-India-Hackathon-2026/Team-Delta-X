@@ -75,8 +75,8 @@ module.exports = [
   const paletteColors = ['#2563eb', '#16a34a', '#d97706', '#dc2626', '#9333ea', '#0891b2', '#e11d48'];
 `;
         content = content.replace(
-          'export const AddCategoryModal: React.FC<AddCategoryModalProps> = ({',
-          `export const AddCategoryModal: React.FC<AddCategoryModalProps> = ({${palette}`
+          'export const AddCategoryModal: React.FC<AddCategoryModalProps> = ({ isOpen, onClose }) => {',
+          `export const AddCategoryModal: React.FC<AddCategoryModalProps> = ({ isOpen, onClose }) => {${palette}`
         );
         fs.writeFileSync(addCatModalPath, content, 'utf8');
       }

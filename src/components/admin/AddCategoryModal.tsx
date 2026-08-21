@@ -8,6 +8,7 @@ interface AddCategoryModalProps {
 }
 
 export const AddCategoryModal: React.FC<AddCategoryModalProps> = ({ isOpen, onClose }) => {
+  const paletteColors = ['#2563eb', '#16a34a', '#d97706', '#dc2626', '#9333ea', '#0891b2', '#e11d48'];
   const { addCategory } = useApp();
 
   const [name, setName] = useState('');
