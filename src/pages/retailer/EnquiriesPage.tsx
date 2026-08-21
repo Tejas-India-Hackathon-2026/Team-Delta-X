@@ -12,6 +12,7 @@ import {
 import { useApp } from '../../context/AppContext';
 import { RetailerSidebar } from '../../components/retailer/RetailerSidebar';
 
+// Enquiries unread badge support
 export const EnquiriesPage: React.FC = () => {
   const { user, stores, enquiries, replyToEnquiry } = useApp();
   const currentStore = stores.find(s => s.id === (user.storeId || 'store-sharma-auto')) || stores[0];
