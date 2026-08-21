@@ -39,6 +39,14 @@ export const RetailerDashboardPage: React.FC = () => {
   } = useApp();
 
   const [addProductModalOpen, setAddProductModalOpen] = useState(false);
+  
+  const metricTrends = {
+    views: '+18.4%',
+    enquiries: '+12.5%',
+    inStock: '+5.0%',
+    demands: '+9.2%'
+  };
+
   const currentStore = stores.find(s => s.id === (user.storeId || 'store-sharma-auto')) || stores[0];
 
   // Store inventory items
