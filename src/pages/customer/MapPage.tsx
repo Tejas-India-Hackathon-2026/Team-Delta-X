@@ -10,6 +10,7 @@ export const MapPage: React.FC = () => {
   const { location, stores, categories } = useApp();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedStoreId, setSelectedStoreId] = useState<string | undefined>(undefined);
+  const [showSearchThisArea, setShowSearchThisArea] = useState(false);
 
   const filteredStores = stores.filter(store => {
     if (selectedCategory !== 'all' && !store.categoryIds.includes(selectedCategory)) {
