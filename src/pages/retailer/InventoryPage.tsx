@@ -73,6 +73,29 @@ export const InventoryPage: React.FC = () => {
     setExactStock(currentStore.id, productId, newQty, item.price);
   };
 
+  
+  const exportInventoryToCSV = () => {
+    const headers = ['Product Name', 'Brand', 'Category', 'SKU', 'Price (INR)', 'MRP (INR)', 'Stock Qty', 'Status'];
+    const rows = storeInventoryList.map(item => [
+      `"${item.product.name.replace(/"/g, '""')}"`,
+      `"${item.product.brand}"`,
+      `"${item.product.subcategory}"`,
+      `"${item.product.sku}"`,
+      item.price,
+      item.mrp,
+      item.stockQuantity,
+      item.status
+    ]);
+    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `dhoondo_inventory_${currentStore.name.replace(/\s+/g, '_')}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const handleStartEditPrice = (invId: string, currentPrice: number) => {
     setEditingPriceId(invId);
     setTempPrice(currentPrice.toString());
