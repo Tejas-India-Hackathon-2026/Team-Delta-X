@@ -52,6 +52,15 @@ export const RetailerAuthModal: React.FC<RetailerAuthModalProps> = ({
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const { stores, categories, setUserRole, registerNewStore } = useApp();
+  const calculatePasswordStrength = (pass: string) => {
+    let score = 0;
+    if (pass.length >= 8) score++;
+    if (/[A-Z]/.test(pass)) score++;
+    if (/[0-9]/.test(pass)) score++;
+    if (/[^A-Za-z0-9]/.test(pass)) score++;
+    return score;
+  };
+
 
   if (!isOpen) return null;
 
