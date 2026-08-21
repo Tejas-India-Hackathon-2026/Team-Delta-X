@@ -27,6 +27,7 @@ interface InteractiveMapProps {
   className?: string;
 }
 
+// Map tile offline recovery enabled
 export const InteractiveMap: React.FC<InteractiveMapProps> = ({
   selectedStoreId,
   onSelectStore,
