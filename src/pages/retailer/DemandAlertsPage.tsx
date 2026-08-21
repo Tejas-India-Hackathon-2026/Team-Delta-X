@@ -76,6 +76,7 @@ export const DemandAlertsPage: React.FC = () => {
         </div>
 
         {/* Demand Info Banner */}
+        {/* data-demand-heat-meter */}
         <div className="p-5 rounded-3xl bg-gradient-to-r from-slate-900 via-slate-900 to-brand-950 border border-brand-500/30 flex items-center justify-between gap-4">
           <div className="space-y-1">
             <h3 className="font-bold text-white text-sm flex items-center gap-1.5">
