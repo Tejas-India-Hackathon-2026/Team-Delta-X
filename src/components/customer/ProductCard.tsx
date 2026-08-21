@@ -1,7 +1,7 @@
 import { HighlightText } from '../common/HighlightText';
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Heart, MapPin, Star, ArrowRight, ShieldCheck, Scale, AlertCircle } from 'lucide-react';
+import { Heart, MapPin, Star, ArrowRight, ShieldCheck, Scale, AlertCircle, Store as StoreIcon } from 'lucide-react';
 import { EnrichedProductResult } from '../../types';
 import { useApp } from '../../context/AppContext';
 import { formatDistance } from '../../services/distanceService';
