@@ -47,17 +47,24 @@ export const RetailerDashboardPage: React.FC = () => {
     demands: '+9.2%'
   };
 
-  const currentStore = stores.find(s => s.id === (user.storeId || 'store-sharma-auto')) || stores[0];
+  const currentStore = stores.find(s => s.id === (user.storeId || 'store-sharma-auto')) || stores[0] || {
+    id: 'store-sharma-auto',
+    name: 'Sharma Auto Spares & Service Hub',
+    viewsCount: 1420,
+    enquiriesCount: 89
+  };
+
+  const storeId = currentStore?.id || 'store-sharma-auto';
 
   // Store inventory items
-  const storeInvs = inventory.filter(inv => inv.storeId === currentStore.id);
+  const storeInvs = inventory.filter(inv => inv.storeId === storeId);
   const inStockCount = storeInvs.filter(i => i.status === 'in_stock').length;
   const lowStockCount = storeInvs.filter(i => i.status === 'low_stock').length;
   const outOfStockCount = storeInvs.filter(i => i.status === 'out_of_stock').length;
 
   // Pending customer demands in this store's category
   const storeDemands = demands.filter(d => d.status === 'pending');
-  const recentEnquiries = enquiries.filter(e => e.storeId === currentStore.id).slice(0, 3);
+  const recentEnquiries = enquiries.filter(e => e.storeId === storeId).slice(0, 3);
 
   // Top fast moving products
   const storeProductsList = storeInvs.map(inv => {

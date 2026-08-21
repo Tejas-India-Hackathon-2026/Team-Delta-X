@@ -59,7 +59,7 @@ export const StoreSettingsPage: React.FC = () => {
       <RetailerSidebar />
 
       <main className="flex-1 p-4 sm:p-8 space-y-6 overflow-y-auto max-h-screen">
-        
+
         {/* Header */}
         <div className="pb-6 border-b border-slate-800">
           <h1 className="text-2xl sm:text-3xl font-black text-white flex items-center gap-2.5">
@@ -73,7 +73,7 @@ export const StoreSettingsPage: React.FC = () => {
 
         {/* Settings Form */}
         <form onSubmit={handleSave} className="bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-800 space-y-6 shadow-xl max-w-3xl">
-          
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold text-slate-400 mb-1">Store Name *</label>

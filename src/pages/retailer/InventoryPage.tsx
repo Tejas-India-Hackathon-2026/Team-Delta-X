@@ -1,13 +1,13 @@
 import React, { useState, useMemo } from 'react';
-import { 
-  Boxes, 
-  Plus, 
-  Search, 
-  Filter, 
-  Edit3, 
-  Trash2, 
-  Check, 
-  ArrowUpDown, 
+import {
+  Boxes,
+  Plus,
+  Search,
+  Filter,
+  Edit3,
+  Trash2,
+  Check,
+  ArrowUpDown,
   Sparkles,
   DollarSign
 } from 'lucide-react';
@@ -18,14 +18,14 @@ import { SubscriptionLimitBanner } from '../../components/retailer/SubscriptionL
 import { StockStatus } from '../../types';
 
 export const InventoryPage: React.FC = () => {
-  const { 
-    user, 
-    stores, 
-    inventory, 
-    products, 
-    updateStock, 
-    setExactStock, 
-    deleteProductFromStore 
+  const {
+    user,
+    stores,
+    inventory,
+    products,
+    updateStock,
+    setExactStock,
+    deleteProductFromStore
   } = useApp();
 
   const [addProductModalOpen, setAddProductModalOpen] = useState(false);
@@ -44,7 +44,7 @@ export const InventoryPage: React.FC = () => {
     });
   }, [inventory, products, currentStore.id]);
 
-  
+
   const statusTabCounts = useMemo(() => ({
     all: storeInventoryList.length,
     in_stock: storeInventoryList.filter(i => i.status === 'in_stock').length,
@@ -65,7 +65,7 @@ export const InventoryPage: React.FC = () => {
     });
   }, [storeInventoryList, searchFilter, statusFilter]);
 
-  
+
   const handleQuickStockDelta = (productId: string, delta: number) => {
     const item = storeInventoryList.find(i => i.productId === productId);
     if (!item) return;
@@ -73,7 +73,7 @@ export const InventoryPage: React.FC = () => {
     setExactStock(currentStore.id, productId, newQty, item.price);
   };
 
-  
+
   const exportInventoryToCSV = () => {
     const headers = ['Product Name', 'Brand', 'Category', 'SKU', 'Price (INR)', 'MRP (INR)', 'Stock Qty', 'Status'];
     const rows = storeInventoryList.map(item => [
@@ -96,7 +96,7 @@ export const InventoryPage: React.FC = () => {
     document.body.removeChild(link);
   };
 
-  
+
   const handleBulkRestockAllLow = () => {
     storeInventoryList.filter(i => i.status === 'low_stock' || i.status === 'out_of_stock').forEach(item => {
       setExactStock(currentStore.id, item.productId, 15, item.price);
@@ -122,7 +122,7 @@ export const InventoryPage: React.FC = () => {
       <RetailerSidebar />
 
       <main className="flex-1 p-4 sm:p-8 space-y-6 overflow-y-auto max-h-screen">
-        
+
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
           <div>
@@ -170,11 +170,10 @@ export const InventoryPage: React.FC = () => {
               <button
                 key={f.id}
                 onClick={() => setStatusFilter(f.id)}
-                className={`py-1.5 px-3 rounded-xl font-bold whitespace-nowrap transition-all ${
-                  statusFilter === f.id
+                className={`py-1.5 px-3 rounded-xl font-bold whitespace-nowrap transition-all ${statusFilter === f.id
                     ? 'bg-brand-600 text-white shadow-sm'
                     : 'bg-slate-800 text-slate-400 hover:text-white'
-                }`}
+                  }`}
               >
                 {f.label}
               </button>
@@ -202,7 +201,7 @@ export const InventoryPage: React.FC = () => {
               <tbody className="divide-y divide-slate-800/80">
                 {filteredList.map((item) => (
                   <tr key={item.id} className="hover:bg-slate-800/40 transition-colors">
-                    
+
                     {/* Details */}
                     <td className="py-4 px-4 sm:px-6">
                       <div className="flex items-center gap-3">
