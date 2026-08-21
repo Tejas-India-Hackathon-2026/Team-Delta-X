@@ -5,6 +5,7 @@ import { RetailerSidebar } from '../../components/retailer/RetailerSidebar';
 import { CreateOfferModal } from '../../components/retailer/CreateOfferModal';
 
 export const OffersPage: React.FC = () => {
+  const [offersTabFilter, setOffersTabFilter] = useState<'active' | 'expired' | 'all'>('active');
   const { user, stores, offers, deleteOffer } = useApp();
   const [createOfferModalOpen, setCreateOfferModalOpen] = useState(false);
 
