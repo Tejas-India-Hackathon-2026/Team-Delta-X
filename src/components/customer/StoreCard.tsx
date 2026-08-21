@@ -23,6 +23,7 @@ interface StoreCardProps {
 }
 
 export const StoreCard: React.FC<StoreCardProps> = ({ store, productCount }) => {
+  const [showCallConfirm, setShowCallConfirm] = React.useState(false);
   const { location } = useApp();
   
   const isStoreOpenNow = React.useMemo(() => {
