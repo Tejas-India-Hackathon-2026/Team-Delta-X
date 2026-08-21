@@ -23,10 +23,11 @@ import { useApp } from '../../context/AppContext';
 export const RetailerSidebar: React.FC = () => {
   const { user, stores, demands, enquiries, getStoreSubscription, canAddProduct, openUpgradeModal, logoutUser } = useApp();
   const navigate = useNavigate();
-  const currentStore = stores.find(s => s.id === user.storeId) || stores[0];
-  const sub = getStoreSubscription(currentStore.id);
-  const usage = canAddProduct(currentStore.id);
-  const isPro = sub.plan === 'pro';
+  const currentStore = stores.find(s => s.id === user.storeId) || stores[0] || { id: 'store-sharma-auto' };
+  const currentStoreId = currentStore?.id || 'store-sharma-auto';
+  const sub = getStoreSubscription(currentStoreId);
+  const usage = canAddProduct(currentStoreId);
+  const isPro = sub?.plan === 'pro';
 
   const handleLogout = () => {
     logoutUser();

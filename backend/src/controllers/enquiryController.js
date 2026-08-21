@@ -1,22 +1,25 @@
 const Enquiry = require('../models/Enquiry');
 const { mockData, isDbConnected } = require('../utils/mockStore');
 
-// @desc    Get enquiries for a store
-// @route   GET /api/enquiries/store/:storeId
-// @access  Private / Retailer
+// @desc    Get all enquiries or store enquiries
+// @route   GET /api/enquiries or GET /api/enquiries/store/:storeId
+// @access  Public / Retailer
 const getStoreEnquiries = async (req, res) => {
   try {
-    const { storeId } = req.params;
+    const storeId = req.params.storeId || req.query.storeId;
 
     if (isDbConnected()) {
-      const enquiries = await Enquiry.find({ storeId }).sort({ createdAt: -1 });
+      let query = {};
+      if (storeId) query.storeId = storeId;
+      const enquiries = await Enquiry.find(query).sort({ createdAt: -1 });
       return res.json({ success: true, count: enquiries.length, data: enquiries });
     }
 
-    const filtered = mockData.enquiries.filter(e => e.storeId === storeId);
+    let filtered = [...mockData.enquiries];
+    if (storeId) filtered = filtered.filter(e => e.storeId === storeId);
     res.json({ success: true, count: filtered.length, data: filtered });
   } catch (error) {
-    res.json({ success: true, count: 0, data: [] });
+    res.json({ success: true, count: mockData.enquiries.length, data: mockData.enquiries });
   }
 };
 

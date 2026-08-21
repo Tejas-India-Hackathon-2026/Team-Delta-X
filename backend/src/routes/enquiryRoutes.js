@@ -4,6 +4,7 @@ const { getStoreEnquiries, createEnquiry, replyEnquiry } = require('../controlle
 const { protect } = require('../middleware/auth');
 const { authorize } = require('../middleware/roleGuard');
 
+router.get('/', getStoreEnquiries);
 router.get('/store/:storeId', getStoreEnquiries);
 router.post('/', createEnquiry);
 router.patch('/:id/reply', protect, authorize('retailer', 'admin'), replyEnquiry);
