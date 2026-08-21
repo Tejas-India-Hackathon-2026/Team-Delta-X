@@ -1,6 +1,65 @@
 const Demand = require('../models/Demand');
 const { mockData, isDbConnected } = require('../utils/mockStore');
 
+if (!mockData.demands) {
+  mockData.demands = [
+    {
+      id: 'dem-01-shine-brakepad',
+      productId: 'prod-automobile-1-honda-cb-shine-front-disc-brak',
+      productName: 'Honda CB Shine Front Disc Brake Pad (Genuine OEM)',
+      brand: 'Honda Genuine Spares',
+      categoryId: 'cat-automobile',
+      customerId: 'cust-demo-1',
+      customerName: 'Aakash Verma',
+      customerPhone: '+91 98450 99881',
+      customerArea: 'Main Market / Gandhi Chowk',
+      customerCoords: { lat: 24.9258, lng: 86.2232 },
+      radiusKm: 2,
+      searchesCount: 28,
+      interestedCustomersCount: 9,
+      createdAt: '2026-08-20 14:30',
+      status: 'pending',
+      notes: 'Urgent requirement for Honda Shine brake pad replacement.'
+    },
+    {
+      id: 'dem-02-motul-oil',
+      productId: 'prod-automobile-6-motul-7100-4t-10w-50-100-synt',
+      productName: 'Motul 7100 4T 10W-50 100% Synthetic Ester Motorcycle Engine Oil (1L)',
+      brand: 'Motul',
+      categoryId: 'cat-automobile',
+      customerId: 'cust-demo-2',
+      customerName: 'Rahul Sundaram',
+      customerPhone: '+91 97410 11223',
+      customerArea: 'Station Road / Overbridge',
+      customerCoords: { lat: 24.9233, lng: 86.2254 },
+      radiusKm: 2,
+      searchesCount: 34,
+      interestedCustomersCount: 12,
+      createdAt: '2026-08-20 18:15',
+      status: 'pending',
+      notes: 'Need 1L can of 10W-50 ester synthetic for Pulsar servicing.'
+    },
+    {
+      id: 'dem-03-dolo-650',
+      productId: 'prod-pharmacy-1-dolo-650mg-paracetamol-table',
+      productName: 'Dolo 650mg Paracetamol Tablets (15 Tabs Strip)',
+      brand: 'Micro Labs',
+      categoryId: 'cat-pharmacy',
+      customerId: 'cust-demo-3',
+      customerName: 'Dr. Priya Nambiar',
+      customerPhone: '+91 98800 33441',
+      customerArea: 'Hospital Road / Sadar Hospital Area',
+      customerCoords: { lat: 24.9276, lng: 86.2260 },
+      radiusKm: 1.5,
+      searchesCount: 42,
+      interestedCustomersCount: 15,
+      createdAt: '2026-08-21 07:40',
+      status: 'pending',
+      notes: 'Looking for 3 strips of genuine batch Dolo 650.'
+    }
+  ];
+}
+
 // @desc    Get all customer demands (filtered by category or area)
 // @route   GET /api/demands
 // @access  Public / Retailer
