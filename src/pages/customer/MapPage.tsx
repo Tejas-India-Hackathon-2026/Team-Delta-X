@@ -1,3 +1,4 @@
+import { StoreRouteCard } from '../../components/map/StoreRouteCard';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Navigation, ArrowLeft, Store, ShieldCheck, Compass, Sparkles, SlidersHorizontal, Globe2 } from 'lucide-react';
