@@ -64,6 +64,7 @@ export const ProductDetailsPage: React.FC = () => {
   // Filter reviews for this product/store
   const productReviews = reviews.filter(r => r.productId === product.id || r.storeId === bestStore?.id);
 
+  // Enhanced store table comparison
   // Similar products in same category
   const similarProducts = enrichedProducts
     .filter(p => p.product.categoryId === product.categoryId && p.product.id !== product.id)
