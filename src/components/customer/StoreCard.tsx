@@ -84,7 +84,7 @@ export const StoreCard: React.FC<StoreCardProps> = ({ store, productCount }) => 
                     <span>PRO</span>
                   </span>
                 ) : store.verified ? (
-                  <span title="Verified Local Retailer">
+                  <span title="Dhoondo Verified: Physical store verified & live inventory active">
                     <ShieldCheck className="w-4 h-4 text-brand-600 fill-brand-100 shrink-0" />
                   </span>
                 ) : null}
