@@ -44,6 +44,14 @@ export const InventoryPage: React.FC = () => {
     });
   }, [inventory, products, currentStore.id]);
 
+  
+  const statusTabCounts = useMemo(() => ({
+    all: storeInventoryList.length,
+    in_stock: storeInventoryList.filter(i => i.status === 'in_stock').length,
+    low_stock: storeInventoryList.filter(i => i.status === 'low_stock').length,
+    out_of_stock: storeInventoryList.filter(i => i.status === 'out_of_stock').length,
+  }), [storeInventoryList]);
+
   const filteredList = useMemo(() => {
     return storeInventoryList.filter(item => {
       const matchesSearch = item.product.name.toLowerCase().includes(searchFilter.toLowerCase()) ||
