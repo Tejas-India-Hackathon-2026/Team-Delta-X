@@ -757,7 +757,7 @@ export const INITIAL_STORES: Store[] = [
 
 /**
  * Dynamic Store & Inventory Generator:
- * Generates rich localized stores in any chosen Indian city if none are in immediate proximity.
+ * Generates rich localized stores in any chosen Indian city if none are in immediate proximity (strictly within 2km).
  */
 export const generateStoresForCity = (
   city: string,
@@ -784,7 +784,7 @@ export const generateStoresForCity = (
       image: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80',
       bannerImage: 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=1200&q=80',
       facilities: ['100% Genuine Spares', 'Quick Counter Service', 'UPI / Cards', 'Fitting Advice'],
-      about: `Trusted motorcycle and 4-wheeler parts distributor in ${city}, ${state}. Stocking genuine Honda, Hero, Bajaj, TVS, Yamaha, and Castrol OEM spares.`,
+      about: `Trusted motorcycle and 4-wheeler parts distributor in ${city}, ${state}. Stocking genuine Honda, Hero, Bajaj, TVS, Yamaha, Motul and Castrol OEM spares.`,
       gstNumber: '10AUTO1234F1Z5',
       joinedDate: '2023-01-10',
       viewsCount: 1540,
@@ -826,7 +826,7 @@ export const generateStoresForCity = (
       image: 'https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=600&q=80',
       bannerImage: 'https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=1200&q=80',
       facilities: ['Express 15-Min Delivery', 'Wholesale Grain Rates', 'UPI & Sodexo Accepted'],
-      about: `Premier neighborhood grocery and daily staples store in ${city}, offering premium atta, rice, pulses, cold pressed cooking oils, and dairy.`,
+      about: `Premier neighborhood grocery and daily staples store in ${city}, offering Fortune Basmati rice, Aashirvaad Atta, Amul milk, pulses, and spices.`,
       gstNumber: '10GROC1234K1Z2',
       joinedDate: '2023-02-20',
       viewsCount: 2200,
@@ -846,8 +846,8 @@ export const generateStoresForCity = (
       isOpen: true,
       image: 'https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&w=600&q=80',
       bannerImage: 'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=1200&q=80',
-      facilities: ['Official Brand Warranty', 'Instant EMI', 'Unboxing Demo', 'Accessories Repair'],
-      about: `Authorized dealer for headphones, smartphones, fast chargers, power banks, and audio gear in ${city}, ${state}.`,
+      facilities: ['Official Apple & Android Dealer', 'Instant 0% EMI', 'Unboxing Demo', 'Accessories Repair'],
+      about: `Authorized dealer for iPhone 15, smartphones, headphones, fast chargers, power banks, and audio gear in ${city}, ${state}.`,
       gstNumber: '10TECH1192M1ZN',
       joinedDate: '2023-03-01',
       viewsCount: 2400,
@@ -867,8 +867,8 @@ export const generateStoresForCity = (
       isOpen: true,
       image: 'https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80',
       bannerImage: 'https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=80',
-      facilities: ['Bosch Power Tools', 'Copper Wires', 'Pipe Cutting', 'Contractor Rates'],
-      about: `Complete hardware and home electrical supplies in ${city}, stocking drills, Havells wiring, and fixtures.`,
+      facilities: ['Stanley & Bosch Power Tools', 'Copper Wires', 'Pipe Cutting', 'Contractor Rates'],
+      about: `Complete hardware and tool supplies in ${city}, stocking Stanley screwdriver kits, Bosch drills, and building hardware.`,
       gstNumber: '10HARD5566Q1Z8',
       joinedDate: '2023-02-15',
       viewsCount: 1800,
@@ -894,17 +894,61 @@ export const generateStoresForCity = (
       joinedDate: '2022-11-20',
       viewsCount: 2100,
       enquiriesCount: 165
+    },
+    {
+      name: `${city} Royal Motors & Two-Wheeler Hub`,
+      ownerName: 'Vikram Choudhary',
+      phone: '+91 98765 99881',
+      whatsapp: '919876599881',
+      email: `royalmotors.${safeCitySlug}@dhoondo.local`,
+      categoryIds: ['cat-automobile'],
+      rating: 4.6,
+      reviewCount: 185,
+      verified: true,
+      openingHours: '9:30 AM - 9:00 PM',
+      isOpen: true,
+      image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80',
+      bannerImage: 'https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=1200&q=80',
+      facilities: ['Motul & Castrol Center', 'Genuine OEM Parts', 'Fitting Bay'],
+      about: `Two-wheeler spares & performance lubricants center in ${city}, stocking Motul 7100, brake pads, and batteries.`,
+      gstNumber: '10ROYAL8899K1Z4',
+      joinedDate: '2023-04-12',
+      viewsCount: 1420,
+      enquiriesCount: 95
+    },
+    {
+      name: `${city} MedPlus Health & Diagnostics`,
+      ownerName: 'Dr. Vivek Anand',
+      phone: '+91 98765 66778',
+      whatsapp: '919876566778',
+      email: `medplus.${safeCitySlug}@dhoondo.local`,
+      categoryIds: ['cat-pharmacy'],
+      rating: 4.8,
+      reviewCount: 290,
+      verified: true,
+      openingHours: '8:00 AM - 11:00 PM',
+      isOpen: true,
+      image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+      bannerImage: 'https://images.unsplash.com/photo-1586015555751-63c252277d3f?auto=format&fit=crop&w=1200&q=80',
+      facilities: ['Dr. Morepen & Omron Devices', 'Flat 15% Off Medicines', 'Home Delivery'],
+      about: `Neighborhood health shop stocking Dr. Morepen Glucometers, Dolo 650, BP monitors, and daily healthcare supplies.`,
+      gstNumber: '10MEDPLUS3322L1Z6',
+      joinedDate: '2023-01-25',
+      viewsCount: 1980,
+      enquiriesCount: 155
     }
   ];
 
-  // Offset coordinates around central point for natural local proximity (600m to 4.8km - strictly under 5 km)
+  // Offset coordinates strictly within 300m to 1.8km (Strictly under 2.0 km)
   const offsets = [
-    { dLat: 0.0045, dLng: 0.0038, area: `Main Market / Central ${city}` }, // ~600m (0.6 km) - Ultra local walking
-    { dLat: -0.0078, dLng: 0.0062, area: `Station Road / Commercial Hub, ${city}` }, // ~1.2 km - Short drive
-    { dLat: 0.0135, dLng: -0.0120, area: `Civil Lines / Bypass Road, ${city}` }, // ~2.1 km - Neighborhood market
-    { dLat: -0.0210, dLng: -0.0180, area: `Gandhi Chowk / Sector 1, ${city}` }, // ~3.2 km - Regional hub
-    { dLat: 0.0270, dLng: 0.0240, area: `Industrial Area / Ring Road, ${city}` }, // ~4.2 km - City wholesale
-    { dLat: -0.0310, dLng: 0.0280, area: `College Road / Court Area, ${city}` } // ~4.8 km - Outer market (<5km)
+    { dLat: 0.0028, dLng: 0.0022, area: `Main Market / Central ${city}` }, // ~350m (0.35 km)
+    { dLat: -0.0042, dLng: 0.0035, area: `Station Road / Commercial Hub, ${city}` }, // ~600m (0.6 km)
+    { dLat: 0.0058, dLng: -0.0048, area: `Civil Lines / Market Complex, ${city}` }, // ~900m (0.9 km)
+    { dLat: -0.0075, dLng: -0.0062, area: `Gandhi Chowk / Sector 1, ${city}` }, // ~1.2 km
+    { dLat: 0.0090, dLng: 0.0078, area: `Hospital Road / Medical Enclave, ${city}` }, // ~1.4 km
+    { dLat: -0.0105, dLng: 0.0092, area: `College Road / Court Area, ${city}` }, // ~1.6 km
+    { dLat: 0.0118, dLng: -0.0085, area: `Clock Tower / Subhash Chowk, ${city}` }, // ~1.7 km
+    { dLat: -0.0122, dLng: -0.0098, area: `Bazaar Samiti / Wholesale Market, ${city}` } // ~1.8 km
   ];
 
   return templates.map((tmpl, idx) => {
@@ -925,7 +969,7 @@ export const generateStoresForCity = (
 };
 
 /**
- * Generate Inventory bindings for newly generated city stores with 3-tier price comparison
+ * Generate Inventory bindings for newly generated city stores with 3-tier price comparison within 2km
  */
 export const generateInventoryForStores = (
   newStores: Store[],
@@ -934,28 +978,34 @@ export const generateInventoryForStores = (
   const result: StoreInventory[] = [];
 
   newStores.forEach((store, storeIdx) => {
-    // Filter products matching store category or stock all catalog
-    const matchingProducts = existingProducts.filter(p => store.categoryIds.includes(p.categoryId));
-    const productsToStock = matchingProducts.length > 0 ? matchingProducts : existingProducts;
+    existingProducts.forEach((prod, prodIdx) => {
+      const isDirectCategory = store.categoryIds.includes(prod.categoryId);
+      // Ensure high availability across 3-4 local stores for each product so price comparison works everywhere
+      const shouldStock = isDirectCategory || (storeIdx % 2 === prodIdx % 2);
 
-    productsToStock.forEach((prod, prodIdx) => {
-      // Create realistic competitive counter discount (10% to 26%)
-      const discount = 10 + ((storeIdx * 7 + prodIdx * 5) % 18);
-      const price = Math.round(prod.mrp * (1 - discount / 100));
-      result.push({
-        id: `inv-${store.id}-${prod.id}`,
-        storeId: store.id,
-        productId: prod.id,
-        price,
-        mrp: prod.mrp,
-        discountPercent: discount,
-        stockQuantity: 8 + ((storeIdx * 4 + prodIdx * 3) % 25),
-        status: (prodIdx % 7 === 6) ? 'low_stock' : 'in_stock',
-        lastUpdated: `${((storeIdx + prodIdx) % 55) + 5} mins ago`,
-        isBestPrice: storeIdx % 2 === 1
-      });
+      if (shouldStock) {
+        // Competitive local counter discount (8% to 22% variation)
+        const discountMultipliers = [0.88, 0.92, 0.85, 0.90, 0.86, 0.93];
+        const multiplier = discountMultipliers[(storeIdx * 3 + prodIdx) % discountMultipliers.length];
+        const price = Math.round(prod.mrp * multiplier);
+        const discount = Math.round(((prod.mrp - price) / prod.mrp) * 100);
+
+        result.push({
+          id: `inv-${store.id}-${prod.id}`,
+          storeId: store.id,
+          productId: prod.id,
+          price,
+          mrp: prod.mrp,
+          discountPercent: discount,
+          stockQuantity: 6 + ((storeIdx * 5 + prodIdx * 3) % 30),
+          status: (prodIdx % 8 === 7) ? 'low_stock' : 'in_stock',
+          lastUpdated: `${((storeIdx + prodIdx) % 45) + 5} mins ago`,
+          isBestPrice: multiplier <= 0.86
+        });
+      }
     });
   });
 
   return result;
 };
+

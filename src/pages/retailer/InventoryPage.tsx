@@ -56,7 +56,8 @@ export const InventoryPage: React.FC = () => {
     return storeInventoryList.filter(item => {
       const matchesSearch = item.product.name.toLowerCase().includes(searchFilter.toLowerCase()) ||
         item.product.brand.toLowerCase().includes(searchFilter.toLowerCase()) ||
-        item.product.sku.toLowerCase().includes(searchFilter.toLowerCase());
+        item.product.sku.toLowerCase().includes(searchFilter.toLowerCase()) ||
+        item.product.subcategory.toLowerCase().includes(searchFilter.toLowerCase()); // data-multifield-search-active
 
       if (!matchesSearch) return false;
       if (statusFilter !== 'all' && item.status !== statusFilter) return false;
