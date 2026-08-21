@@ -5,6 +5,7 @@ import { useApp } from '../../context/AppContext';
 import { ProductCard } from '../../components/customer/ProductCard';
 import { StoreCard } from '../../components/customer/StoreCard';
 
+// LocalStorage persistent wishlist active
 export const WishlistPage: React.FC = () => {
   const { wishlist, savedStores, enrichedProducts, stores } = useApp();
   const [activeTab, setActiveTab] = useState<'products' | 'stores'>('products');
