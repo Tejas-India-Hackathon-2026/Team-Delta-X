@@ -801,51 +801,226 @@ const generateLocalStores = (cityName = 'Jamui', stateName = 'Bihar', lat = 24.9
       joinedDate: '2022-11-20',
       viewsCount: 2100,
       enquiriesCount: 165
+    },
+    // Third competing stores for each domain:
+    {
+      id: `store-${safeCity}-royal-auto`,
+      name: `${cityName} Royal Two-Wheeler Hub & Spare Center`,
+      ownerName: 'Vikram Singh',
+      phone: '+91 98455 99881',
+      whatsapp: '919845599881',
+      email: `royalauto.${safeCity}@dhoondo.local`,
+      categoryIds: ['cat-automobile'],
+      rating: 4.7,
+      reviewCount: 210,
+      verified: true,
+      address: `Opp. Bus Stand, Bypass Highway, ${cityName}`,
+      area: `Bypass Highway / Bus Stand`,
+      city: cityName,
+      pincode: pincode,
+      coordinates: { lat: Number((lat + 0.0032).toFixed(6)), lng: Number((lng + 0.0025).toFixed(6)) }, // ~520m
+      openingHours: '8:00 AM - 10:00 PM',
+      isOpen: true,
+      image: 'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=600&q=80',
+      bannerImage: 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=1200&q=80',
+      facilities: ['Express Engine Oil Change', 'Chain Lube Service', 'Genuine Helmets'],
+      about: `Bike clinic and premium lubricants dealer in ${cityName}, specializing in Motul, Castrol, and original OEM parts.`,
+      gstNumber: '10ROYAL3344K1Z8',
+      joinedDate: '2023-03-10',
+      viewsCount: 1600,
+      enquiriesCount: 120
+    },
+    {
+      id: `store-${safeCity}-apex-mobiles`,
+      name: `${cityName} Apex Smart Mobiles & Gadgets Gallery`,
+      ownerName: 'Deepak Chaurasia',
+      phone: '+91 98765 66778',
+      whatsapp: '919876566778',
+      email: `apexmobiles.${safeCity}@dhoondo.local`,
+      categoryIds: ['cat-electronics'],
+      rating: 4.9,
+      reviewCount: 350,
+      verified: true,
+      address: `Shop #18, Main Market Square, ${cityName}`,
+      area: `Main Market Square`,
+      city: cityName,
+      pincode: pincode,
+      coordinates: { lat: Number((lat - 0.0018).toFixed(6)), lng: Number((lng - 0.0032).toFixed(6)) }, // ~420m
+      openingHours: '10:00 AM - 9:30 PM',
+      isOpen: true,
+      image: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=600&q=80',
+      bannerImage: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80',
+      facilities: ['Original Apple & Samsung Stock', 'Smartwatches & TWS', 'Exchange Offers'],
+      about: `Smart gadget retailer in ${cityName}, stocking official smartphones, fast chargers, power banks, and audio headsets.`,
+      gstNumber: '10APEX7788P1Z5',
+      joinedDate: '2023-01-20',
+      viewsCount: 2800,
+      enquiriesCount: 240
+    },
+    {
+      id: `store-${safeCity}-sanjivani-medico`,
+      name: `${cityName} Sanjivani Medicos & Healthcare`,
+      ownerName: 'Dr. Rakesh Verma',
+      phone: '+91 98801 22334',
+      whatsapp: '919880122334',
+      email: `sanjivani.${safeCity}@dhoondo.local`,
+      categoryIds: ['cat-pharmacy'],
+      rating: 4.8,
+      reviewCount: 290,
+      verified: true,
+      address: `Shop #4, Gandhi Chowk, Station Road, ${cityName}`,
+      area: `Gandhi Chowk`,
+      city: cityName,
+      pincode: pincode,
+      coordinates: { lat: Number((lat + 0.0024).toFixed(6)), lng: Number((lng - 0.0020).toFixed(6)) }, // ~350m
+      openingHours: '7:00 AM - 11:00 PM',
+      isOpen: true,
+      image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+      bannerImage: 'https://images.unsplash.com/photo-1586015555751-63c252277d3f?auto=format&fit=crop&w=1200&q=80',
+      facilities: ['Prescription Medicines', 'Daily Health Essentials', 'Free BP Checkup'],
+      about: `Trusted chemist in ${cityName}, offering authentic OTC tablets, thermometers, diabetic strips, and child wellness products.`,
+      gstNumber: '10SANJ8899K1Z2',
+      joinedDate: '2022-09-10',
+      viewsCount: 2200,
+      enquiriesCount: 195
+    },
+    {
+      id: `store-${safeCity}-apna-bazaar`,
+      name: `${cityName} Apna Bazaar Wholesale Kirana`,
+      ownerName: 'Rameshwar Prasad',
+      phone: '+91 98765 11223',
+      whatsapp: '919876511223',
+      email: `apnabazaar.${safeCity}@dhoondo.local`,
+      categoryIds: ['cat-grocery'],
+      rating: 4.6,
+      reviewCount: 310,
+      verified: true,
+      address: `Main Mandi Road, Near Grain Market, ${cityName}`,
+      area: `Grain Market / Mandi Road`,
+      city: cityName,
+      pincode: pincode,
+      coordinates: { lat: Number((lat - 0.0028).toFixed(6)), lng: Number((lng + 0.0018).toFixed(6)) }, // ~410m
+      openingHours: '7:00 AM - 9:30 PM',
+      isOpen: true,
+      image: 'https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=600&q=80',
+      bannerImage: 'https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=1200&q=80',
+      facilities: ['Wholesale Prices', 'Bulk Bags Available', 'Free Home Delivery'],
+      about: `Large grocery wholesale depot in ${cityName}, supplying Aashirvaad Atta, Fortune Basmati, Amul Butter, Spices, and detergents.`,
+      gstNumber: '10APNA4455L1Z1',
+      joinedDate: '2022-12-05',
+      viewsCount: 1950,
+      enquiriesCount: 160
+    },
+    {
+      id: `store-${safeCity}-metro-sanitary`,
+      name: `${cityName} Metro Sanitary, Pipes & Electricals`,
+      ownerName: 'Alok Singhania',
+      phone: '+91 98800 44556',
+      whatsapp: '919880044556',
+      email: `metrosanitary.${safeCity}@dhoondo.local`,
+      categoryIds: ['cat-hardware'],
+      rating: 4.7,
+      reviewCount: 190,
+      verified: true,
+      address: `Plot #15, Cinema Road, Opp. Town Hall, ${cityName}`,
+      area: `Cinema Road`,
+      city: cityName,
+      pincode: pincode,
+      coordinates: { lat: Number((lat + 0.0035).toFixed(6)), lng: Number((lng + 0.0015).toFixed(6)) }, // ~460m
+      openingHours: '8:30 AM - 8:30 PM',
+      isOpen: true,
+      image: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=600&q=80',
+      bannerImage: 'https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=1200&q=80',
+      facilities: ['Astral & Supreme Pipes', 'Havells & Polycab Wires', 'Water Heaters'],
+      about: `Sanitary and electrical fitting center in ${cityName}, offering water motors, bathroom fixtures, wires, and power tools.`,
+      gstNumber: '10METRO1122P1Z9',
+      joinedDate: '2023-02-18',
+      viewsCount: 1400,
+      enquiriesCount: 115
+    },
+    {
+      id: `store-${safeCity}-student-corner`,
+      name: `${cityName} Student Corner & Book House`,
+      ownerName: 'Santosh Jha',
+      phone: '+91 98765 99001',
+      whatsapp: '919876599001',
+      email: `studentcorner.${safeCity}@dhoondo.local`,
+      categoryIds: ['cat-stationery'],
+      rating: 4.8,
+      reviewCount: 310,
+      verified: true,
+      address: `Shop #11, High School Chowk, Station Road, ${cityName}`,
+      area: `High School Chowk`,
+      city: cityName,
+      pincode: pincode,
+      coordinates: { lat: Number((lat - 0.0012).toFixed(6)), lng: Number((lng - 0.0025).toFixed(6)) }, // ~310m
+      openingHours: '8:00 AM - 9:00 PM',
+      isOpen: true,
+      image: 'https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=600&q=80',
+      bannerImage: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80',
+      facilities: ['NCERT Books', 'Competitive Exam Series', 'Calculators & Art Kits'],
+      about: `Academic bookstore in ${cityName}, stocking school textbooks, registers, pens, geometry boxes, and reference guides.`,
+      gstNumber: '10STUDENT8899K1Z4',
+      joinedDate: '2023-01-05',
+      viewsCount: 1900,
+      enquiriesCount: 150
     }
   ];
 };
 
-// 3. Multi-Merchant Inventory Generator with In-Stock vs Out-Of-Stock and Price Variations
+// 3. Multi-Merchant Inventory Generator with Realistic Distinct Pricing and Stock States
 const generateStoreInventory = (stores, products) => {
   const inventory = [];
 
-  stores.forEach((store, storeIdx) => {
-    products.forEach((prod, prodIdx) => {
-      // Check category match
-      const isStoreCategory = store.categoryIds.includes(prod.categoryId);
+  // Group stores by category
+  const storesByCategory = new Map();
+  stores.forEach(store => {
+    store.categoryIds.forEach(catId => {
+      if (!storesByCategory.has(catId)) storesByCategory.set(catId, []);
+      storesByCategory.get(catId).push(store);
+    });
+  });
 
-      if (isStoreCategory) {
-        // Multi-store price variation (e.g. 8% to 22% discount differences)
-        const discountMultipliers = [0.85, 0.90, 0.88, 0.92, 0.82, 0.94];
-        const multiplier = discountMultipliers[(storeIdx * 7 + prodIdx * 3) % discountMultipliers.length];
-        const price = Math.round(prod.mrp * multiplier);
-        const discount = Math.round(((prod.mrp - price) / prod.mrp) * 100);
+  // For every product, map across all stores belonging to its category with distinct competitive pricing
+  products.forEach((prod, prodIdx) => {
+    const matchingStores = storesByCategory.get(prod.categoryId) || [];
 
-        // Deterministic status: mostly in_stock, with occasional low_stock and out_of_stock for comparison testing
-        let status = 'in_stock';
-        let stockQuantity = 12 + ((storeIdx * 3 + prodIdx * 5) % 25);
-        
-        if (prodIdx % 9 === 8 && storeIdx % 2 === 1) {
-          status = 'out_of_stock';
-          stockQuantity = 0;
-        } else if (prodIdx % 7 === 6) {
-          status = 'low_stock';
-          stockQuantity = 2;
-        }
+    // Distinct price multipliers for competing stores:
+    // Store 0: 0.82 (18% discount -> Best Price Winner!)
+    // Store 1: 0.88 (12% discount)
+    // Store 2: 0.93 (7% discount)
+    const baseMultipliers = [0.82, 0.88, 0.93];
 
-        inventory.push({
-          id: `inv-${store.id}-${prod.id}`,
-          storeId: store.id,
-          productId: prod.id,
-          price,
-          mrp: prod.mrp,
-          discountPercent: discount,
-          stockQuantity,
-          status,
-          lastUpdated: `${((storeIdx + prodIdx) % 35) + 5} mins ago`,
-          isBestPrice: multiplier <= 0.85
-        });
+    matchingStores.forEach((store, storeIndex) => {
+      const multiplierIndex = (storeIndex + (prodIdx % 2)) % baseMultipliers.length;
+      const multiplier = baseMultipliers[multiplierIndex];
+      const price = Math.round(prod.mrp * multiplier);
+      const discount = Math.round(((prod.mrp - price) / prod.mrp) * 100);
+
+      // Realistic stock state:
+      let status = 'in_stock';
+      let stockQuantity = 14 + ((storeIndex * 5 + prodIdx * 3) % 20);
+
+      if (prodIdx % 11 === 10 && storeIndex === 2) {
+        status = 'out_of_stock';
+        stockQuantity = 0;
+      } else if (prodIdx % 7 === 6 && storeIndex === 1) {
+        status = 'low_stock';
+        stockQuantity = 2;
       }
+
+      inventory.push({
+        id: `inv-${store.id}-${prod.id}`,
+        storeId: store.id,
+        productId: prod.id,
+        price,
+        mrp: prod.mrp,
+        discountPercent: discount,
+        stockQuantity,
+        status,
+        lastUpdated: `${((storeIndex * 7 + prodIdx * 3) % 25) + 3} mins ago`,
+        isBestPrice: multiplierIndex === 0
+      });
     });
   });
 

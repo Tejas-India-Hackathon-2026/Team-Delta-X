@@ -406,6 +406,222 @@ export const INITIAL_STORES: Store[] = [
     "joinedDate": "2022-11-20",
     "viewsCount": 2100,
     "enquiriesCount": 165
+  },
+  {
+    "id": "store-jamui-royal-auto",
+    "name": "Jamui Royal Two-Wheeler Hub & Spare Center",
+    "ownerName": "Vikram Singh",
+    "phone": "+91 98455 99881",
+    "whatsapp": "919845599881",
+    "email": "royalauto.jamui@dhoondo.local",
+    "categoryIds": [
+      "cat-automobile"
+    ],
+    "rating": 4.7,
+    "reviewCount": 210,
+    "verified": true,
+    "address": "Opp. Bus Stand, Bypass Highway, Jamui",
+    "area": "Bypass Highway / Bus Stand",
+    "city": "Jamui",
+    "pincode": "811307",
+    "coordinates": {
+      "lat": 24.929,
+      "lng": 86.2257
+    },
+    "openingHours": "8:00 AM - 10:00 PM",
+    "isOpen": true,
+    "image": "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=600&q=80",
+    "bannerImage": "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=1200&q=80",
+    "facilities": [
+      "Express Engine Oil Change",
+      "Chain Lube Service",
+      "Genuine Helmets"
+    ],
+    "about": "Bike clinic and premium lubricants dealer in Jamui, specializing in Motul, Castrol, and original OEM parts.",
+    "gstNumber": "10ROYAL3344K1Z8",
+    "joinedDate": "2023-03-10",
+    "viewsCount": 1600,
+    "enquiriesCount": 120
+  },
+  {
+    "id": "store-jamui-apex-mobiles",
+    "name": "Jamui Apex Smart Mobiles & Gadgets Gallery",
+    "ownerName": "Deepak Chaurasia",
+    "phone": "+91 98765 66778",
+    "whatsapp": "919876566778",
+    "email": "apexmobiles.jamui@dhoondo.local",
+    "categoryIds": [
+      "cat-electronics"
+    ],
+    "rating": 4.9,
+    "reviewCount": 350,
+    "verified": true,
+    "address": "Shop #18, Main Market Square, Jamui",
+    "area": "Main Market Square",
+    "city": "Jamui",
+    "pincode": "811307",
+    "coordinates": {
+      "lat": 24.924,
+      "lng": 86.22
+    },
+    "openingHours": "10:00 AM - 9:30 PM",
+    "isOpen": true,
+    "image": "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=600&q=80",
+    "bannerImage": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80",
+    "facilities": [
+      "Original Apple & Samsung Stock",
+      "Smartwatches & TWS",
+      "Exchange Offers"
+    ],
+    "about": "Smart gadget retailer in Jamui, stocking official smartphones, fast chargers, power banks, and audio headsets.",
+    "gstNumber": "10APEX7788P1Z5",
+    "joinedDate": "2023-01-20",
+    "viewsCount": 2800,
+    "enquiriesCount": 240
+  },
+  {
+    "id": "store-jamui-sanjivani-medico",
+    "name": "Jamui Sanjivani Medicos & Healthcare",
+    "ownerName": "Dr. Rakesh Verma",
+    "phone": "+91 98801 22334",
+    "whatsapp": "919880122334",
+    "email": "sanjivani.jamui@dhoondo.local",
+    "categoryIds": [
+      "cat-pharmacy"
+    ],
+    "rating": 4.8,
+    "reviewCount": 290,
+    "verified": true,
+    "address": "Shop #4, Gandhi Chowk, Station Road, Jamui",
+    "area": "Gandhi Chowk",
+    "city": "Jamui",
+    "pincode": "811307",
+    "coordinates": {
+      "lat": 24.9282,
+      "lng": 86.2212
+    },
+    "openingHours": "7:00 AM - 11:00 PM",
+    "isOpen": true,
+    "image": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80",
+    "bannerImage": "https://images.unsplash.com/photo-1586015555751-63c252277d3f?auto=format&fit=crop&w=1200&q=80",
+    "facilities": [
+      "Prescription Medicines",
+      "Daily Health Essentials",
+      "Free BP Checkup"
+    ],
+    "about": "Trusted chemist in Jamui, offering authentic OTC tablets, thermometers, diabetic strips, and child wellness products.",
+    "gstNumber": "10SANJ8899K1Z2",
+    "joinedDate": "2022-09-10",
+    "viewsCount": 2200,
+    "enquiriesCount": 195
+  },
+  {
+    "id": "store-jamui-apna-bazaar",
+    "name": "Jamui Apna Bazaar Wholesale Kirana",
+    "ownerName": "Rameshwar Prasad",
+    "phone": "+91 98765 11223",
+    "whatsapp": "919876511223",
+    "email": "apnabazaar.jamui@dhoondo.local",
+    "categoryIds": [
+      "cat-grocery"
+    ],
+    "rating": 4.6,
+    "reviewCount": 310,
+    "verified": true,
+    "address": "Main Mandi Road, Near Grain Market, Jamui",
+    "area": "Grain Market / Mandi Road",
+    "city": "Jamui",
+    "pincode": "811307",
+    "coordinates": {
+      "lat": 24.923,
+      "lng": 86.225
+    },
+    "openingHours": "7:00 AM - 9:30 PM",
+    "isOpen": true,
+    "image": "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=600&q=80",
+    "bannerImage": "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=1200&q=80",
+    "facilities": [
+      "Wholesale Prices",
+      "Bulk Bags Available",
+      "Free Home Delivery"
+    ],
+    "about": "Large grocery wholesale depot in Jamui, supplying Aashirvaad Atta, Fortune Basmati, Amul Butter, Spices, and detergents.",
+    "gstNumber": "10APNA4455L1Z1",
+    "joinedDate": "2022-12-05",
+    "viewsCount": 1950,
+    "enquiriesCount": 160
+  },
+  {
+    "id": "store-jamui-metro-sanitary",
+    "name": "Jamui Metro Sanitary, Pipes & Electricals",
+    "ownerName": "Alok Singhania",
+    "phone": "+91 98800 44556",
+    "whatsapp": "919880044556",
+    "email": "metrosanitary.jamui@dhoondo.local",
+    "categoryIds": [
+      "cat-hardware"
+    ],
+    "rating": 4.7,
+    "reviewCount": 190,
+    "verified": true,
+    "address": "Plot #15, Cinema Road, Opp. Town Hall, Jamui",
+    "area": "Cinema Road",
+    "city": "Jamui",
+    "pincode": "811307",
+    "coordinates": {
+      "lat": 24.9293,
+      "lng": 86.2247
+    },
+    "openingHours": "8:30 AM - 8:30 PM",
+    "isOpen": true,
+    "image": "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=600&q=80",
+    "bannerImage": "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=1200&q=80",
+    "facilities": [
+      "Astral & Supreme Pipes",
+      "Havells & Polycab Wires",
+      "Water Heaters"
+    ],
+    "about": "Sanitary and electrical fitting center in Jamui, offering water motors, bathroom fixtures, wires, and power tools.",
+    "gstNumber": "10METRO1122P1Z9",
+    "joinedDate": "2023-02-18",
+    "viewsCount": 1400,
+    "enquiriesCount": 115
+  },
+  {
+    "id": "store-jamui-student-corner",
+    "name": "Jamui Student Corner & Book House",
+    "ownerName": "Santosh Jha",
+    "phone": "+91 98765 99001",
+    "whatsapp": "919876599001",
+    "email": "studentcorner.jamui@dhoondo.local",
+    "categoryIds": [
+      "cat-stationery"
+    ],
+    "rating": 4.8,
+    "reviewCount": 310,
+    "verified": true,
+    "address": "Shop #11, High School Chowk, Station Road, Jamui",
+    "area": "High School Chowk",
+    "city": "Jamui",
+    "pincode": "811307",
+    "coordinates": {
+      "lat": 24.9246,
+      "lng": 86.2207
+    },
+    "openingHours": "8:00 AM - 9:00 PM",
+    "isOpen": true,
+    "image": "https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=600&q=80",
+    "bannerImage": "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80",
+    "facilities": [
+      "NCERT Books",
+      "Competitive Exam Series",
+      "Calculators & Art Kits"
+    ],
+    "about": "Academic bookstore in Jamui, stocking school textbooks, registers, pens, geometry boxes, and reference guides.",
+    "gstNumber": "10STUDENT8899K1Z4",
+    "joinedDate": "2023-01-05",
+    "viewsCount": 1900,
+    "enquiriesCount": 150
   }
 ];
 
