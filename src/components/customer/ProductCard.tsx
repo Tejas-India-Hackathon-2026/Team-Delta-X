@@ -15,6 +15,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item, onOpenDemandModa
   const { wishlist, toggleWishlist } = useApp();
   const navigate = useNavigate();
   const isWishlisted = wishlist.includes(item.product.id);
+  const calculatedSavings = item.product.mrp > item.bestPrice ? item.product.mrp - item.bestPrice : 0;
+  const calculatedDiscountPercent = item.product.mrp > 0 && calculatedSavings > 0 
+    ? Math.round((calculatedSavings / item.product.mrp) * 100) 
+    : 0;
+
 
   const bestInventory = item.inventoryList[0];
   // Stock badge enhancer
