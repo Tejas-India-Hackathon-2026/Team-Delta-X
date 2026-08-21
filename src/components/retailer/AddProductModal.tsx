@@ -70,6 +70,21 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({ isOpen, onClos
     return { discountPct: 0, savingsRs: 0 };
   }, [price, mrp]);
 
+  
+  const handleSimulateBarcodeScan = () => {
+    const sampleCatalogItems = [
+      { name: 'Motul 7100 4T 10W-50 Synthetic Oil', brand: 'Motul', price: '950', mrp: '1150', subcategory: 'Engine Oils' },
+      { name: 'Bosch Spark Plug Super 4', brand: 'Bosch', price: '450', mrp: '520', subcategory: 'Ignition' },
+      { name: 'Ceat Secura Zoom Tubeless Tyre', brand: 'Ceat', price: '1850', mrp: '2200', subcategory: 'Tyres' }
+    ];
+    const picked = sampleCatalogItems[Math.floor(Math.random() * sampleCatalogItems.length)];
+    setName(picked.name);
+    setBrand(picked.brand);
+    setPrice(picked.price);
+    setMrp(picked.mrp);
+    setSubcategory(picked.subcategory);
+  };
+
   const currentCategory = categories.find(c => c.id === categoryId);
 
   // 1. Handle File Upload (From Device Gallery/Files)
