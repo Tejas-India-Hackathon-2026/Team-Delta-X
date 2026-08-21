@@ -198,28 +198,28 @@ function safeSetLocalStorage<T>(key: string, value: T) {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Load initial states with localStorage persistence (v5 schema for clean multi-store comparison)
-  const [user, setUser] = useState<UserSession>(() => safeGetLocalStorage('dhoondo_v5_user', DEFAULT_USER));
-  const [location, setLocationState] = useState<LocationState>(() => safeGetLocalStorage('dhoondo_v5_location', DEFAULT_LOCATION));
-  const [categories, setCategories] = useState<Category[]>(() => safeGetLocalStorage('dhoondo_v5_categories', INITIAL_CATEGORIES));
+  // Load initial states with localStorage persistence (v6 schema for clean accurate product images)
+  const [user, setUser] = useState<UserSession>(() => safeGetLocalStorage('dhoondo_v6_user', DEFAULT_USER));
+  const [location, setLocationState] = useState<LocationState>(() => safeGetLocalStorage('dhoondo_v6_location', DEFAULT_LOCATION));
+  const [categories, setCategories] = useState<Category[]>(() => safeGetLocalStorage('dhoondo_v6_categories', INITIAL_CATEGORIES));
   const [stores, setStores] = useState<Store[]>(() => {
-    const raw = safeGetLocalStorage<Store[]>('dhoondo_v5_stores', INITIAL_STORES);
+    const raw = safeGetLocalStorage<Store[]>('dhoondo_v6_stores', INITIAL_STORES);
     return raw.map((s, idx) => ({
       ...s,
       subscription: s.subscription || getDefaultSubscription(idx === 0 || s.id === 'store-maa-ambe-jamui')
     }));
   });
   const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
-  const [products, setProducts] = useState<Product[]>(() => safeGetLocalStorage('dhoondo_v5_products', INITIAL_PRODUCTS));
-  const [inventory, setInventory] = useState<StoreInventory[]>(() => safeGetLocalStorage('dhoondo_v5_inventory', INITIAL_INVENTORY));
-  const [demands, setDemands] = useState<CustomerDemand[]>(() => safeGetLocalStorage('dhoondo_v5_demands', INITIAL_DEMANDS));
-  const [offers, setOffers] = useState<Offer[]>(() => safeGetLocalStorage('dhoondo_v5_offers', INITIAL_OFFERS));
-  const [enquiries, setEnquiries] = useState<Enquiry[]>(() => safeGetLocalStorage('dhoondo_v5_enquiries', INITIAL_ENQUIRIES));
-  const [reviews, setReviews] = useState<Review[]>(() => safeGetLocalStorage('dhoondo_v5_reviews', INITIAL_REVIEWS));
-  const [notifications, setNotifications] = useState<NotificationItem[]>(() => safeGetLocalStorage('dhoondo_v5_notifications', INITIAL_NOTIFICATIONS));
-  const [wishlist, setWishlist] = useState<string[]>(() => safeGetLocalStorage('dhoondo_v5_wishlist', ['prod-automobile-1-honda-cb-shine-front-disc-brak', 'prod-electronics-11-boat-rockerz-450-bluetooth-on']));
-  const [savedStores, setSavedStores] = useState<string[]>(() => safeGetLocalStorage('dhoondo_v5_saved_stores', ['store-jamui-sharma-auto']));
-  const [searchHistory, setSearchHistory] = useState<string[]>(() => safeGetLocalStorage('dhoondo_v5_search_history', ['Honda Shine brake pad', 'Dolo 650', 'Motul 7100', 'iPhone 15']));
+  const [products, setProducts] = useState<Product[]>(() => safeGetLocalStorage('dhoondo_v6_products', INITIAL_PRODUCTS));
+  const [inventory, setInventory] = useState<StoreInventory[]>(() => safeGetLocalStorage('dhoondo_v6_inventory', INITIAL_INVENTORY));
+  const [demands, setDemands] = useState<CustomerDemand[]>(() => safeGetLocalStorage('dhoondo_v6_demands', INITIAL_DEMANDS));
+  const [offers, setOffers] = useState<Offer[]>(() => safeGetLocalStorage('dhoondo_v6_offers', INITIAL_OFFERS));
+  const [enquiries, setEnquiries] = useState<Enquiry[]>(() => safeGetLocalStorage('dhoondo_v6_enquiries', INITIAL_ENQUIRIES));
+  const [reviews, setReviews] = useState<Review[]>(() => safeGetLocalStorage('dhoondo_v6_reviews', INITIAL_REVIEWS));
+  const [notifications, setNotifications] = useState<NotificationItem[]>(() => safeGetLocalStorage('dhoondo_v6_notifications', INITIAL_NOTIFICATIONS));
+  const [wishlist, setWishlist] = useState<string[]>(() => safeGetLocalStorage('dhoondo_v6_wishlist', ['prod-automobile-1-honda-cb-shine-front-disc-brak', 'prod-electronics-11-boat-rockerz-450-bluetooth-on']));
+  const [savedStores, setSavedStores] = useState<string[]>(() => safeGetLocalStorage('dhoondo_v6_saved_stores', ['store-jamui-sharma-auto']));
+  const [searchHistory, setSearchHistory] = useState<string[]>(() => safeGetLocalStorage('dhoondo_v6_search_history', ['Honda Shine brake pad', 'Dolo 650', 'Motul 7100', 'iPhone 15']));
 
   // Compare State
   const [compareItems, setCompareItems] = useState<EnrichedProductResult[]>([]);
@@ -279,20 +279,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, []);
 
   // Sync back to LocalStorage safely
-  useEffect(() => { safeSetLocalStorage('dhoondo_v5_user', user); }, [user]);
-  useEffect(() => { safeSetLocalStorage('dhoondo_v5_location', location); }, [location]);
-  useEffect(() => { safeSetLocalStorage('dhoondo_v5_categories', categories); }, [categories]);
-  useEffect(() => { safeSetLocalStorage('dhoondo_v5_stores', stores); }, [stores]);
-  useEffect(() => { safeSetLocalStorage('dhoondo_v5_products', products); }, [products]);
-  useEffect(() => { safeSetLocalStorage('dhoondo_v5_inventory', inventory); }, [inventory]);
-  useEffect(() => { safeSetLocalStorage('dhoondo_v5_demands', demands); }, [demands]);
-  useEffect(() => { safeSetLocalStorage('dhoondo_v5_offers', offers); }, [offers]);
-  useEffect(() => { safeSetLocalStorage('dhoondo_v5_enquiries', enquiries); }, [enquiries]);
-  useEffect(() => { safeSetLocalStorage('dhoondo_v5_reviews', reviews); }, [reviews]);
-  useEffect(() => { safeSetLocalStorage('dhoondo_v5_notifications', notifications); }, [notifications]);
-  useEffect(() => { safeSetLocalStorage('dhoondo_v5_wishlist', wishlist); }, [wishlist]);
-  useEffect(() => { safeSetLocalStorage('dhoondo_v5_saved_stores', savedStores); }, [savedStores]);
-  useEffect(() => { safeSetLocalStorage('dhoondo_v5_search_history', searchHistory); }, [searchHistory]);
+  useEffect(() => { safeSetLocalStorage('dhoondo_v6_user', user); }, [user]);
+  useEffect(() => { safeSetLocalStorage('dhoondo_v6_location', location); }, [location]);
+  useEffect(() => { safeSetLocalStorage('dhoondo_v6_categories', categories); }, [categories]);
+  useEffect(() => { safeSetLocalStorage('dhoondo_v6_stores', stores); }, [stores]);
+  useEffect(() => { safeSetLocalStorage('dhoondo_v6_products', products); }, [products]);
+  useEffect(() => { safeSetLocalStorage('dhoondo_v6_inventory', inventory); }, [inventory]);
+  useEffect(() => { safeSetLocalStorage('dhoondo_v6_demands', demands); }, [demands]);
+  useEffect(() => { safeSetLocalStorage('dhoondo_v6_offers', offers); }, [offers]);
+  useEffect(() => { safeSetLocalStorage('dhoondo_v6_enquiries', enquiries); }, [enquiries]);
+  useEffect(() => { safeSetLocalStorage('dhoondo_v6_reviews', reviews); }, [reviews]);
+  useEffect(() => { safeSetLocalStorage('dhoondo_v6_notifications', notifications); }, [notifications]);
+  useEffect(() => { safeSetLocalStorage('dhoondo_v6_wishlist', wishlist); }, [wishlist]);
+  useEffect(() => { safeSetLocalStorage('dhoondo_v6_saved_stores', savedStores); }, [savedStores]);
+  useEffect(() => { safeSetLocalStorage('dhoondo_v6_search_history', searchHistory); }, [searchHistory]);
 
   // Initial Sync from Backend REST API (with silent fallback)
   useEffect(() => {

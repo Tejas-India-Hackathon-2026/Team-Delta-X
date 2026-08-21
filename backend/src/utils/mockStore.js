@@ -794,7 +794,7 @@ const mockData = {
       "Brand": "TVS Genuine",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "tvs",
       "apache",
@@ -887,7 +887,7 @@ const mockData = {
       "Brand": "NGK",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "ngk",
       "spark plug",
@@ -1758,7 +1758,7 @@ const mockData = {
       "Brand": "Roots",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "roots horn",
       "windtone",
@@ -1789,7 +1789,7 @@ const mockData = {
       "Brand": "Philips",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "philips h4",
       "headlight bulb",
@@ -1820,7 +1820,7 @@ const mockData = {
       "Brand": "Osram",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "osram h7",
       "night breaker",
@@ -1851,7 +1851,7 @@ const mockData = {
       "Brand": "Uno Minda",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "relay kit",
       "minda relay",
@@ -1882,7 +1882,7 @@ const mockData = {
       "Brand": "Bosch",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "bosch horn",
       "symphony horn",
@@ -1913,7 +1913,7 @@ const mockData = {
       "Brand": "Microtek",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "battery charger",
       "trickle charger",
@@ -2970,7 +2970,7 @@ const mockData = {
       "Brand": "boAt",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1609081219090-a6d81d3085bf?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "type c cable",
       "boat cable",
@@ -3001,7 +3001,7 @@ const mockData = {
       "Brand": "Anker",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1609081219090-a6d81d3085bf?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "lightning cable",
       "anker cable",
@@ -4111,7 +4111,7 @@ const mockData = {
       "Brand": "Dettol",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1603398938378-e54eab446dde?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "dettol",
       "antiseptic",
@@ -6860,7 +6860,7 @@ const mockData = {
       "Brand": "Stanley",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1581147036324-c17ac41dfa6c?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "stanley screwdriver",
       "tools",
@@ -6923,7 +6923,7 @@ const mockData = {
       "Brand": "Taparia",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1581147036324-c17ac41dfa6c?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "taparia plier",
       "combination pliers",
@@ -6954,7 +6954,7 @@ const mockData = {
       "Brand": "Taparia",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1581147036324-c17ac41dfa6c?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "adjustable wrench",
       "slide wrench",
@@ -7016,7 +7016,7 @@ const mockData = {
       "Brand": "Stanley",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1581147036324-c17ac41dfa6c?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "measuring tape",
       "stanley 5m tape",
@@ -7047,7 +7047,7 @@ const mockData = {
       "Brand": "Taparia",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1581147036324-c17ac41dfa6c?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "claw hammer",
       "hathoda",
@@ -7078,7 +7078,7 @@ const mockData = {
       "Brand": "Stanley",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1581147036324-c17ac41dfa6c?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "allen key",
       "hex key set",
@@ -7139,7 +7139,7 @@ const mockData = {
       "Brand": "Taparia",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1581147036324-c17ac41dfa6c?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "socket set",
       "ratchet wrench",
@@ -7170,7 +7170,7 @@ const mockData = {
       "Brand": "Havells",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "havells wire",
       "1.5 sq mm wire",
@@ -7201,7 +7201,7 @@ const mockData = {
       "Brand": "Polycab",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "polycab wire",
       "2.5 sq mm wire",
@@ -7232,7 +7232,7 @@ const mockData = {
       "Brand": "Anchor by Panasonic",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "anchor roma",
       "modular switch",
@@ -7263,7 +7263,7 @@ const mockData = {
       "Brand": "Anchor by Panasonic",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "16a socket",
       "power socket",
@@ -7294,7 +7294,7 @@ const mockData = {
       "Brand": "Havells",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "led bulb",
       "havells bulb",
@@ -7325,7 +7325,7 @@ const mockData = {
       "Brand": "Schneider Electric",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "mcb",
       "schneider mcb",
@@ -7356,7 +7356,7 @@ const mockData = {
       "Brand": "Orient",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "ceiling fan",
       "orient fan",
@@ -7387,7 +7387,7 @@ const mockData = {
       "Brand": "Luminous",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "inverter",
       "luminous zelio",
@@ -7418,7 +7418,7 @@ const mockData = {
       "Brand": "Anchor",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "electrical tape",
       "wire tape",
@@ -7449,7 +7449,7 @@ const mockData = {
       "Brand": "GM Modular",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "extension board",
       "spike guard",
@@ -7480,7 +7480,7 @@ const mockData = {
       "Brand": "Astral Pipes",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "cpvc pipe",
       "astral pipe",
@@ -7511,7 +7511,7 @@ const mockData = {
       "Brand": "Supreme",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "ball valve",
       "water valve",
@@ -7572,7 +7572,7 @@ const mockData = {
       "Brand": "Cera",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "wall mixer",
       "cera tap",
@@ -8089,7 +8089,7 @@ const mockData = {
       "Brand": "Godrej",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "godrej lock",
       "navtal lock",
@@ -8121,7 +8121,7 @@ const mockData = {
       "Brand": "Europa",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "europa door lock",
       "main door lock",
@@ -8151,7 +8151,7 @@ const mockData = {
       "Brand": "Dorset",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "door hinges",
       "ss hinges",
@@ -8182,7 +8182,7 @@ const mockData = {
       "Brand": "ForgeMaster",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "drywall screws",
       "screws box 500",
@@ -8213,7 +8213,7 @@ const mockData = {
       "Brand": "Godrej",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "cylindrical lock",
       "godrej round lock",
@@ -8243,7 +8243,7 @@ const mockData = {
       "Brand": "Fischer",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "wall plugs",
       "gitti",
@@ -8274,7 +8274,7 @@ const mockData = {
       "Brand": "Ozone",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "door closer",
       "hydraulic door closer",
@@ -8304,7 +8304,7 @@ const mockData = {
       "Brand": "Dorset",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "tower bolt",
       "chitkani",
@@ -8335,7 +8335,7 @@ const mockData = {
       "Brand": "Unbrako",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "hex bolts",
       "nut bolt set",
@@ -8366,7 +8366,7 @@ const mockData = {
       "Brand": "Dorset",
       "Warranty": "1 Year Standard Manufacturer Warranty"
     },
-    "image": "https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80",
+    "image": "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?auto=format&fit=crop&w=600&q=80",
     "keywords": [
       "door handle",
       "pull handle",
