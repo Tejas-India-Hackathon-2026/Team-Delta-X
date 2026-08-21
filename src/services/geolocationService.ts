@@ -1,3 +1,4 @@
+// Progressive high-accuracy fallback
 /**
  * Device Geolocation and Reverse Geocoding Service.
  * Handles browser GPS positioning, reverse geocoding via Google Maps or OpenStreetMap Nominatim,
