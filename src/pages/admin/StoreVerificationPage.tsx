@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ShieldCheck, Check, X, Store, MapPin, Phone } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { AdminSidebar } from '../../components/admin/AdminSidebar';
 
 export const StoreVerificationPage: React.FC = () => {
+  const [rejectionModalOpen, setRejectionModalOpen] = useState(false);
+  const [rejectReasonText, setRejectReasonText] = useState('');
   const { stores, toggleStoreVerification } = useApp();
 
   return (

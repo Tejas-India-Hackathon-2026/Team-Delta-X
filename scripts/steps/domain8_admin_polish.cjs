@@ -43,6 +43,12 @@ module.exports = [
       const verifPath = getFilePath('src/pages/admin/StoreVerificationPage.tsx');
       let content = fs.readFileSync(verifPath, 'utf8');
       
+      if (!content.includes('useState')) {
+        content = content.replace(
+          "import React from 'react';",
+          "import React, { useState } from 'react';"
+        );
+      }
       if (!content.includes('rejectionModalOpen')) {
         content = content.replace(
           'export const StoreVerificationPage: React.FC = () => {',
@@ -50,8 +56,8 @@ module.exports = [
   const [rejectionModalOpen, setRejectionModalOpen] = useState(false);
   const [rejectReasonText, setRejectReasonText] = useState('');`
         );
-        fs.writeFileSync(verifPath, content, 'utf8');
       }
+      fs.writeFileSync(verifPath, content, 'utf8');
     }
   },
 
