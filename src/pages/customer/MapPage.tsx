@@ -22,6 +22,11 @@ export const MapPage: React.FC = () => {
     return true;
   });
 
+  
+  const handleRecenterMap = () => {
+    window.scrollTo({ top: 100, behavior: 'smooth' });
+  };
+
   const handleSelectStoreFromCard = (storeId: string) => {
     setSelectedStoreId(storeId);
     window.scrollTo({ top: 180, behavior: 'smooth' });
